@@ -1,0 +1,120 @@
+
+/100
+		P 2369
+		P 2432
+		U nasob
+SMYCKA:
+		B CIS1
+		A CIS2
+		C VYSL
+		B CITAC
+		S KROK
+		H CITAC
+		T konec
+		U SMYCKA
+konec:	* VYSL
+		z 0
+
+/200
+CITAC:	38@29
+KROK:    1@29
+CIS1:	6.246@8
+CIS2:	7.138@8
+VYSL:	0@8	
+DALSI:  15.83@17
+		3.56@6
+		0.5
+		7@29
+CICI:	0.523598775@8		
+		
+/300
+nasob:	B CIS1
+		+
+		M CIS2
+		+
+		N kk8
+		H VYSL
+		* VYSL
+		* CIS1
+		* CIS2
+		u del
+		
+k256:	256@31		
+jedna:	1@30
+kk8:	1@23
+
+/400
+
+del:	B delec
+		+
+		D delic
+		+
+		H podil
+		* delec
+		* delic
+		* podil
+		B CICI
+		R sinret
+		U sin
+		H VYSL
+		* VYSL
+		z 0
+	
+
+	
+delec:	3@3
+delic:	2@2
+podil:	0@1			
+
+sinret:	u 0
+sin:	H par
+		B k1
+		H mezi
+		B k1
+		H cit
+		
+loop:
+		A mezi
+		M par
+		D cit
+		H mezi
+		B sum
+		A mezi
+		H sum
+		B cit
+		A k2
+		H cit
+		
+		A mezi
+		M par
+		D cit
+		H mezi
+		B sum
+		S mezi
+		H sum
+		B cit
+		A k2
+		H cit
+
+; test na konec
+		B cit
+		S mez
+		T loop
+		* sum
+		z 0
+		U sinret  
+
+	
+		u sinret
+sum:	0@8
+mezi:	0@8
+par:	0@8		
+cit:	0@8
+mez:	100@8
+k1:		1@8
+k2:		2@8
+minus1: -1@8
+
+		
+		
+

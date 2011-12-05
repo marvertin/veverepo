@@ -1,0 +1,145 @@
+;
+;  Vypocet sinu a kosinu
+;
+/100
+;
+;  testovaci programek
+;
+
+smycka:
+brac:	B data	; meni se
+		T konec
+		H x
+		* x
+
+		B x
+		R sinR
+		U sin
+		H vysledek
+		* vysledek
+
+		B x
+		R cosR
+		U cos
+		H vysledek
+		* vysledek
+; posuneme ukazatel
+		B brac
+		A adrinkr
+		Y brac
+		U smycka
+konec:	z 0		
+
+/150
+adrinkr: 1@29
+x:		0.523598775@8		
+vysledek: 0@8		
+
+/200
+data:
+		0.523598775@8		
+		0.323598775@8
+		1@8
+		2@8
+		3@8
+		4@8
+		5@8
+		6@8
+		0@8
+		-1@8		
+
+/1100		
+;
+;  sinus
+;
+sinR:	U 0	
+sin:	
+		H param
+		H item
+		H sum
+		B k1
+		H cit
+		R sincosR
+		U sincos
+		B sum
+		U sinR
+;
+/1200
+;
+;  cosinus
+;
+cosR:	U 0	
+cos:	
+		H param
+		B k1
+		H item
+		H sum
+		C cit
+		C cit
+		R sincosR
+		U sincos
+		B sum
+		U cosR
+/1300
+;
+;  spolecny vypocit sinu i kosinu
+;
+sincosR:	U 0		; navrat ze sinu a kosinu		
+sincos:
+loop:
+
+; licha pricintana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sum
+		S item
+		H sum
+; licha odcitana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sum
+		A item
+		H sum
+		
+; test na konec
+		B item
+		S zaporak
+		T sincosR		; konec kdyz nula
+		B cit
+		S mez
+		T loop
+		U sincosR
+	
+/1400		
+;
+;  Vynasobit jednou
+;
+kroker:	U 0  	
+
+; posunout citac poprve		
+krok:	B cit
+		A k1
+		H cit
+; nasobit a delit poprve
+		B item
+		M param
+		D cit
+		H item
+		U kroker   ; navrat
+				
+/1500
+;
+param:	0@8
+		
+zaporak: 1@30		
+sum:	0@8
+item:	0@8
+cit:	0@8
+mez:	100@8
+k1:		1@8
+
+pi:		3.1415926535@8
