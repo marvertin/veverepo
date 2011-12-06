@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 
 public class JMatice extends JComponent {
 
+  private static final long serialVersionUID = 7932289058572427602L;
   boolean[] mat = new boolean[256];
   int SIZE = 20;
   int MEZERA = 3;
