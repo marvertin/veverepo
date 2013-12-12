@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project xmlns="http://www.xmlhammer.org/2006/01/project" xmlns:ns2="http://www.xmlhammer.org/2006/01/jaxp" xmlns:ns3="http://www.xmlhammer.org/2006/01/tools/xpath" xmlns:ns4="http://www.xmlhammer.org/2006/01/tools/xslt">
+    <ns2:settings>
+        <ns2:jaxpSAXParserFactory>
+        </ns2:jaxpSAXParserFactory>
+        <ns2:jaxpDocumentBuilderFactory>
+        </ns2:jaxpDocumentBuilderFactory>
+        <ns2:jaxpTransformerFactory>
+        </ns2:jaxpTransformerFactory>
+        <ns2:jaxpSchemaFactory>
+        </ns2:jaxpSchemaFactory>
+    </ns2:settings>
+    <input>
+        <source src="../catalog.xml">
+        </source>
+        <result src="../catalog.out">
+        </result>
+    </input>
+    <parser xincludeAware="false" validating="false" type="dom" namespaceAware="true">
+    </parser>
+    <ns4:xslt>
+        <ns4:outputProperties>
+            <ns4:outputProperty value="text/plain" name="media-type">
+            </ns4:outputProperty>
+            <ns4:outputProperty value="UTF-8" name="encoding">
+            </ns4:outputProperty>
+            <ns4:outputProperty value="text" name="method">
+            </ns4:outputProperty>
+        </ns4:outputProperties>
+        <ns4:transform>
+            <ns4:stylesheets>
+                <parameterisedSource src="../catalog.xsl">
+                </parameterisedSource>
+            </ns4:stylesheets>
+        </ns4:transform>
+    </ns4:xslt>
+</project>

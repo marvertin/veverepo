@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<kat1:catalog xmlns:kat1="http://www.edankert.com/examples/" xmlns:kat2="http://www.edankert.com/examples/" xmlns="http://www.edankert.com/examples/">
+  <kat1:cd>
+    <kat1:artist>Stoat</kat1:artist>
+    <kat1:title>Future come and get me</kat1:title>
+  </kat1:cd>
+  <kat2:cd>
+    <kat2:artist>Sufjan Stevens</kat2:artist>
+    <kat2:title>Illinois</kat2:title>
+  </kat2:cd>
+  <cd>
+    <artist>The White Stripes</artist>
+    <title>Get behind me satan</title>
+  </cd>
+</kat1:catalog>

@@ -1,0 +1,3529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="CIBIS-Sale" version="2.5" metadata-complete="true">
+ -->   
+<web-app>
+   <display-name>CIBIS-Sale</display-name>
+ 
+ <!-- ====================================  S P R I N G O V É    K O N F I G U R A C E  ============================================= -->
+   
+     <!-- Spring context definition, je to definice servisů. Tato konfigurace bude existovat jako
+        singleton c celé webové aplikaci. Má přístup k ServletContext, ale nemělo by se to zde znaužívat.
+     -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:META-INF/CbRsts-ASale2-MWeb_service.spring.xml</param-value>
+    </context-param>
+    
+  <!--
+     Servlet context listenery. Jsou zahrnuty pod jeden listener kvůli lepšímu logování. 
+   -->  
+  <context-param>
+    <param-name>hispMultiListener</param-name>
+    <param-value>
+      cz.tconsult.hisp.logging.ClasspathDuplicityScannerContextListener,
+      cz.tconsult.hisp.logging.InitLoggingServletContextListener,
+      cz.tconsult.tcbase.clib.bhisp.mcore12.config.TwContextLoaderListener,
+    </param-value>
+  </context-param>
+
+
+  <listener>
+    <listener-class>cz.tconsult.hisp.web.TwMultiListener</listener-class>
+  </listener>
+ 
+  <listener>
+    <description>Propagace HTTP REQUESTU do vlákna a tím umožnění jeho intjektáže i mimo dispatcher</description>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+ 
+<!-- ====================================  K O N F I G U R A C E    Z D R O J Ů  ============================================= -->
+  
+   <context-param>
+      <param-name>configUrlsJndiName</param-name>
+      <param-value>java:comp/env/conf/configurls</param-value>
+    </context-param>
+
+  <resource-env-ref>
+    <description>Konfigurace seznamu URL s konfiguracemi</description>
+    <resource-env-ref-name>conf/configurls</resource-env-ref-name>
+    <resource-env-ref-type>cz.tconsult.hisp.config.ConfigUrlLocationReeConfig</resource-env-ref-type>
+  </resource-env-ref>
+
+  <!-- Database Connection / Container Based -->
+  <resource-ref>
+    <description>CibisSale database</description>
+    <res-ref-name>jdbc/main/std</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  
+  
+
+   <error-page>
+       <error-code>400</error-code>
+       <location>/WEB-INF/views/errors/obecna-chyba.jsp</location>
+   </error-page>
+   <error-page>
+       <error-code>403</error-code>
+       <location>/mvc/403</location>
+   </error-page>
+   <error-page>
+       <error-code>404</error-code>
+       <location>/WEB-INF/views/errors/obecna-chyba.jsp</location>
+   </error-page>
+    <error-page>
+       <error-code>500</error-code>
+       <location>/WEB-INF/views/errors/obecna-chyba.jsp</location>
+   </error-page>
+
+ 
+<!-- =========================================  F I L T R Y ======================================================== -->
+
+
+    <!-- Filtr by měl být zařazen jako první, protože pak by se mohlo stát, že nepřepíše encoding na requestu,
+     zajišťuje, že je správně nastsaveno encodování na UTF-8 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
+   
+
+  <filter>
+    <description>Pročištění a zmenšení odesílaného dynamického kódu (HTML, CSS, XML, JavaScript, ...)</description>
+    <display-name>Clean and Compress Filter</display-name>
+    <!-- There should exists Spring beean with the name spcified by filter-name tag. [2012-10-17 15:54, roztocil] -->
+    <filter-name>CleanAndCompressFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>exclude-regexp-patterns</param-name>
+      <param-value>
+         /javascript/jquery.*
+         /css/jquery/.*
+      </param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>CleanAndCompressFilter</filter-name>
+    <url-pattern>/</url-pattern>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+   
+    <!--
+       Tento filter inicialiozuje šifrování ASernoCrypted, aby se tak zajistila řádková práva.
+       Šiforvání inicializuje vždy pro sezení. 
+     -->
+    <filter>
+        <filter-name>SernoCryptCipherFilter</filter-name>
+        <filter-class>cz.tconsult.tcbase.clib.bhisp.mcore12.web.SernoCryptCipherFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SernoCryptCipherFilter</filter-name>
+        <url-pattern>/mvc/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SernoCryptCipherFilter</filter-name>
+        <url-pattern>/chart/*</url-pattern>
+    </filter-mapping>
+   
+  	<!-- Filtr dumpující výjimky, které vypadnou až nahoru. Na rozdíl od implementace dřívějších aplikací,
+  	    je nyní snaha, aby veškeré technické výjimky propadly až sem a zde byly jednotně ošetřeny
+  	 -->
+	<filter>
+		<filter-name>ExceptionDumpingFilter</filter-name>
+		<filter-class>cz.tconsult.tcbase.clib.bweb.mwebjavalib.ExceptionDumpingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ExceptionDumpingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!--
+	  Filtr maže zprávy, které omylem zůstaly v kontextu vlákna a už tedy nejsou potřeba. 
+	 -->
+	<filter>
+		<filter-name>CollectableMessagesFilter</filter-name>
+		<filter-class>cz.tconsult.hisp.web.CollectableMessagesFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CollectableMessagesFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+  	<!-- Servlet, který znemožní další práci, pokud nedojde ke správné inicializaci kontextu, ale spadne.
+  	 -->
+	<filter>
+		<filter-name>InitPointsFallbackFilter</filter-name>
+		<filter-class>cz.tconsult.hisp.web.InitPointsFallbackFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>InitPointsFallbackFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
+    <!-- Trasování + debugování -->
+    <filter>
+	    <filter-name>TrasodebugovingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>TrasodebugovingFilter</filter-name>
+	    <url-pattern>/mvc/*</url-pattern>
+	</filter-mapping>
+ 
+ 
+ 	<!-- Komplexní logovánírekvestů. Filtr:
+ 	   -  zajišťuje logování vstupů a výstupů z/do requestů pomocí commons-Logging. 
+ 	            http://vis/cms/TC-Metodika/1607-TC.html 
+ 	   -  Nastavuje MDC (přímo na log41) 
+ 	          http://vis/cms/TC-Metodika/1608-TC.html 
+ 	   -  Poskytuje AdditionalInfo pro výjimky.
+ 	    -->
+	<filter>
+		<filter-name>LoggingServletFilter</filter-name>
+		<filter-class>cz.tconsult.hisp.logging.LoggingServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoggingServletFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>IncludeForwardLoggingFilter</filter-name>
+		<filter-class>cz.tconsult.hisp.logging.IncludeForwardLoggingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>IncludeForwardLoggingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+ 
+	<!-- Filtr, který zabezpečuje vymazání zásobníku transakcí a s nimi jejich 
+		lokálních proměnných. Filtr za normálních okolností nic neudělá, protože 
+		transakční proměnné se uvolňují zároveň s transakcí, ale co kdyby se neuvolnili.
+		
+		Filter je prakticky nutný pouze kvůli funkcinalitě "refser"
+		 -->
+	<filter>
+		<filter-name>TransactionLocalCleaningFilter</filter-name>
+		<filter-class>cz.tconsult.hisp.web.TransactionLocalCleaningFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TransactionLocalCleaningFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> 
+ 
+ 	<!-- Filter zabraňující cross side skriptování, hledá <script 
+ 	 -->
+    <filter>
+        <filter-name>TwCrossSiteScriptingFilter</filter-name>
+        <filter-class>cz.tconsult.tcbase.clib.bweb.mwebjavalib.TwCrossSiteScriptingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TwCrossSiteScriptingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<!-- Lokalizační filter, který zajišťuje lokalizaci hláíšek ve tvarech >546546TCUID=Nějaká text< a "546546TCUID=Nějaká text".
+	Rychle je vyhledává ve výstupním proudu a nahrazuje je -->	
+	<filter>
+		<filter-name>TwL10nFilter</filter-name>
+		<filter-class>cz.tconsult.tcbase.clib.bweb.mwebjavalib.TwL10nFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TwL10nFilter</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
+
+	<!-- Filter pro vyčištění HTML od mezer a prázných řádků a obdobných oblud.
+	Rychle je vyhledává ve výstupním proudu a nahrazuje je -->	
+	<filter>
+		<filter-name>TwHtmlCleaningFilter</filter-name>
+		<filter-class>cz.tconsult.tcbase.clib.bweb.mwebjavalib.TwHtmlCleaningFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TwHtmlCleaningFilter</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
+
+
+	<!-- Filter zabraňuje, aby bylo možné volat diagnostické nástroje, pokud toto není zapnuto. -->
+	 <filter>
+	   <filter-name>DiagnosticsBlockingFilter</filter-name>
+	   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	
+  <filter>
+    <filter-name>httpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>httpMethodFilter</filter-name>
+    <servlet-name>dispatcher</servlet-name>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>FileUploadExceptionFilter</filter-name>
+    <filter-class>cz.tconsult.cbrsts.ccommon.mdokument.mvc12.controllers.fileupload.FileUploadExceptionFilter</filter-class>
+    	
+  </filter>
+  <filter-mapping>
+    <filter-name>FileUploadExceptionFilter</filter-name>
+    <url-pattern>/mvc/soubor-upload</url-pattern>
+  </filter-mapping>
+	
+  <!-- Monitorování činností uživatele dle RN00275096 
+  -->
+  <filter>
+    <display-name>UserActivityMonitoringFilter</display-name>
+    <filter-name>UserActivityMonitoringFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UserActivityMonitoringFilter</filter-name>
+    <servlet-name>dispatcher</servlet-name>
+  </filter-mapping>
+
+	
+
+ <!-- ====================================  S E R V L E T Y  ============================================= -->
+  
+    <!-- 
+    	Hlavní servlet pro MVC dispatchování. 
+    -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>
+            cz.tconsult.tcbase.clib.bhisp.mcore12.web.MvcDispatcherServlet
+        </servlet-class>
+        <init-param>
+	        <param-name>contextConfigLocation</param-name>
+    	    <param-value>classpath:META-INF/CbRsts-ASale2-MWeb_controller.spring.xml</param-value>
+    	</init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+ 
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/mvc/*</url-pattern>
+    </servlet-mapping>
+    
+	<filter-mapping>
+		<filter-name>DiagnosticsBlockingFilter</filter-name>
+		<url-pattern>/mvc/developer/*</url-pattern>
+		<url-pattern>/mvc/debug/*</url-pattern>
+	</filter-mapping>
+    
+ 
+ 
+   <!--
+       Technické informace, takové ty staré.   
+    -->
+	<servlet>
+		<description>Servlet, který dispatchuje k dalším servletům podle informací v jednoduchém spopisném souboru za účelem technických informací</description>
+		<display-name>Displejove jmeno pro tento servlet</display-name>
+		<servlet-name>techinfo</servlet-name>
+		<servlet-class>cz.tconsult.hisp.web.ServletsDispatchingServlet</servlet-class>
+		<init-param>
+			<param-name>dispatchFile</param-name>
+			<param-value>WEB-INF/techinfo.properties</param-value>
+		</init-param>
+		<init-param>
+			<param-name>title</param-name>
+			<param-value>Technical information</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>techinfo</servlet-name>
+		<url-pattern>/techinfo/*</url-pattern>
+	</servlet-mapping>
+	<filter-mapping>
+		<filter-name>DiagnosticsBlockingFilter</filter-name>
+		<url-pattern>/techinfo/*</url-pattern>
+	</filter-mapping>
+
+ 	<!-- 
+ 	   Zobrazení výjimky z repozitoře
+ 	 -->
+	<servlet>
+		<description>Servlet zobrazi vyjimku z repositore</description>
+		<servlet-name>exception</servlet-name>
+		<servlet-class>cz.tconsult.tcbase.clib.bweb.mwebjavalib.ExceptionServlet</servlet-class>
+		<init-param>
+		   <description>Potlačíme kontrolu oprávnění, protože to tam nepatří, je to nově řešeno filtrem</description>
+		   <param-name>suppressPermissionCheck</param-name>
+		   <param-value>true</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>exception</servlet-name>
+		<url-pattern>/exception/*</url-pattern>
+	</servlet-mapping>
+	<filter-mapping>
+		<filter-name>DiagnosticsBlockingFilter</filter-name>
+		<url-pattern>/exception/*</url-pattern>
+	</filter-mapping>
+ 
+
+
+	<servlet>
+		<description>Servlet zobrazi trasovací informace</description>
+		<servlet-name>TrasodebugovingDownloadServlet</servlet-name>
+		<servlet-class>cz.tconsult.hisp.logging.TrasodebugovingDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TrasodebugovingDownloadServlet</servlet-name>
+		<url-pattern>/tcjavatrace/*</url-pattern>
+	</servlet-mapping>
+	<filter-mapping>
+		<filter-name>DiagnosticsBlockingFilter</filter-name>
+		<url-pattern>/tcjavatrace/*</url-pattern>
+	</filter-mapping>
+ 
+    
+
+  <!-- Cewolf + JFreeChart pro zobrazení grafů -->
+  <servlet>
+    <servlet-name>CewolfServlet</servlet-name>
+    <servlet-class>cz.tconsult.tcbase.clib.bweb.mchart.mvc12.ChartServlet</servlet-class>
+    <!-- sets storage implementation -->
+    <init-param>
+      <param-name>storage</param-name>
+      <param-value>de.laures.cewolf.storage.TransientSessionStorage</param-value>
+    </init-param>
+    <!-- turn on or off debugging logging -->
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CewolfServlet</servlet-name>
+    <url-pattern>/chart</url-pattern>
+  </servlet-mapping>
+  <!-- konec: Cewolf + JFreeChart pro zobrazení grafů -->
+  
+
+  
+ 
+ <servlet>
+    <servlet-name>SimpleCaptchaServlet</servlet-name>
+    <servlet-class>cz.tconsult.tcbase.sframe.bweb.msimplecaptcha.servlet.SimpleCaptchaImageServlet</servlet-class>
+    <!-- <init-param> -->
+    <!-- <param-name>captcha-width</param-name> -->
+    <!-- <param-value>250</param-value> -->
+    <!-- </init-param> -->
+    <!-- <init-param> -->
+    <!-- <param-name>captcha-height</param-name> -->
+    <!-- <param-value>75</param-value> -->
+    <!-- </init-param> -->
+    <!-- <init-param> -->
+    <!-- <param-name>ttl</param-name> -->
+    <!-- <param-value>0</param-value> -->
+    <!-- </init-param> -->
+    <!-- <init-param> -->
+    <!-- <param-name>captcha-session-attribute</param-name> -->
+    <!-- <param-value>no</param-value> -->
+    <!-- </init-param> -->
+    <init-param>
+      <param-name>captcha-answer-session-attribute</param-name>
+      <param-value>CaptchaAnswer</param-value>
+    </init-param>
+  </servlet> 
+  <servlet-mapping>
+     <servlet-name>SimpleCaptchaServlet</servlet-name>
+     <url-pattern>/captcha.png</url-pattern>
+  </servlet-mapping>
+
+ 
+<!-- =========================================== S E C U R I T Y =========================================== -->
+<!-- 
+   Tato sekce nechť je úplně poslední sekcí ve web.xml, za ni nic nedávejte
+ -->
+
+	<welcome-file-list>
+		<welcome-file>mvc/welcome/default</welcome-file>
+	</welcome-file-list>
+		
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/mvc/security/prihlasovaci/formular</form-login-page>
+			<form-error-page>/mvc/security/chybaprihlaseni</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	<security-constraint>
+		<display-name>Zabránit přístupu všem v MVC servletu, na které nejsou práva.</display-name>
+		<web-resource-collection>
+			<web-resource-name>Vše ostatní</web-resource-name>
+			<url-pattern>/mvc/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint/>
+	</security-constraint>
+
+    <security-constraint>
+        <display-name>Neautentikované resourcy</display-name>
+        <web-resource-collection>
+          <web-resource-name>Neautentikované resourcy</web-resource-name>
+          <url-pattern>*.css</url-pattern>
+          <url-pattern>*.js</url-pattern>
+          <url-pattern>*.png</url-pattern>
+          <url-pattern>*.jpg</url-pattern>
+          <url-pattern>*.gif</url-pattern>
+          <url-pattern>/mvc/index</url-pattern>         
+          <url-pattern>/mvc/security/prihlasovaci</url-pattern>
+          <url-pattern>/mvc/security/prihlasovaci/*</url-pattern>           
+          <url-pattern>/mvc/security/chybaprihlaseni</url-pattern>
+          <url-pattern>/mvc/security/odhlaseni</url-pattern>            
+          <url-pattern>/mvc/security/odhlaseni/*</url-pattern>
+          
+          <url-pattern>/mvc/security/zadost-o-obnoveni-pristupu/*</url-pattern>   
+          
+		 <!--  přístup k těmto diagnostickým položkám je zakázán pomocí filtru DiagnosticsBlockingFilter,
+		 který pustí uživatele k informacím jen v diagnostickém režimu, mělo by sobě odpovídat
+		 mapování blokujícího filtru a tady tyto položky -->
+		 
+          <url-pattern>/mvc/developer/*</url-pattern>
+          <url-pattern>/mvc/debug/*</url-pattern>
+          <url-pattern>/exception/*</url-pattern>
+          <url-pattern>/developer/*</url-pattern>         
+          <url-pattern>/tcjavatrace/*</url-pattern>         
+	      <url-pattern>/mvc/security/udrz-sezeni-pri-zivote</url-pattern>
+          
+          
+        </web-resource-collection>
+    </security-constraint>
+
+	<security-constraint>
+	  <display-name>Přihlásit do systému (WWW)</display-name>
+	  <web-resource-collection>
+	    <web-resource-name>Přihlásit do systému (WWW), toto může dělat každý, kdo už se přihlásil</web-resource-name>
+	    <description/>
+	    <url-pattern>/mvc/odhlaseni/*</url-pattern>
+		<url-pattern>/mvc/security/odhlaseni</url-pattern>
+		<url-pattern>/mvc/security/sms-autorizace/*</url-pattern>
+	    <url-pattern>/mvc/servis</url-pattern>
+ 	    <url-pattern>/mvc/welcome/*</url-pattern>
+ 	    <url-pattern>/mvc/</url-pattern>
+		<url-pattern>/mvc/servis/security/system-s-duvernymi-informacemi/*</url-pattern>
+		<url-pattern>/mvc/servis/security/zobrazit-informace-o-uzivateli</url-pattern>
+		
+		<!-- helpery pro různé stránky - kam to dát?-->
+		<url-pattern>/mvc/ajax-helpers/obec-psc</url-pattern>
+		<url-pattern>/mvc/ajax-helpers/prijmeni-vokativ</url-pattern>
+		<url-pattern>/mvc/ajax-helpers/kod-katastr</url-pattern>	
+					
+		<!-- dokumenty, nemajú vydefinované samostatné oprávnenia -->
+		<url-pattern>/mvc/dokumenty/*</url-pattern>
+		<url-pattern>/mvc/soubor-upload/soubor-pridat-radek</url-pattern>
+ 	    <url-pattern>/mvc/soubor-upload/soubor-result</url-pattern>
+ 	    <url-pattern>/mvc/soubor-upload/soubor-odstran</url-pattern>
+ 	    <url-pattern>/mvc/soubor-upload/soubor-start</url-pattern>
+ 	    <url-pattern>/mvc/soubor-upload/chyba</url-pattern>
+ 	    <url-pattern>/mvc/soubor-upload</url-pattern>
+
+	    <http-method>GET</http-method>
+	    <http-method>HEAD</http-method>
+	    <http-method>POST</http-method>
+	  </web-resource-collection>
+	  <auth-constraint>
+	    <description>Přihlásit do systému (WWW)</description>
+	    <role-name>cbtctw-cadm.system-administration.user-environment-management.log-in</role-name>
+	  </auth-constraint>
+	</security-constraint>
+
+  	<security-role>
+    	<description>CIBIS-Sale\Správa systému\Správa uživatelského prostředí (WWW)\Přihlásit do systému (WWW)|CIBIS-Sale\Administration\Administration services\Login to the system</description>
+    	<role-name>cbtctw-cadm.system-administration.user-environment-management.log-in</role-name>
+  	</security-role>
+
+
+    <!-- Trasování a debugování -->
+	<!--  Je to checkpoint, protože zapnout podporu trasování a debugování je možné pomocí
+	oprávnění a alternativně také za pomocí vvývojářských natavení, aby nebylo nutné se přihlašovat,
+	proto jsou veškeré resourcy v tcdebug nechráněné a ochrana se zajišťuje explicitně.
+	Práva však pouze umožňují kontrolu zapnout.
+	 -->
+	<security-constraint>
+        <display-name>Fiktivní konstraint, jen aby import práv neřval</display-name>
+        <web-resource-collection>
+            <web-resource-name>Fiktivní konstraint, jen aby import práv neřval</web-resource-name>
+            <description/>
+            <url-pattern>/nejaky/pattern/ktery/nikdy/nebude/zadan</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Fiktivní konstraint, jen aby import práv neřval</description>
+            <role-name>system-administration.services.debug-j2ee</role-name>
+        </auth-constraint>
+    </security-constraint>
+	 
+    <security-role>
+      <description>CIBIS-Sale\Správa systému\Služby pro správu systému\Debugování J2EE|CIBIS-Sale\Administration\Administration services\Debuging of J2EE</description>
+      <role-name>system-administration.services.debug-j2ee</role-name>
+    </security-role>
+    <!-- konec: Trasování a debugování -->
+
+
+    <!-- Zobrazit informace o programu -->
+    <security-constraint>
+        <display-name>Zobrazit informace o programu</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit informace o programu</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/servis/info-o-programu/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit informace o programu</description>
+            <role-name>system-administration.services.display-info-about-aplication-www</role-name>
+        </auth-constraint>
+    </security-constraint>
+	    
+    <security-role>
+        <description>CIBIS-Sale\Správa systému\Služby pro správu systému\Zobrazit informace o aplikaci (WWWW)</description>
+        <role-name>system-administration.services.display-info-about-aplication-www</role-name>
+    </security-role> 
+    <!-- konec: Zobrazit informace o programu -->
+   
+
+    <!-- Zobrazit nastavení aplikace (WWW) -->
+  <security-constraint>
+    <display-name>Zobrazit nastavení aplikace (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit nastavení aplikace (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/servis/nastaveni</url-pattern>
+      <url-pattern>/mvc/servis/nastaveni/nastaveni-detail</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit nastavení aplikace (WWW)</description>
+      <role-name>cbtctw-cadm.system-administration.user-environment-management.display-application-settings</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <security-role>
+    <description>CIBIS-Sale\Správa systému\Správa uživatelského prostředí (WWW)\Zobrazit nastavení aplikace (WWW)</description>
+    <role-name>cbtctw-cadm.system-administration.user-environment-management.display-application-settings</role-name>
+  </security-role> 
+<!-- konec: Zobrazit nastavení aplikace (WWW) -->
+    
+    
+    <!-- Změnit nastavení aplikace (WWW) -->
+  <security-constraint>
+    <display-name>Změnit nastavení aplikace (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit nastavení aplikace (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/servis/nastaveni/nastaveni-form/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Změnit nastavení aplikace (WWW)</description>
+      <role-name>cbtctw-cadm.system-administration.user-environment-management.change-application-settings</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <security-role>
+    <description>CIBIS-Sale\Správa systému\Správa uživatelského prostředí (WWW)\Změnit nastavení aplikace (WWW)</description>
+    <role-name>cbtctw-cadm.system-administration.user-environment-management.change-application-settings</role-name>
+  </security-role> 
+<!-- konec: Změnit nastavení aplikace (WWW) -->
+   
+     
+    <!-- Změnit heslo -->
+    <security-constraint>
+        <display-name>Změnit heslo</display-name>
+        <web-resource-collection>
+            <web-resource-name>Změnit heslo</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/servis/security/form-zmenit-heslo/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Změnit heslo</description>
+            <role-name>cbtctw-cadm.system-administration.user-environment-management.change-of-password</role-name>
+        </auth-constraint>
+    </security-constraint>
+	    
+    <security-role>
+        <description>CIBIS-Sale\Správa systému\Správa uživatelského prostředí (WWW)\Změnit heslo</description>
+        <role-name>cbtctw-cadm.system-administration.user-environment-management.change-of-password</role-name>
+    </security-role> 
+    <!-- konec:  Změnit heslo -->    
+
+    
+    <!-- Udaje o OZ -->
+    <security-constraint>
+        <display-name>Zobrazit údaje o OZ (WWW)</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit údaje o OZ (WWW)</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/pracovni-plocha-oz/udaje-oz</url-pattern>
+			<url-pattern>/mvc/pracovni-plocha-oz/udaje-oz/detail</url-pattern>
+			<url-pattern>/mvc/pracovni-plocha-oz/udaje-oz/detail/*</url-pattern>
+			<url-pattern>/mvc/pracovni-plocha-oz/udaje-oz/foto-nahled</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit údaje o OZ (WWW)</description>
+            <role-name>system-administration.agent-environment-management-www.display-agent-contact</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-role>
+      <description>CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Zobrazit údaje o OZ (WWW)|CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Zobrazit údaje o OZ (WWW)</description>
+      <role-name>system-administration.agent-environment-management-www.display-agent-contact</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Změnit údaje o OZ (WWW)</display-name>
+        <web-resource-collection>
+            <web-resource-name>Změnit údaje o OZ (WWW)</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/pracovni-plocha-oz/udaje-oz/edit/*</url-pattern>
+            <url-pattern>/mvc/pracovni-plocha-oz/udaje-oz/foto-nahled</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Změnit údaje o OZ (WWW)</description>
+            <role-name>system-administration.agent-environment-management-www.change-agent-contact</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-role>
+      <description>CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Změnit údaje o OZ (WWW)|CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Změnit údaje o OZ (WWW)</description>
+      <role-name>system-administration.agent-environment-management-www.change-agent-contact</role-name>
+    </security-role>    
+        
+    <security-role>
+      <description>CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Měnit bankovní spojení OZ (WWW)|CIBIS-Sale\Správa systému\Zobrazení a změna údajů o OZ\Měnit bankovní spojení OZ (WWW)</description>
+      <role-name>system-administration.agent-environment-management-www.change-agent-bankcontact</role-name>
+    </security-role>    
+    <!-- konec: Udaje o OZ -->
+    
+    
+  	<!-- Historie práce uživatele  -->
+  	<security-constraint>
+    <display-name>Zobrazit historii práce uživatele (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit historii práce uživatele (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/pracovni-plocha-oz/historie</url-pattern>
+      <url-pattern>/mvc/pracovni-plocha-oz/historie/seznam</url-pattern>
+      <url-pattern>/mvc/pracovni-plocha-oz/historie/seznam/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/pracovni-plocha-oz/historie/seznam/ctrdata</url-pattern>
+      <url-pattern>/mvc/pracovni-plocha-oz/historie/seznam/prepnout-kontext-menu.ajax</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit historii práce uživatele (WWW)</description>
+      <role-name>system-administration.agent-environment-display-users-history</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Správa systému\Zobrazení historie uživatele</description>
+    	<role-name>system-administration.agent-environment-display-users-history</role-name>
+  	</security-role>
+  	<!-- konec: Historie práce uživatele  -->
+
+
+    <!-- Pořízení dočasného přístupu -->
+    <security-constraint>
+    <display-name/>
+    <web-resource-collection>
+      <web-resource-name/>
+      <description/>
+      <url-pattern>/mvc/docasny-pristup/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Povolit pořízení dočasného přístupu uživatele k osobě (WWW)</description>
+      <role-name>system-administration.authorization.authorize-temporary-access</role-name>
+    </auth-constraint>
+    </security-constraint>  
+    
+    <security-role>
+        <description>CIBIS-Sale\Správa systému\Autorizace</description>
+        <role-name>system-administration.authorization.authorize-temporary-access</role-name>
+    </security-role>
+    <!-- konec: Historie práce uživatele  -->  	
+
+  	
+    <!-- Kmen klientu -->
+    <security-constraint>
+        <display-name>Odebrat klienta správci</display-name>
+        <web-resource-collection>
+            <web-resource-name>Odebrat klienta správci</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/odebrat-klienty</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/odebrat-klienty/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Odebrat klienta správci</description>
+            <role-name>cibissale.sales-network.client-sales-management.take-away-client-from-manager</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Odebrat klienta správci</description>
+      <role-name>cibissale.sales-network.client-sales-management.take-away-client-from-manager</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Odebrat kmen správci</display-name>
+        <web-resource-collection>
+            <web-resource-name>Odebrat kmen správci</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/agenti/odebrat-kmen</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/agenti/odebrat-kmen/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Odebrat kmen správci</description>
+            <role-name>cibissale.sales-network.client-sales-management.take-all-manager-clients-away</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Odebrat kmen správci</description>
+      <role-name>cibissale.sales-network.client-sales-management.take-all-manager-clients-away</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Odmítnout klienta</display-name>
+        <web-resource-collection>
+            <web-resource-name>Odmítnout klienta</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/odmitnout-klienty</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/odmitnout-klienty/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Odmítnout klienta</description>
+            <role-name>cibissale.sales-network.client-sales-management.refuse-client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Odmítnout klienta</description>
+      <role-name>cibissale.sales-network.client-sales-management.refuse-client</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Převést kmen správce</display-name>
+        <web-resource-collection>
+            <web-resource-name>Převést kmen správce</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/agenti/prevest-kmen</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/agenti/prevest-kmen/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Převést kmen správce</description>
+            <role-name>cibissale.sales-network.client-sales-management.transfer-manager-tribe</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Převést kmen správce</description>
+      <role-name>cibissale.sales-network.client-sales-management.transfer-manager-tribe</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Přidělit klienta správci</display-name>
+        <web-resource-collection>
+            <web-resource-name>Přidělit klienta správci</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/pridelit-klienty</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/pridelit-klienty/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Přidělit klienta správci</description>
+            <role-name>cibissale.sales-network.client-sales-management.assign-client-to-manager</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Přidělit klienta správci</description>
+      <role-name>cibissale.sales-network.client-sales-management.assign-client-to-manager</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Vytisknout kartu klienta</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vytisknout kartu klienta</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/tisk</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/tisk-zadani-sekci/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vytisknout kartu klienta</description>
+            <role-name>cibissale.sales-network.client-sales-management.print-client-card</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vytisknout kartu klienta</description>
+      <role-name>cibissale.sales-network.client-sales-management.print-client-card</role-name>
+    </security-role> 
+    
+    <security-constraint>
+        <display-name>Zobrazit kartu klienta</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit kartu klienta</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/detail</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/detail/*</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/detail-tipy</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/detail-tipy/*</url-pattern>
+            <url-pattern>/mvc/klient/produkty-klienta/smeruj-na-kartu-klienta</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/detail-dle-osoby</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit kartu klienta</description>
+            <role-name>cibissale.sales-network.client-sales-management.display-client-card</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Zobrazit kartu klienta</description>
+      <role-name>cibissale.sales-network.client-sales-management.display-client-card</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Zobrazit přehled o kmeni</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit přehled o kmeni</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/prehled-o-kmeni</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/prehled-o-kmeni/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit přehled o kmeni</description>
+            <role-name>cibissale.sales-network.client-sales-management.display-summary-about-tribe</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Zobrazit přehled o kmeni</description>
+      <role-name>cibissale.sales-network.client-sales-management.display-summary-about-tribe</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Zobrazit výkaz o kontaktu s klientem</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit výkaz o kontaktu s klientem</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-detail</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit výkaz o kontaktu s klientem</description>
+            <role-name>cibissale.sales-network.client-sales-management.display-contact-report-with-client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Zobrazit výkaz o kontaktu s klientem</description>
+      <role-name>cibissale.sales-network.client-sales-management.display-contact-report-with-client</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Vytvořit výkaz o kontaktu s klientem</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vytvořit výkaz o kontaktu s klientem</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-novy</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-novy/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vytvořit výkaz o kontaktu s klientem</description>
+            <role-name>cibissale.sales-network.client-sales-management.create-contact-report-with-client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vytvořit výkaz o kontaktu s klientem</description>
+      <role-name>cibissale.sales-network.client-sales-management.create-contact-report-with-client</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Změnit výkaz o kontaktu s klientem</display-name>
+        <web-resource-collection>
+            <web-resource-name>Změnit výkaz o kontaktu s klientem</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-edit</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-edit/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Změnit výkaz o kontaktu s klientem</description>
+            <role-name>cibissale.sales-network.client-sales-management.change-contact-report-with-client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Změnit výkaz o kontaktu s klientem</description>
+      <role-name>cibissale.sales-network.client-sales-management.change-contact-report-with-client</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Zrušit výkaz o kontaktu s klientem</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zrušit výkaz o kontaktu s klientem</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-zrusit</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/kontakt/kontakt-zrusit/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zrušit výkaz o kontaktu s klientem</description>
+            <role-name>cibissale.sales-network.client-sales-management.cancel-contact-report-with-client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Zrušit výkaz o kontaktu s klientem</description>
+      <role-name>cibissale.sales-network.client-sales-management.cancel-contact-report-with-client</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Zobrazit tipy na akviziční příležitost</display-name>
+        <web-resource-collection>
+            <web-resource-name>Zobrazit tipy na akviziční příležitost</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/tipy-akvizice</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tipy-akvizice/*</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Zobrazit tipy na akviziční příležitost</description>
+            <role-name>cibissale.sales-network.client-sales-management.acquisition-tip-display</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Zobrazit tipy na akviziční příležitost</description>
+      <role-name>cibissale.sales-network.client-sales-management.acquisition-tip-display</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Vytvořit tip na akviziční příležitost</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vytvořit tip na akviziční příležitost</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/hotovo</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/seznam</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/seznam/ctrdata/</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/seznam/ctrkontrola</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/prepnout-kontext-menu.ajax</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/zpracovat</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/tip-akvizice/tip-akvizice-novy/zrusit-zpracovani</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vytvořit tip na akviziční příležitost</description>
+            <role-name>cibissale.sales-network.client-sales-management.acquisition-tip-create</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vytvořit tip na akviziční příležitost</description>
+      <role-name>cibissale.sales-network.client-sales-management.acquisition-tip-create</role-name>
+    </security-role>
+        
+    <security-constraint>
+        <display-name>Vytisknout akviziční dopis</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vytisknout akviziční dopis</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/akvizicni-dopis/dopis-novy</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/akvizicni-dopis/dopis-novy/hotovo</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/akvizicni-dopis/dopis-primy-tisk</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/karta-klienta/akvizicni-dopis/dopis-sablona-tisk</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vytisknout akviziční dopis</description>
+            <role-name>sales-management.acquisition-tip-letter-print</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vytisknout akviziční dopis</description>
+      <role-name>sales-management.acquisition-tip-letter-print</role-name>
+    </security-role>       
+        
+    <security-constraint>
+        <display-name>Vybrat klienta</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vybrat klienta</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/klienti</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/ctrdata</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/ctrkontrola</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/klienti/prepnout-kontext-menu.ajax</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vybrat klienta</description>
+            <role-name>cibissale.sales-network.client-sales-management.display-list-of-clients</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vybrat klienta</description>
+      <role-name>cibissale.sales-network.client-sales-management.display-list-of-clients</role-name>
+    </security-role>
+
+    <security-constraint>
+        <display-name>Vybrat správce</display-name>
+        <web-resource-collection>
+            <web-resource-name>Vybrat správce</web-resource-name>
+            <description/>
+            <url-pattern>/mvc/kmen-klientu/agenti</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/agenti/ctrdata</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/agenti/ctrkontrola</url-pattern>
+            <url-pattern>/mvc/kmen-klientu/agenti/prepnout-kontext-menu.ajax</url-pattern>
+            <http-method>GET</http-method>
+<http-method>HEAD</http-method>
+<http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Vybrat správce</description>
+            <role-name>cibissale.sales-network.client-sales-management.display-list-of-managers</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Odbytová síť\Kmen klientů\Vybrat správce</description>
+      <role-name>cibissale.sales-network.client-sales-management.display-list-of-managers</role-name>
+    </security-role>
+    <!-- konec: Kmen klientu -->
+    
+    
+    <!-- Telefonické kontroly -->
+    <security-constraint>
+    <display-name>Use case "Process check on invalid documents"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Process check on invalid documents" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/osobni-doklady/provedeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Process check on invalid documents" roles</description>
+      <role-name>cibissale.product.check.process-check-on-invalid-documents</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-constraint>
+    <display-name>Use case "Process check on acquitance"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Process check on acquitance" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/prijmy/provedeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Process check on acquitance" roles</description>
+      <role-name>cibissale.product.check.process-check-on-acquitance</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <security-constraint>
+    <display-name>Use case "Proces check on telephone"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Proces check on telephone" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/telefony/provedeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Proces check on telephone" roles</description>
+      <role-name>cibissale.product.check.process-check-on-telephone</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  
+   	<security-constraint>
+    <display-name>Use case "Process check on employer (company)"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Process check on employer (company)" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/firmy/provedeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Process check on employer (company)" roles</description>
+      <role-name>cibissale.product.check.process-check-on-employer</role-name>
+    </auth-constraint>
+  	</security-constraint> 
+  	
+  	<security-constraint>
+    <display-name>Use case "Display check on invalid documents"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on invalid documents" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/osobni-doklady/zobrazeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Display check on invalid documents" roles</description>
+      <role-name>cibissale.product.check.display-check-on-invalid-documents</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-constraint>
+    <display-name>Use case "Display check on earnings confirmation"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on earnings confirmation" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/prijmy/zobrazeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Display check on earnings confirmation" roles</description>
+      <role-name>cibissale.product.check.display-check-on-earnings-confirmation</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-constraint>
+    <display-name>Use case "Display check on telephone"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on telephone" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/telefony/zobrazeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Display check on telephone" roles</description>
+      <role-name>cibissale.product.check.display-check-on-telephone</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-constraint>
+    <display-name>Use case "Display check on employer (company)"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on employer (company)" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/firmy/zobrazeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Display check on employer (company)" roles</description>
+      <role-name>cibissale.product.check.display-check-on-employer</role-name>
+    </auth-constraint>
+   	</security-constraint>
+   	
+   	<security-constraint>
+    <display-name>Use case "Display check on document"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on document" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/dokumenty/zobrazeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Display check on document" roles</description>
+      <role-name>product.check.display-check-on-signing-documents</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-constraint>
+    <display-name>Use case "Process check on document"</display-name>
+    <web-resource-collection>
+      <web-resource-name>Use case "Display check on document" pages</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/externi-kontroly/dokumenty/provedeni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Use case "Process check on document" roles</description>
+      <role-name>product.check.process-check-on-signing-documents</role-name>
+    </auth-constraint>
+  	</security-constraint>
+    
+    <security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Provést kontrolu na neplatné doklady|CIBIS-Sale\Support for Product\Telephone Control\Process check on invalid documents</description>
+    	<role-name>cibissale.product.check.process-check-on-invalid-documents</role-name>
+  	</security-role>
+	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Provést kontrolu potvrzení příjmu|CIBIS-Sale\Support for Product\Telephone Control\Process check on acquitance</description>
+    	<role-name>cibissale.product.check.process-check-on-acquitance</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Provést kontrolu telefonů|CIBIS-Sale\Support for Product\Telephone Control\Process check on telephone</description>
+    	<role-name>cibissale.product.check.process-check-on-telephone</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Provést kontrolu zaměstnavatele (firmy)|CIBIS-Sale\Support for Product\Telephone Control\Process check on employer (company)</description>
+    	<role-name>cibissale.product.check.process-check-on-employer</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Zobrazit kontroly na neplatné doklady|CIBIS-Sale\Support for Product\Telephone Control\Display check on invalid documents</description>
+    	<role-name>cibissale.product.check.display-check-on-invalid-documents</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Zobrazit kontroly potvrzení příjmu|CIBIS-Sale\Support for Product\Telephone Control\Display check on earnings confirmation</description>
+    	<role-name>cibissale.product.check.display-check-on-earnings-confirmation</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Zobrazit kontroly telefonů|CIBIS-Sale\Support for Product\Telephone Control\Display check on telephone</description>
+    	<role-name>cibissale.product.check.display-check-on-telephone</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Zobrazit kontroly zaměstnavatele (firmy)|CIBIS-Sale\Support for Product\Telephone Control\Display check on employer (company)</description>
+    	<role-name>cibissale.product.check.display-check-on-employer</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Zobrazení vizuální kontroly dokumentů|CIBIS-Sale\Support for Product\Telephone Control\Display visual check on document</description>
+    	<role-name>product.check.display-check-on-signing-documents</role-name>
+  	</security-role>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Telefonní kontroly\Vizuální kontrola dokumentů|CIBIS-Sale\Support for Product\Telephone Control\Process visual check on document</description>
+    	<role-name>product.check.process-check-on-signing-documents</role-name>
+  	</security-role>
+  	<!-- konec: Telefonické kontroly -->
+  	
+  	<!-- Prace s klientem -->
+  	<!-- Zobrazit seznam produktů pro oprávněnou osobu -->
+  	<security-constraint>
+    <display-name>Zobrazit seznam produktů pro oprávněnou osobu (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit seznam produktů pro oprávněnou osobu (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/seznam</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/seznam-zobraz</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/ctrdata</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/prepnout-kontext-menu.ajax</url-pattern>
+      <url-pattern>/mvc/kmen-klientu/klienti/seznam-produktu</url-pattern> <!-- vede na mvc/klient/produkty-klienta/seznam-produkty -->
+      <url-pattern>/mvc/klient/produkty-klienta/seznam-produkty</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/seznam-produkty/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/seznam-produkty/ctrdata</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit seznam produktů pro oprávněnou osobu (WWW)</description>
+      <role-name>product.information.display-list-of-products-for-authorized-person</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Zobrazit seznam produktů pro oprávněnou osobu (WWW)</description>
+    	<role-name>product.information.display-list-of-products-for-authorized-person</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit seznam produktů pro oprávněnou osobu -->	
+  	
+	<!-- Zobrazit detailní informace o produktu  -->
+  	<security-constraint>
+    <display-name>Zobrazit detailní informace o produktu (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit detailní informace o produktu (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/detail</url-pattern>
+      <url-pattern>/mvc/klient/prilohapdf.pdf</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit detailní informace o produktu (WWW)</description>
+      <role-name>product.information.display-detailed-information-about-product</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Zobrazit detailní informace o produktu (WWW)</description>
+    	<role-name>product.information.display-detailed-information-about-product</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit detailní informace o produktu  -->	
+  	
+  	<!-- Zobrazit specifické podmínky k úvěru  -->
+  	<security-constraint>
+    <display-name>Zobrazit specifické podmínky k úvěru (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit specifické podmínky k úvěru (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/specificke-podminky-uveru</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit specifické podmínky k úvěru (WWW)</description>
+      <role-name>product.information.display-specific-conditions-of-credit-product</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Zobrazit specifické podmínky k úvěru (WWW)</description>
+    	<role-name>product.information.display-specific-conditions-of-credit-product</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit specifické podmínky k úvěru  -->	
+  	
+  	<!-- Zobrazit závazky osoby na úvěrových produktech  -->
+  	<security-constraint>
+    <display-name>Zobrazit závazky osoby na úvěrových produktech (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit závazky osoby na úvěrových produktech (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/osoba/osoba-zavazky-na-uverovych-produktech</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit závazky osoby na úvěrových produktech (WWW)</description>
+      <role-name>product.information.display-person-liabilities-of-credit-product</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Zobrazit závazky osoby na úvěrových produktech</description>
+    	<role-name>product.information.display-person-liabilities-of-credit-product</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit osoby na úvěrových produktech -->
+  	  	  	
+  	<!-- Zobrazit detailní informace o osobě   -->
+  	<security-constraint>
+    <display-name>Zobrazit detailní informace o osobě </display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit detailní informace o osobě </web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/osoba/osoba-detail</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit detailní informace o osobě </description>
+      <role-name>product.information.display-detailed-information-about-person</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Zobrazit detailní informace o osobě (WWW)</description>
+    	<role-name>product.information.display-detailed-information-about-person</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit detailní informace o osobě  -->
+  	
+  	<!-- Změnit komunikační kanály osoby  -->
+  	<security-constraint>
+    <display-name>Změnit komunikační kanály osoby (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit komunikační kanály osoby (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/komunikacni-kanaly/form</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/komunikacni-kanaly/form/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Změnit komunikační kanály osoby (WWW)</description>
+      <role-name>product.information.change-communication-channel-of-person</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Informace o produktu\Změnit komunikační kanály osoby (WWW)</description>
+    	<role-name>product.information.change-communication-channel-of-person</role-name>
+  	</security-role>
+  	<!-- konec: Změnit komunikační kanály osoby  -->
+  	
+  	<!-- Zobrazit výpis -->
+  	<security-constraint>
+    <display-name>Zobrazit výpis (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit výpis (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-seznam-vypisu</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-vypis</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit výpis (WWW)</description>
+      <role-name>client-accounting.statement-of-account.display-statement</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Klientské účetnictví\Výpis z konta\Zobrazit výpis (WWW)</description>
+    	<role-name>client-accounting.statement-of-account.display-statement</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit výpis -->
+  	
+  	<!-- Zobrazit informace o kontě -->
+  	<security-constraint>
+    <display-name>Zobrazit informace o kontě (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit informace o kontě (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-seznam-vypisu</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-vypis</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-transakce-od-posledniho-vypisu</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-transakce-vse</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit informace o kontě (WWW)</description>
+      <role-name>client-accounting.maintenance-bank-accounts.display-information-about-bank-account</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Klientské účetnictví\Správa bankovních kont\Zobrazit informace o kontě (WWW)</description>
+    	<role-name>client-accounting.maintenance-bank-accounts.display-information-about-bank-account</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit informace o kontě -->
+  	
+  	<!-- Zobrazit obraty na kontě -->
+  	<security-constraint>
+    <display-name>Zobrazit obraty na kontě (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit informace o kontě (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-transakce-od-posledniho-vypisu</url-pattern>
+      <url-pattern>/mvc/klient/produkty-klienta/konto/konto-transakce-vse</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit obraty na kontě (WWW)</description>
+      <role-name>client-accounting.maintenance-bank-accounts.display-turnovers-on-account</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Klientské účetnictví\Správa bankovních kont\Zobrazit obraty na kontě (WWW)</description>
+    	<role-name>client-accounting.maintenance-bank-accounts.display-turnovers-on-account</role-name>
+  	</security-role>
+  	<!-- konec: Zobrazit obraty na kontě -->
+  	<!-- konec: Prace s klientem -->
+  	
+  	
+  	<!-- Editace smlouvy SSFO - společný základ -->
+  	<!-- check constraints -->
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Editace a zobrazení vokativu příjmení (WWW)</description>
+      <role-name>saving.request.vocative-surname</role-name>
+    </security-role> 
+	<security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Editace a zobrazení čísla pracovníka České pošty (WWW)</description>
+      <role-name>saving.request.worker-post-number</role-name>
+    </security-role> 
+    <!-- konec: Editace smlouvy SSFO - společný základ -->
+    
+    
+    <!-- Nová smlouva SSFO -->
+    <!-- check constraint -->	
+    <security-role>    
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Podpora opisu formuláře nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.transcription-support</role-name>
+    </security-role>
+        
+    <!-- Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW) --> 
+    <security-constraint>
+    <display-name>Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/seznam</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/ctrdata</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/prepnout-kontext-menu.ajax</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-overview</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-overview</role-name>
+    </security-role>
+    <!-- konec: Zobrazit přehled požadavků na uzavření nové smlouvy SSFO (WWW) --> 
+        
+    <!-- Zadat požadavek na uzavření nové smlouvy SSFO (WWW)  -->
+    <security-constraint>
+    <display-name>Zadat požadavek na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zadat požadavek na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/vyber-osob</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/vyber-osob/hotovo</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zadat požadavek na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.new-request</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	
+  	<security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Zadat požadavek na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.new-request</role-name>
+    </security-role>
+  	<!-- konec: Zadat požadavek na uzavření nové smlouvy SSFO (WWW)  --> 
+  	
+  	<!-- Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW) -->
+  	<security-constraint>
+    <display-name>Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/detail</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-detail</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-detail</role-name>
+    </security-role> 
+    <!-- konec: Zobrazit detail požadavku na uzavření nové smlouvy SSFO (WWW) -->
+    
+    <!-- Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.change-request</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.change-request</role-name>
+    </security-role> 
+    <!-- konec: Změnit údaje požadavku na uzavření nové smlouvy SSFO (WWW) -->
+    
+    <!-- Zrušit požadavek na uzavření nové smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Zrušit požadavek na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zrušit požadavek na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/zrusit</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zrušit požadavek na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.cancel-request</role-name>
+    </auth-constraint>
+    </security-constraint>  
+
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Zrušit požadavek na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.cancel-request</role-name>
+    </security-role>
+
+    <!-- Zobrazit rozdíly oproti centrální evidenci (WWW) -->
+    <security-constraint>
+    <display-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/rozdily</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-differencies</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+      <role-name>saving.request-for-new-contract.display-differencies</role-name>
+    </security-role> 
+	<!-- konec: Zobrazit rozdíly oproti centrální evidenci (WWW) -->    
+    
+    <!-- Vytisknout formulář uzavřené smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Vytisknout formulář uzavřené smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vytisknout formulář uzavřené smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/smlouva-nova-dokumenty-gen-redirect</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/smlouva-nova-dokumenty-gen</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Vytisknout formulář uzavřené smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.print-form</role-name>
+    </auth-constraint>
+  	</security-constraint>
+  	  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Vytisknout formulář uzavřené smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.print-form</role-name>
+    </security-role>
+    <!-- konec: Vytisknout formulář uzavřené smlouvy SSFO (WWW) -->
+
+    <security-constraint>
+    <display-name>Provést ověření požadavku na uzavření nové smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Provést ověření požadavku na uzavření nové smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/overit-nepodpis</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/overit-tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/overit-provedeni</url-pattern>
+      <url-pattern>/mvc/dokumenty/*</url-pattern>  
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Provést ověření požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.verify-request</role-name>
+    </auth-constraint>
+  	</security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Provést ověření požadavku na uzavření nové smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-new-contract.verify-request</role-name>
+    </security-role> 
+    
+    <security-constraint>
+    <display-name>Ověření nové smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Ověření nové smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/overit-podpis</url-pattern> 
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Ověření nové smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-new-contract.biometric-signature</role-name>
+    </auth-constraint>
+  	</security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Ověření nové smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-new-contract.biometric-signature</role-name>
+    </security-role> 
+    
+    <security-constraint>
+    <display-name>Předat požadavek na uzavření nové smlouvy SSFO do centrálního systému (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Předat požadavek na uzavření nové smlouvy SSFO do centrálního systému (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/predat</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Předat požadavek na uzavření nové smlouvy SSFO do centrálního systému (WWW)</description>
+      <role-name>saving.request-for-new-contract.transmit-request</role-name>
+    </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Předat požadavek na uzavření nové smlouvy SSFO do centrálního systému (WWW)</description>
+      <role-name>saving.request-for-new-contract.transmit-request</role-name>
+    </security-role>
+    
+    <security-constraint>
+    <display-name>Dokončit předání požadavku na uzavření nové smlouvy SSFO</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit předání požadavku na uzavření nové smlouvy SSFO</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/nova-smlouva/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit předání požadavku na uzavření nové smlouvy SSFO</description>
+      <role-name>saving.request-for-new-contract.servis-request</role-name>
+    </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Nová smlouva SSFO\Dokončit předání požadavku na uzavření nové smlouvy SSFO</description>
+      <role-name>saving.request-for-new-contract.servis-request</role-name>
+    </security-role>     
+	<!-- konec: Nová smlouva SSFO -->
+
+
+    <!-- Změna smlouvy SSFO -->    
+    <!-- check constraint -->
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Podpora opisu formuláře změny smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.transcription-support</role-name>
+    </security-role>
+    
+    <!-- Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/seznam</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/ctrdata</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/prepnout-kontext-menu.ajax</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-overview</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-overview</role-name>
+    </security-role>
+    <!-- konec: Zobrazit přehled požadavků na změnu smlouvy SSFO (WWW) -->
+    
+    <!-- Zadat požadavek na změnu smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Zadat požadavek na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zadat požadavek na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/nova</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/nova/smlouva</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/nova/hotovo</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zadat požadavek na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.new-request</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Zadat požadavek na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.new-request</role-name>
+    </security-role>
+    <!-- konec: Zadat požadavek na změnu smlouvy SSFO (WWW) -->
+    
+    <!-- Zobrazit detail požadavku na změnu smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Zobrazit detail požadavku na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit detail požadavku na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/detail</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit detail požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-detail</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Zobrazit detail požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-detail</role-name>
+    </security-role> 
+    <!-- konec: Zobrazit detail požadavku na změnu smlouvy SSFO (WWW) -->
+    
+    <!-- Změnit údaje požadavku na změnu smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Změnit údaje požadavku na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit údaje požadavku na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+     <description>Změnit údaje požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.change-request</role-name>
+     </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Změnit údaje požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.change-request</role-name>
+    </security-role>
+    <!-- konec: Změnit údaje požadavku na změnu smlouvy SSFO (WWW) --> 
+    
+    <!-- Zrušit požadavek na změnu smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Zrušit požadavek na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zrušit požadavek na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/zrusit</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+     <description>Zrušit požadavek na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.cancel-request</role-name>
+     </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Zrušit požadavek na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.cancel-request</role-name>
+    </security-role>
+    <!-- konec: Zrušit požadavek na změnu smlouvy SSFO (WWW) -->
+    
+    <!-- Zobrazit rozdíly oproti centrální evidenci (WWW) -->
+    <security-constraint>
+    <display-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/rozdily</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+   	  <description>Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-differencies</role-name>
+    </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+      <role-name>saving.request-for-contract-change.display-differencies</role-name>
+    </security-role> 
+    <!-- konec: Zobrazit rozdíly oproti centrální evidenci (WWW) -->
+    
+    <!-- Vytisknout formulář změny smlouvy SSFO (WWW) -->
+    <security-constraint>
+    <display-name>Vytisknout formulář změny smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vytisknout formulář změny smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/smlouva-zmena-dokumenty-gen-redirect</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/smlouva-zmena-dokumenty-gen</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+   	  <description>Vytisknout formulář změny smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.print-form</role-name>
+     </auth-constraint>
+  	</security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Vytisknout formulář změny smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.print-form</role-name>
+    </security-role>
+    <!-- konec: Vytisknout formulář změny smlouvy SSFO (WWW) -->
+    
+    <security-constraint>
+    <display-name>Provést ověření požadavku na změnu smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Provést ověření požadavku na změnu smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/overit-nepodpis</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/overit-tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/overit-provedeni</url-pattern>
+      <url-pattern>/mvc/dokumenty/*</url-pattern>  
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Provést ověření požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.verify-request</role-name>
+    </auth-constraint>
+  	</security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Provést ověření požadavku na změnu smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-change.verify-request</role-name>
+    </security-role> 
+    
+    <security-constraint>
+    <display-name>Ověření změny smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Ověření změny smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/overit-podpis</url-pattern> 
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Ověření změny smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-contract-change.biometric-signature</role-name>
+    </auth-constraint>
+  	</security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Ověření změny smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-contract-change.biometric-signature</role-name>
+    </security-role>
+     
+    <security-constraint>
+    <display-name>Předat požadavek na změnu smlouvy SSFO do centrálního systému (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Předat požadavek na změnu smlouvy SSFO do centrálního systému (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/predat</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Předat požadavek na změnu smlouvy SSFO do centrálního systému (WWW)</description>
+      <role-name>saving.request-for-contract-change.transmit-request</role-name>
+     </auth-constraint>
+    </security-constraint>  
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Předat požadavek na změnu smlouvy SSFO do centrálního systému (WWW)</description>
+      <role-name>saving.request-for-contract-change.transmit-request</role-name>
+    </security-role>
+    
+    <security-constraint>
+    <display-name>Dokončit předání požadavku na změnu smlouvy SSFO</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit předání požadavku na změnu smlouvy SSFO</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/zmena-smlouvy/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit předání požadavku na změnu smlouvy SSFO</description>
+      <role-name>saving.request-for-contract-change.servis-request</role-name>
+     </auth-constraint>
+    </security-constraint> 
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Změna smlouvy SSFO\Dokončit předání požadavku na změnu smlouvy SSFO</description>
+      <role-name>saving.request-for-contract-change.servis-request</role-name>
+    </security-role>     
+    <!-- konec: Změna smlouvy SSFO -->
+    
+    
+    <!-- Ukončení smlouvy SSFO -->    
+    <!-- check constraint -->  	     
+    <security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Podpora opisu formuláře na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.transcription-support</role-name>
+	</security-role>    
+    	
+	<!-- Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW) -->
+	<security-constraint>
+    <display-name>Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/seznam</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/ctrdata</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/prepnout-kontext-menu.ajax</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-overview</role-name>
+	</auth-constraint>
+  	</security-constraint>  
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-overview</role-name>
+	</security-role>    
+	<!-- konec: Zobrazit přehled požadavků na ukončení smlouvy SSFO (WWW) -->
+	
+	<!-- Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW) -->
+	<security-constraint>
+    <display-name>Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/detail</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-detail</role-name>
+	</auth-constraint>
+  	</security-constraint>  
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-detail</role-name>
+	</security-role>    
+	<!-- konec: Zobrazit detail požadavku na ukončení smlouvy SSFO (WWW) -->
+	
+	<!-- Zadat požadavek na ukončení smlouvy SSFO (WWW) -->
+	<security-constraint>
+    <display-name>Zadat požadavek na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zadat požadavek na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/nova</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/nova/smlouva</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/nova/hotovo</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zadat požadavek na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.new-request</role-name>
+	</auth-constraint>
+  	</security-constraint>  
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Zadat požadavek na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.new-request</role-name>
+	</security-role>    
+	<!-- konec: Zadat požadavek na ukončení smlouvy SSFO (WWW) -->
+	
+	<!-- Změnit údaje požadavku na ukončení smlouvy SSFO (WWW) -->  
+	<security-constraint>
+    <display-name>Změnit údaje požadavku na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit údaje požadavku na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Změnit údaje požadavku na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.change-request</role-name>
+	</auth-constraint>
+  	</security-constraint>  
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Změnit údaje požadavku na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.change-request</role-name>
+	</security-role>
+	<!-- konec: Změnit údaje požadavku na ukončení smlouvy SSFO (WWW) -->    
+	
+	<!-- Zrušit požadavek na ukončení smlouvy SSFO (WWW) -->  
+	<security-constraint>
+    <display-name>Zrušit požadavek na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zrušit požadavek na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/zrusit</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zrušit požadavek na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.cancel-request</role-name>
+	</auth-constraint>
+  	</security-constraint>
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Zrušit požadavek na ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.cancel-request</role-name>
+	</security-role>
+	<!-- konec: Zrušit požadavek na ukončení smlouvy SSFO (WWW) -->    
+	
+	<!-- Zobrazit rozdíly oproti centrální evidenci (WWW) -->  
+	<security-constraint>
+    <display-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit rozdíly oproti centrální evidenci (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/rozdily</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-differencies</role-name>
+	</auth-constraint>
+  	</security-constraint>
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Zobrazit rozdíly oproti centrální evidenci (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.display-differencies</role-name>
+	</security-role>   
+	<!-- konec: Zobrazit rozdíly oproti centrální evidenci (WWW) -->  
+	
+	<!-- Vytisknout formulář ukončení smlouvy SSFO (WWW) -->  
+	<security-constraint>
+    <display-name>Vytisknout formulář ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vytisknout formulář ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/smlouva-zmena-dokumenty-gen-redirect</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/smlouva-zmena-dokumenty-gen</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Vytisknout formulář ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.print-form</role-name>
+	</auth-constraint>
+  	</security-constraint>
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Vytisknout formulář ukončení smlouvy SSFO (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.print-form</role-name>
+	</security-role>    
+	<!-- konec: Vytisknout formulář ukončení smlouvy SSFO (WWW) -->  
+	
+	<!-- Provést ověření požadavku na ukončení smlouvy SSFO (WWW) -->	  
+	<security-constraint>
+    <display-name>Provést ověření požadavku na ukončení smlouvy SSFO (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Provést ověření požadavku na ukončení smlouvy SSFO (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/overit-nepodpis</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/overit-tisk</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/overit-provedeni</url-pattern>
+      <url-pattern>/mvc/dokumenty/*</url-pattern>  
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Provést ověření požadavku na ukončení  smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-termination.verify-request</role-name>
+    </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Provést ověření požadavku na ukončení  smlouvy SSFO (WWW)</description>
+      <role-name>saving.request-for-contract-termination.verify-request</role-name>
+    </security-role>    
+    <!-- konec: Provést ověření požadavku na ukončení smlouvy SSFO (WWW) -->
+	
+	<!-- Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW) -->
+    <security-constraint>
+    <display-name>Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/overit-podpis</url-pattern> 
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-contract-termination.biometric-signature</role-name>
+    </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW)</description>
+      <role-name>saving.request-for-contract-termination.biometric-signature</role-name>
+    </security-role>    
+    <!-- konec: Ověření ukončení smlouvy SSFO prostřednictvím biometrického podpisu (WWW) -->
+		 
+    <!-- Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW) -->		 
+    <security-constraint>
+    <display-name>Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW)</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/predat</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW)</description>
+      <role-name>saving.request-for-contract-termination.transmit-request</role-name>
+    </auth-constraint>
+    </security-constraint>
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW)</description>
+	  <role-name>saving.request-for-contract-termination.transmit-request</role-name>
+	</security-role>    
+	<!-- konec: Předat požadavek na ukončení smlouvy SSFO do centrálního systému (WWW) -->
+	
+    <!-- Dokončit předání požadavku na ukončení smlouvy SSFO -->  	
+    <security-constraint>
+    <display-name>Dokončit předání požadavku na ukončení smlouvy SSFO</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit předání požadavku na ukončení smlouvy SSFO</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/edit</url-pattern>
+      <url-pattern>/mvc/smlouva-ss/ukonceni-smlouvy/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit předání požadavku na ukončení smlouvy SSFO</description>
+      <role-name>saving.request-for-contract-termination.servis-request</role-name>
+     </auth-constraint>
+    </security-constraint> 
+	<security-role>
+	  <description>CIBIS-Sale\Požadavky spoření\Ukončení smlouvy SSFO\Dokončit předání požadavku na ukončení smlouvy SSFO</description>
+	  <role-name>saving.request-for-contract-termination.servis-request</role-name>
+	</security-role>
+	<!-- konec: Dokončit předání požadavku na ukončení smlouvy SSFO -->
+	    
+    <!-- konec: Ukončení smlouvy SSFO -->
+    
+    
+    <!-- ÚVĚROVÁ ŽÁDOST -->
+    
+    <!-- Úvěrová smlouva -->
+    <!-- Oprávnění credit.management-of-credit-contract.receipt-credit-contract-request-suppress-request-check
+         se využívá jenom v Mainu, proto zde nebude definováno 
+    -->
+        
+    <!-- Úvěrová žádost - základ -->
+    
+  	<security-constraint>
+    <display-name>Úvěrová žádost - přístup</display-name>
+    <web-resource-collection>
+      <web-resource-name>Úvěrová žádost - přístup</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Úvěrová žádost - přístup</description>
+      <role-name>credit.credit-request-basics.credit-request</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Úvěrová žádost - přístup</description>
+    	<role-name>credit.credit-request-basics.credit-request</role-name>
+  	</security-role> 
+  	
+  	<security-constraint>
+    <display-name>Vybrat úvěrovou žádost</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vybrat úvěrovou žádost</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/seznam</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/seznam/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Vybrat úvěrovou žádost</description>
+      <role-name>credit.credit-request-basics.choose-credit-request</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Vybrat úvěrovou žádost</description>
+    	<role-name>credit.credit-request-basics.choose-credit-request</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Vybrat základní osoby a smlouvu SS pro úvěrovou žádost</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vybrat základní osoby a smlouvu SS pro úvěrovou žádost</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/nova</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/nova/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Vybrat základní osoby a smlouvu SS pro úvěrovou žádost</description>
+      <role-name>credit.credit-request-basics.choose-basic-persons-and-contract</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Vybrat základní osoby a smlouvu SS pro úvěrovou žádost</description>
+    	<role-name>credit.credit-request-basics.choose-basic-persons-and-contract</role-name>
+  	</security-role>
+  	
+  	<!--Zkontrolovat všechny údaje úvěrové žádosti -->
+  	<security-constraint>
+    <display-name>Zkontrolovat všechny údaje úvěrové žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zkontrolovat všechny údaje úvěrové žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/kontrola</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/kontrola/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/kontrola-pokracovat</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/kontrola-pokracovat/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zkontrolovat všechny údaje úvěrové žádosti</description>
+      <role-name>credit.credit-request-basics.check-all-credit-request-data</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Zkontrolovat všechny údaje úvěrové žádosti</description>
+    	<role-name>credit.credit-request-basics.check-all-credit-request-data</role-name>
+  	</security-role>
+  	
+  	<!-- Pozor, toto oprávnění je definováno v RN00317080, CIBIS-Sale: Úvěrová žádost - ostatní změny a dopady 06 -->
+  	<!-- Zobrazit revizi stavu kontrol úvěrové žádosti -->
+  	<security-constraint>
+    <display-name>Zobrazit revizi stavu kontrol úvěrové žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit revizi stavu kontrol úvěrové žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/revizestavukontrol</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/revizestavukontrol/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit revizi stavu kontrol úvěrové žádosti</description>
+      <role-name>credit.credit-request-checks.display-checks-revision-overview</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - kontroly\Zobrazit revizi stavu kontrol úvěrové žádosti</description>
+    	<role-name>credit.credit-request-checks.display-checks-revision-overview</role-name>
+  	</security-role>
+
+  	<!-- Zobrazit přehled stavu kontrol úvěrové žádosti -->
+  	<!-- RN00347225 -->
+  	<security-constraint>
+    <display-name>Zobrazit přehled stavu kontrol úvěrové žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit přehled stavu kontrol úvěrové žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/prehledstavukontrol</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/prehledstavukontrol/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit přehled stavu kontrol úvěrové žádosti</description>
+      <role-name>credit.credit-request-checks.display-checks-state-overview</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - kontroly\Zobrazit přehled stavu kontrol úvěrové žádosti</description>
+    	<role-name>credit.credit-request-checks.display-checks-state-overview</role-name>
+  	</security-role>
+
+    <security-constraint>
+    <display-name>Zvolit variantu procesu pořízení žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zvolit variantu procesu pořízení žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/variantaprocesu</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/variantaprocesu/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zvolit variantu procesu pořízení žádosti</description>
+      <role-name>credit.credit-request-basics.choose-process-variant</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Zvolit variantu procesu pořízení žádosti</description>
+    	<role-name>credit.credit-request-basics.choose-process-variant</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Předat úvěrovou žádost</display-name>
+    <web-resource-collection>
+      <web-resource-name>Předat úvěrovou žádost</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/predatcentrale</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/predatcentrale/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Předat úvěrovou žádost</description>
+      <role-name>credit.credit-request-basics.transfer-credit-request</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Předat úvěrovou žádost</description>
+    	<role-name>credit.credit-request-basics.transfer-credit-request</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Otevřít k servisní opravě</display-name>
+    <web-resource-collection>
+      <web-resource-name>Otevřít k servisní opravě</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/servisnioprava</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/servisnioprava/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Otevřít k servisní opravě</description>
+      <role-name>credit.credit-request-basics.open-for-service-correction</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Otevřít k servisní opravě</description>
+    	<role-name>credit.credit-request-basics.open-for-service-correction</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Dokončit předání úvěrové žádosti - servis</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit předání úvěrové žádosti - servis</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitpredani</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitpredani/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit předání úvěrové žádosti - servis</description>
+      <role-name>credit.credit-request-basics.finish-credit-request-transfer</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Dokončit předání úvěrové žádosti - servis</description>
+    	<role-name>credit.credit-request-basics.finish-credit-request-transfer</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Stornovat úvěrovou žádost</display-name>
+    <web-resource-collection>
+      <web-resource-name>Stornovat úvěrovou žádost</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/stornovat</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/stornovat/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Stornovat úvěrovou žádost</description>
+      <role-name>credit.credit-request-basics.cancel-credit-request</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Stornovat úvěrovou žádost</description>
+    	<role-name>credit.credit-request-basics.cancel-credit-request</role-name>
+  	</security-role>
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Stornovat úvěrovou žádost - negativní rejstříky</description>
+    	<role-name>credit.credit-request-basics.cancel-credit-request-negative-registers</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Dokončit storno úvěrové žádosti - servis</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit storno úvěrové žádosti - servis</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitstorno</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitstorno/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit storno úvěrové žádosti - servis</description>
+      <role-name>credit.credit-request-basics.finish-credit-request-cancelation</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Dokončit storno úvěrové žádosti - servis</description>
+    	<role-name>credit.credit-request-basics.finish-credit-request-cancelation</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Zamítnout úvěrovou žádost</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zamítnout úvěrovou žádost</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/zamitnout</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/zamitnout/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zamítnout úvěrovou žádost</description>
+      <role-name>credit.credit-request-basics.reject-credit-request</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Zamítnout úvěrovou žádost</description>
+    	<role-name>credit.credit-request-basics.reject-credit-request</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Dokončit zamítnutí úvěrové žádosti - servis</display-name>
+    <web-resource-collection>
+      <web-resource-name>Dokončit zamítnutí úvěrové žádosti - servis</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitzamit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/dokoncitzamit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Dokončit zamítnutí úvěrové žádosti - servis</description>
+      <role-name>credit.credit-request-basics.finish-credit-request-rejection</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Dokončit zamítnutí úvěrové žádosti - servis</description>
+    	<role-name>credit.credit-request-basics.finish-credit-request-rejection</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Odemknout žádost pro doplnění</display-name>
+    <web-resource-collection>
+      <web-resource-name>Odemknout žádost pro doplnění</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/doplnit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/doplnit/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/doplnitdokoncit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/doplnitdokoncit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Odemknout žádost pro doplnění</description>
+      <role-name>credit.credit-request-basics.unlock-for-addition</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Odemknout žádost pro doplnění</description>
+    	<role-name>credit.credit-request-basics.unlock-for-addition</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Povolit předání bez návratnosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Povolit předání bez návratnosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/beznavratnosti</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/beznavratnosti/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/beznavratnostipovoleno</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/beznavratnostipovoleno/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Povolit předání bez návratnosti</description>
+      <role-name>credit.credit-request-basics.allow-no-repayability-transfer</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Povolit předání bez návratnosti</description>
+    	<role-name>credit.credit-request-basics.allow-no-repayability-transfer</role-name>
+  	</security-role>
+  	
+  	<security-constraint>
+    <display-name>Změnit zadavatele úvěrové žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Změnit zadavatele úvěrové žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/zmenitzadavatele</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/zmenitzadavatele/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Změnit zadavatele úvěrové žádosti</description>
+      <role-name>credit.credit-request-basics.change-credit-request-agent</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Změnit zadavatele úvěrové žádosti</description>
+    	<role-name>credit.credit-request-basics.change-credit-request-agent</role-name>
+  	</security-role>
+  	   	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Odemknout žádost pro doplnění - doplnění osob</description>
+    	<role-name>credit.credit-request-basics.unlock-for-addition-persons</role-name>
+  	</security-role>
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Vybrat úvěrovou žádost - specifické výběry</description>
+    	<role-name>credit.credit-request-basics.choose-credit-request-specific-selects</role-name>
+  	</security-role>
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Zobrazit základní údaje žádosti - servisní údaje</description>
+    	<role-name>credit.credit-request-basics.display-basic-request-info-service-info</role-name>
+  	</security-role>
+  	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - základ\Dokončit zadání vstupní bonity</description>
+    	<role-name>credit.credit-request-basics.finish-entry-solvency</role-name>
+  	</security-role>
+  	
+    <!-- Spravovat údaje úvěru - zobrazení -->
+  	<security-constraint>
+    <display-name>Spravovat údaje úvěru - zobrazení</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat údaje úvěru - zobrazení</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/detail</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/detail/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat údaje úvěru - zobrazení</description>
+      <role-name>credit.credit-request-credit-data.maintain-credit-data-view</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěr pro úvěrovou žádost\Spravovat údaje úvěru - zobrazení</description>
+    	<role-name>credit.credit-request-credit-data.maintain-credit-data-view</role-name>
+  	</security-role>  	
+  	
+  	<!--Spravovat údaje úvěru - změna -->
+  	<security-constraint>
+    <display-name>Spravovat údaje úvěru - změna</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat údaje úvěru - změna</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/uver/edit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/uver/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat údaje úvěru - změna</description>
+      <role-name>credit.credit-request-credit-data.maintain-credit-data-edit</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěr pro úvěrovou žádost\Spravovat údaje úvěru - změna</description>
+    	<role-name>credit.credit-request-credit-data.maintain-credit-data-edit</role-name>
+  	</security-role>
+  	
+    <!--Spravovat sekci - Údaje úvěru - změna splátky PÚ -->   	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěr pro úvěrovou žádost\Spravovat sekci - Údaje úvěru - změna splátky PÚ</description>
+    	<role-name>credit.credit-request-credit-data.maintain-credit-data-section-edit-bridge-repayment</role-name>
+  	</security-role>
+  	
+  	<!-- Spravovat spoření v úvěrové žádosti - zobrazení -->
+  	<security-constraint>
+    <display-name>Spravovat spoření v úvěrové žádosti - zobrazení</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat spoření v úvěrové žádosti - zobrazení</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/sporeni/detail</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/sporeni/detail/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat spoření v úvěrové žádosti - zobrazení</description>
+      <role-name>saving.credit-request-saving.maintain-saving-data-view</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Spoření\Spoření pro úvěrovou žádost\Spravovat spoření v úvěrové žádosti - zobrazení</description>
+    	<role-name>saving.credit-request-saving.maintain-saving-data-view</role-name>
+  	</security-role>
+  	
+  	<!-- Spravovat spoření v úvěrové žádosti - změna -->
+  	<security-constraint>
+    <display-name>Spravovat spoření v úvěrové žádosti - změna</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat spoření v úvěrové žádosti - změna</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/sporeni/edit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/sporeni/edit/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat spoření v úvěrové žádosti - změna</description>
+      <role-name>saving.credit-request-saving.maintain-saving-data-edit</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Spoření\Spoření pro úvěrovou žádost\Spravovat spoření v úvěrové žádosti - změna</description>
+    	<role-name>saving.credit-request-saving.maintain-saving-data-edit</role-name>
+  	</security-role>
+  	
+  	<!-- Spravovat osoby v úvěrové žádosti - zobrazení -->
+  	<security-constraint>
+    <display-name>Spravovat osoby v úvěrové žádosti - zobrazení</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat osoby v úvěrové žádosti - zobrazení</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/osoba/</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat osoby v úvěrové žádosti - zobrazení</description>
+      <role-name>person.credit-request-persons.maintain-credit-request-persons-view</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Osoba\Osoby pro úvěrovou žádost\Spravovat osoby v úvěrové žádosti - zobrazení</description>
+    	<role-name>person.credit-request-persons.maintain-credit-request-persons-view</role-name>
+  	</security-role>
+  	
+  	<!-- Spravovat osoby v úvěrové žádosti - změna -->
+  	<security-constraint>
+    <display-name>Spravovat osoby v úvěrové žádosti - změna</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat osoby v úvěrové žádosti - změna</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/osoba/edit</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/edit/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/nova</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/nova/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/dokoncit-osobu</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/odebrat</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/odebrat/*</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/role</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/osoba/role/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat osoby v úvěrové žádosti - změna</description>
+      <role-name>person.credit-request-persons.maintain-credit-request-persons-edit</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Osoba\Osoby pro úvěrovou žádost\Spravovat osoby v úvěrové žádosti - změna</description>
+    	<role-name>person.credit-request-persons.maintain-credit-request-persons-edit</role-name>
+  	</security-role>
+  	
+  	<!-- Spravovat dokumenty k úvěrové žádosti -->
+  	<security-constraint>
+    <display-name>Spravovat dokumenty k úvěrové žádosti</display-name>
+    <web-resource-collection>
+      <web-resource-name>Spravovat dokumenty k úvěrové žádosti</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/dokumenty</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/dokumenty/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Spravovat dokumenty k úvěrové žádosti</description>
+      <role-name>credit.credit-request-documents.maintain-credit-request-documents</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Úvěrová žádost - dokumenty\Spravovat dokumenty k úvěrové žádosti</description>
+    	<role-name>credit.credit-request-documents.maintain-credit-request-documents</role-name>
+  	</security-role>
+  	
+    <!-- Práva k tabulce umoření, definována v RN00317080, CIBIS-Sale: Úvěrová žádost - ostatní změny a dopady 06 -->
+    
+  	<!-- Zobrazit tabulku umoření - základ -->
+  	<security-constraint>
+    <display-name>Zobrazit tabulku umoření - základ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit tabulku umoření - základ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit tabulku umoření - základ</description>
+      <role-name>credit.amortization-table.display-amortization-table-basic</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Tabulka umoření a plán splácení\Zobrazit tabulku umoření - základ</description>
+    	<role-name>credit.amortization-table.display-amortization-table-basic</role-name>
+  	</security-role>
+  	
+  	<!-- Tisknout tabulku umoření -->
+  	<security-constraint>
+    <display-name>Tisknout tabulku umoření</display-name>
+    <web-resource-collection>
+      <web-resource-name>Tisknout tabulku umoření</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni/plan-splaceni-tisk</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni/plan-splaceni-tisk/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Tisknout tabulku umoření</description>
+      <role-name>credit.amortization-table.print-amortization-table</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Tabulka umoření a plán splácení\Tisknout tabulku umoření</description>
+    	<role-name>credit.amortization-table.print-amortization-table</role-name>
+  	</security-role>
+  	
+  	<!-- Zobrazit tabulku umoření - detail -->
+  	<security-constraint>
+    <display-name>Zobrazit tabulku umoření - detail</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit tabulku umoření - detail</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni/ctrdata</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/plan-splaceni/ctrdata/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit tabulku umoření - detail</description>
+      <role-name>credit.amortization-table.display-amortization-table-detail</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Úvěr\Tabulka umoření a plán splácení\Zobrazit tabulku umoření - detail</description>
+    	<role-name>credit.amortization-table.display-amortization-table-detail</role-name>
+  	</security-role>
+  	
+  	<!-- Dle RN00317080 Proposal Bonita 04 -->
+  	<!-- Provést test bonity -->
+  	<security-constraint>
+    <display-name>Provést test bonity</display-name>
+    <web-resource-collection>
+      <web-resource-name>Provést test bonity</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/provest-test-bonity</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/provest-test-bonity/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Provést test bonity</description>
+      <role-name>cibisweb.credit.credit-request.repayability.test</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Finanční situace role\Provést test bonity</description>
+    	<role-name>cibisweb.credit.credit-request.repayability.test</role-name>
+  	</security-role>
+  	
+  	<!-- Vyhodnotit bonitu pro úvěrovou žádost -->   	
+    <!--  Je to checkpoint, navázaný jen vnitřně na část business funkcionality z odkazu v levém menu
+          "Zkontrolovat vše", ale ve starém Sale bylo toto oprávnění namapováno na 
+          /creditrequest/requestCreditRqMenu_detailCreditRqRepeability.do
+          Tato změna (odstranění namapování) byla při sestavování vyhodnocena jako podezřelá,
+          vyhazovala varování [JIRA] (PRUBINA-348), a aby se toto zbytečné varování vypnulo a
+          nedostalo dále, bylo rozhodnuto vložit sem toto předstírané namapování. 
+          Podobná věc se již řešila u Tracování a debugování.
+	 -->
+	<security-constraint>
+        <display-name>Fiktivní konstraint, jen aby import práv neřval</display-name>
+        <web-resource-collection>
+            <web-resource-name>Fiktivní konstraint, jen aby import práv neřval</web-resource-name>
+            <description/>
+            <url-pattern>/nejaky/pattern/ktery/nikdy/nebude/zadan</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Fiktivní konstraint, jen aby import práv neřval</description>
+            <role-name>cibisweb.credit.credit-request.repayability.evaluate-for-credit-request</role-name>
+        </auth-constraint>
+    </security-constraint>
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Finanční situace role\Vyhodnotit bonitu pro úvěrovou žádost</description>
+    	<role-name>cibisweb.credit.credit-request.repayability.evaluate-for-credit-request</role-name>
+  	</security-role>
+  	
+  	<!-- Zobrazit výši závazků k RSTS -->
+  	<security-constraint>
+    <display-name>Zobrazit výši závazků k RSTS</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit výši závazků k RSTS</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/zavazky</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/zavazky/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit výši závazků k RSTS</description>
+      <role-name>cibisweb.credit.credit-request.obligation.present</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Finanční situace role\Zobrazit výši závazků k RSTS</description>
+    	<role-name>cibisweb.credit.credit-request.obligation.present</role-name>
+  	</security-role>
+  	
+  	<!-- Zobrazit vyhodnocení bonity pro osobu -->
+  	<security-constraint>
+    <display-name>Zobrazit vyhodnocení bonity pro osobu</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit vyhodnocení bonity pro osobu</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/dataOsoba</url-pattern>
+      <url-pattern>/mvc/uverova-zadost/nova/vstupni-bonita/dataOsoba/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit vyhodnocení bonity pro osobu</description>
+      <role-name>cibisweb.credit.credit-request.repayability.present</role-name>
+    </auth-constraint>
+  	</security-constraint>    	
+  	<security-role>
+    	<description>CIBIS-Sale\Podpora pro produkt\Finanční situace role\Zobrazit vyhodnocení bonity pro osobu</description>
+    	<role-name>cibisweb.credit.credit-request.repayability.present</role-name>
+  	</security-role>
+  	
+  	<!-- konec: Úvěrová žádost -->
+
+    <!-- MODELOVÁNÍ -->  
+
+	<!-- 	Oprávnění Modelovací případ SS -->
+
+    <!-- Exportovat modelovací případ -->
+    <security-constraint>
+    <display-name>Exportovat modelovací případ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Exportovat modelovací případ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/core/export/*</url-pattern>
+      <url-pattern>/mvc/modelovani/core/exportZip/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Exportovat modelovací případ</description>
+      <role-name>cibissale.product.simulation.modelling-case.modelling-case-export</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Exportovat modelovací případ</description>
+        <role-name>cibissale.product.simulation.modelling-case.modelling-case-export</role-name>
+    </security-role>
+
+    <!-- Načíst údaje o existující smlouvě pro modelování SS -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Načíst údaje o existující smlouvě pro modelování SS</description>
+        <role-name>cibissale.product.simulation.load-the-data-about-existing-contract-for-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Zadat parametry modelování SS – bonusy -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat parametry modelování SS – bonusy</description>
+        <role-name>cibissale.product.modelling-case.modeling-parameter-set-bonus</role-name>
+    </security-role>
+
+    <!-- Zobrazit nabídku výběru všech VOP+tarifů -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zobrazit nabídku výběru všech VOP+tarifů</description>
+        <role-name>cibissale.product.simulation.set-the-parameters-of-building-saving-modelling-alltarifts</role-name>
+    </security-role>
+
+    <!-- Zadat základní parametry modelování SS – Měnit požadovanou formu efektivní úrokové míry -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat základní parametry modelování SS – Měnit požadovanou formu efektivní úrokové míry</description>
+        <role-name>cibissale.product.simulation.can-edit-effective-rate-type</role-name>
+    </security-role>
+
+    <!-- Zadat základní parametry modelování SS – Varianta L – nový úvěr -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat základní parametry modelování SS – Varianta L – nový úvěr</description>
+        <role-name>cibissale.product.simulation.set-the-parameters-of-building-saving-modelling-variant-l-new-credit</role-name>
+    </security-role>
+
+    <!-- Zadat základní parametry modelování SS – Varianta L – existující úvěr -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat základní parametry modelování SS – Varianta L – existující úvěr</description>
+        <role-name>cibissale.product.simulation.set-the-parameters-of-building-saving-modelling-variant-l-existing-credit</role-name>
+    </security-role>
+
+    <!-- Zadat rozšířené parametry modelování SS – Měnit příznaky zahrnutí úhrad -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat rozšířené parametry modelování SS – Měnit příznaky zahrnutí úhrad</description>
+        <role-name>cibissale.product.simulation.can-edit-extra-fee-parameters</role-name>
+    </security-role>
+
+    <!-- Zadat rozšířené parametry modelování SS -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat rozšířené parametry modelování SS</description>
+        <role-name>cibissale.product.simulation.enter-extended-modeling-parameters-of-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Zadat rozšířené parametry modelování SS – Individuální výše úhrady za vypořádání SS -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat rozšířené parametry modelování SS – Individuální výše úhrady za vypořádání SS</description>
+        <role-name>cibissale.product.simulation.enter-extended-modeling-parameters-of-building-saving-modelling-individual-settlement-fee</role-name>
+    </security-role>
+
+    <!-- Zadat položku plánovaného finančního toku pro modelování SS -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Zadat položku plánovaného finančního toku pro modelování SS</description>
+        <role-name>cibissale.product.simulation.enter-item-of-planned-financial-flow-for-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Provést test vstupních parametrů modelování SS -->
+<!--     <security-constraint> -->
+<!--     <display-name>Provést test vstupních parametrů modelování SS</display-name> -->
+<!--     <web-resource-collection> -->
+<!--       <web-resource-name>Provést test vstupních parametrů modelování SS</web-resource-name> -->
+<!--       <description /> -->
+<!--       <url-pattern>/mvc/modelovani/seznam/*</url-pattern> -->
+<!--       <http-method>GET</http-method> -->
+<!--       <http-method>HEAD</http-method> -->
+<!--       <http-method>POST</http-method> -->
+<!--     </web-resource-collection> -->
+<!--     <auth-constraint> -->
+<!--       <description>Provést test vstupních parametrů modelování SS</description> -->
+<!--       <role-name>cibissale.product.simulation.perform-test-of-input-parameters-of-building-saving-modelling</role-name> -->
+<!--     </auth-constraint> -->
+<!--     </security-constraint>         -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Provést test vstupních parametrů modelování SS</description>
+        <role-name>cibissale.product.simulation.perform-test-of-input-parameters-of-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Provést modelování SS -->
+    <security-constraint>
+    <display-name>Provést modelování SS</display-name>
+    <web-resource-collection>
+      <web-resource-name>Provést modelování SS</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani</url-pattern>
+      <url-pattern>/mvc/modelovani/core</url-pattern>
+      <url-pattern>/mvc/modelovani/core/form/*</url-pattern>
+      <url-pattern>/mvc/modelovani/core/zobrazvysledky</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/tiskesis/*</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/tiskpripad/*</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/tiskpripadpdf</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/zobrazvysledkyuzhc/*</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/zobrazvysledkypohybysporeni/*</url-pattern>      
+      <url-pattern>/mvc/modelovani/core/zobrazvysledkypohybyuver/*</url-pattern>      
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Provést modelování SS</description>
+      <role-name>cibissale.product.simulation.process-the-building-saving-modelling</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Modelovací případ SS\Provést modelování SS</description>
+        <role-name>cibissale.product.simulation.process-the-building-saving-modelling</role-name>
+    </security-role>
+
+	<!-- 	Oprávnění Uložené modelování SS -->
+
+    <!-- Uložit modelovací případ -->
+    <security-constraint>
+    <display-name>Uložit modelovací případ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Uložit modelovací případ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/ulozitPripad/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Uložit modelovací případ</description>
+      <role-name>cibissale.product.saved-modeling.save-modeling-case</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Uložené modelování SS\Uložit modelovací případ</description>
+        <role-name>cibissale.product.saved-modeling.save-modeling-case</role-name>
+    </security-role>
+
+    <!-- Uložit modelovací případ jako příklad -->
+    <security-constraint>
+    <display-name>Uložit modelovací případ jako příklad</display-name>
+    <web-resource-collection>
+      <web-resource-name>Uložit modelovací případ jako příklad</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/ulozitPripad/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Uložit modelovací případ jako příklad</description>
+      <role-name>cibissale.product.saved-modeling.save-modeling-case-example</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Uložené modelování SS\Uložit modelovací případ jako příklad</description>
+        <role-name>cibissale.product.saved-modeling.save-modeling-case-example</role-name>
+    </security-role>
+
+    <!-- Vybrat modelovací případ -->
+    <security-constraint>
+    <display-name>Vybrat modelovací případ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Vybrat modelovací případ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/seznam/*</url-pattern>
+      <url-pattern>/mvc/modelovani/detailPripad/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Vybrat modelovací případ</description>
+      <role-name>cibissale.product.saved-modeling.select-the-modeling-case</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Uložené modelování SS\Vybrat modelovací případ</description>
+        <role-name>cibissale.product.saved-modeling.select-the-modeling-case</role-name>
+    </security-role>
+
+    <!-- Zrušit modelovací případ -->
+    <security-constraint>
+    <display-name>Zrušit modelovací případ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zrušit modelovací případ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/zrusitPripad/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zrušit modelovací případ</description>
+      <role-name>cibissale.product.saved-modeling.cancel-the-modeling-case</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Uložené modelování SS\Zrušit modelovací případ</description>
+        <role-name>cibissale.product.saved-modeling.cancel-the-modeling-case</role-name>
+    </security-role>
+
+	<!-- 	Oprávnění Globální parametry modelování SS -->
+
+    <!-- Zobrazit seznam sad globálních parametrů modelování SS -->
+    <security-constraint>
+    <display-name>Zobrazit seznam sad globálních parametrů modelování SS</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit seznam sad globálních parametrů modelování SS</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/glob-param</url-pattern>
+      <url-pattern>/mvc/modelovani/glob-param/vystav-seznam/*</url-pattern>
+      <url-pattern>/mvc/modelovani/glob-param/ctrdata</url-pattern>
+      <url-pattern>/mvc/modelovani/glob-param/ctrkontrola</url-pattern>
+      <url-pattern>/mvc/modelovani/glob-param/prepnout-kontext-menu.ajax</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit seznam sad globálních parametrů modelování SS</description>
+      <role-name>cibissale.product.simulation-global-parameters.display-the-list-of-sets-of-global-parameters-of-building-saving-modelling</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit seznam sad globálních parametrů modelování SS</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-the-list-of-sets-of-global-parameters-of-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Aktualizovat globální parametry modelování SS -->
+    <security-constraint>
+    <display-name>Aktualizovat globální parametry modelování SS</display-name>
+    <web-resource-collection>
+      <web-resource-name>Aktualizovat globální parametry modelování SS</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/glob-param/aktualizuj/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Aktualizovat globální parametry modelování SS</description>
+      <role-name>cibissale.product.simulation-global-parameters.update-the-global-parameters-of-building-saving-modelling</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Aktualizovat globální parametry modelování SS</description>
+        <role-name>cibissale.product.simulation-global-parameters.update-the-global-parameters-of-building-saving-modelling</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - základ -->
+    <security-constraint>
+    <display-name>Zobrazit sadu glob.parametrů modelování SS - základ</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit sadu glob.parametrů modelování SS - základ</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/glob-param/vystav-sadu/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit sadu glob.parametrů modelování SS - základ</description>
+      <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-basis</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - základ</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-basis</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - seznam VOP a tarifů -->
+    <security-constraint>
+    <display-name>Zobrazit sadu glob.parametrů modelování SS - seznam VOP a tarifů</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit sadu glob.parametrů modelování SS - seznam VOP a tarifů</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/glob-param/vystav-sadu/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit sadu glob.parametrů modelování SS - seznam VOP a tarifů</description>
+      <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-list-of-gbc-and-tariff</role-name>
+    </auth-constraint>
+    </security-constraint>        
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - seznam VOP a tarifů</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-list-of-gbc-and-tariff</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - detail VOP a tarifu -->
+    <security-constraint>
+    <display-name>Zobrazit sadu glob.parametrů modelování SS - detail VOP a tarifu</display-name>
+    <web-resource-collection>
+      <web-resource-name>Zobrazit sadu glob.parametrů modelování SS - detail VOP a tarifu</web-resource-name>
+      <description/>
+      <url-pattern>/mvc/modelovani/glob-param/vystav-sadu-voptarif-detail/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Zobrazit sadu glob.parametrů modelování SS - detail VOP a tarifu</description>
+      <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-detail-of-gbc-and-tariff</role-name>
+    </auth-constraint>
+    </security-constraint>      
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - detail VOP a tarifu</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-detail-of-gbc-and-tariff</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS – časově rozlišené parametry SP -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS – časově rozlišené parametry SP</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-time-parameters-of-ss</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - varianty PÚ -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - varianty PÚ</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-bridging-loan-variants</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - úhrady produktů -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - úhrady produktů</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-product-fees</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - Daňové sazby -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - Daňové sazby</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-detail-of-tax-setting</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob. parametrů modelování SS – úhrady za vypořádání -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob. parametrů modelování SS – úhrady za vypořádání</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-settlement-fees</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS – parametry zahájení splácení a dospořování -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS – parametry zahájení splácení a dospořování</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-for-start-of-repaying-and-saving</role-name>
+    </security-role>
+
+    <!-- Zobrazit sadu glob.parametrů modelování SS - pojistné Uniqa -->
+    <security-role>
+        <description>CIBIS-Sale\Podpora pro produkt\Globální parametry modelování SS\Zobrazit sadu glob.parametrů modelování SS - pojistné UNIQA</description>
+        <role-name>cibissale.product.simulation-global-parameters.display-global-parameters-of-building-saving-modelling-uniqa-insurance-rates</role-name>
+    </security-role>
+
+    <!-- konec: MODELOVÁNÍ -->  
+
+	<!--  checkpoint, který umožní obejít autorizaci SMS -->
+    <security-role>
+        <description>CIBIS-Sale\Zpráva od systému\Autorizace\Umožnit aktivní operace bez SMS</description>
+        <role-name>system-administration.autorization.autorize-without-sms</role-name>
+    </security-role>
+	
+	
+<!-- 
+   Tato sekce nechť je úplně poslední sekcí ve web.xml, tady za to už nic nedávejte.
+ -->
+<!-- ============================== konec sekce S E C U R I T Y =========================================== -->
+
+</web-app>
