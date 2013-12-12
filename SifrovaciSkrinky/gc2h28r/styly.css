@@ -1,0 +1,113 @@
+th, td {
+        vertical-align: middle;
+        margin: 5px;
+        padding: 1px 5px;
+}
+
+th {
+        text-align: left;
+}
+
+.chybisko {
+  background-color:yellow;
+  border-style:outset;
+  border-width:6px;
+  color:red;
+  font-size:150%;
+  font-weight:bold;
+  margin:20px 0 20px 0;
+  padding:10px;
+  font-family: Arial;
+}
+
+.textchybiska {
+  margin-left: 20px;   
+}
+
+body {
+  background-color:  	#FFFFCC;
+  padding: 5px;
+  border: 1;
+}
+
+.vvv, .aaa, .bbb {
+
+   font-family : monospace;
+   vertical-align: middle;
+}
+
+TD.poradi, TD.bbb, TD.reftime, .pocpokusu {
+   text-align: right;
+}
+
+TD.poradi {
+   font-size: 60%;
+}
+
+TD, TH {
+
+   vertical-align: middle;
+}
+
+TR TH {
+  background-color: #AAFFBB; 
+}
+
+TR.sudy TD {
+  background-color: #EEFFEE; 
+}
+
+TR.lichy TD {
+  background-color: #E0FFE0; 
+}
+
+DIV.vvv {
+  font-size: 200%;
+  font-weight: bold;
+  color: #400040;
+  background-color: #CCFFBB;
+  margin-top: 7px;   
+
+}
+
+.odhlasit, .displayName, .nick, .GC2H28R {
+  display: inline;
+  text-align: right;
+  position: relative;
+  rihgt: auto;
+  vertical-align: middle;
+}
+
+.GC2H28R {
+  font-size: 120%;
+  vertical-align: middle;
+}
+
+.nick {
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.nadpistabulky {
+  font-family: Arial;
+}
+
+.generovano, li.paticka {
+  font-size: 80%;
+  color: gray;
+  font-style: italic;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+.nastavitnick {
+  border-style: solid;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding: 5px;
+  width: 500px;
+}
+.upozorneninicku {
+  color: red;
+  margin-bottom: 10px;
+}
