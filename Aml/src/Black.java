@@ -14,11 +14,11 @@ public class Black {
   List<Veta> vety = new ArrayList<Veta>();
   private Dka dka;
 
-  public void addVeta(String ... slova) {
+  public void addVeta(final String ... slova) {
     curCol = 0;
-    Veta veta = new Veta();
-    for (String s : slova) {
-      Slovo slovo = new Slovo();
+    final Veta veta = new Veta();
+    for (final String s : slova) {
+      final Slovo slovo = new Slovo();
       slovo.text = s;
       slovo.col = curCol;
       slovo.veta = veta;
@@ -30,7 +30,7 @@ public class Black {
   }
 
   public void compute() {
-    Nka nka = sestavNka();
+    final Nka nka = sestavNka();
     System.out.println("Stavu NKA: " + NkaUzel.pocet);
     dka = nka.zdeterministièni();
     System.out.println("Stavu DKA: " + DkaUzel.pocet);
@@ -38,31 +38,31 @@ public class Black {
   }
 
   private Nka sestavNka() {
-    Nka nka = new Nka();
-    for (Veta veta : vety) {
-      for (Slovo slovo : veta.slova) {
+    final Nka nka = new Nka();
+    for (final Veta veta : vety) {
+      for (final Slovo slovo : veta.slova) {
         nka.pridej(slovo);
       }
     }
-    for (NkaUzel nuzel : nka.uzly) {
+    for (final NkaUzel nuzel : nka.uzly) {
       if (nka.starty.contains(nuzel)) {
         System.out.println("-------------------");
       }
       System.out.println("< " + nuzel);
-      for (NkaPrechod prechod : nuzel.prechody) {
+      for (final NkaPrechod prechod : nuzel.prechody) {
         System.out.println("   \"" + prechod.znak + "\" ==> " + prechod.next);
       }
     }
     return nka;
   }
 
-  public void porovnej(String... texty) {
+  public void porovnej(final String... texty) {
 
-    Map<Veta, Citac> map = new HashMap<Veta, Citac>();
-    for (String text : texty) {
-      Map<Veta, Set<Slovo>> vysl = dka.porovnej(text);
+    final Map<Veta, Citac> map = new HashMap<Veta, Citac>();
+    for (final String text : texty) {
+      final Map<Veta, Set<Slovo>> vysl = dka.porovnej(text);
       if (vysl != null) {
-        for (Map.Entry<Veta, Set<Slovo>> entry : vysl.entrySet()) {
+        for (final Map.Entry<Veta, Set<Slovo>> entry : vysl.entrySet()) {
           Citac citac = map.get(entry.getKey());
           if (citac == null) {
             citac = new Citac();
@@ -74,7 +74,7 @@ public class Black {
     }
 
     System.out.println(Arrays.asList(texty));
-    for (Map.Entry<Veta, Citac> entry : map.entrySet()) {
+    for (final Map.Entry<Veta, Citac> entry : map.entrySet()) {
       System.out.println("    " + entry.getValue().n + ": " + entry.getKey().slova);
     }
   }

@@ -4,7 +4,7 @@ public class Main {
 
   private static Black black;
 
-  private static void porovnej(String... slova) {
+  private static void porovnej(final String... slova) {
     black.porovnej(slova);
     //System.out.printf("%d: %s%n", pocet, Arrays.asList(slova));
   }
@@ -12,16 +12,17 @@ public class Main {
   /**
    * @param args
    */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
 
     black = new Black();
+    //black.addVeta("abcd", "efgh");
     black.addVeta("abcd", "efgh", "ijkl", "mnop", "qrst", "uvwx");
 
-//    black.addVeta("martin", "veverka", "marsov", "blbovmars", "marvertin");
-//    black.addVeta("helena", "veverkova", "senitce");
-//    black.addVeta("nejaky", "blbec");
-//    black.addVeta("jedna", "dva", "tri", "ctyri");
-//    black.addVeta("toto", "mame", "pitomce");
+    black.addVeta("martin", "veverka", "marsov", "blbovmars", "marvertin");
+    black.addVeta("helena", "veverkova", "senitce");
+    black.addVeta("nejaky", "blbec");
+    black.addVeta("jedna", "dva", "tri", "ctyri");
+    black.addVeta("toto", "mame", "pitomce");
 
     black.compute();
 

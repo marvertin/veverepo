@@ -17,9 +17,9 @@ public class Nka {
   List<NkaUzel> uzly = new ArrayList<NkaUzel>();
 
   NkaUzel spolecnyNekonecny;
-  
+
   /**
-   * 
+   *
    */
   public Nka() {
     spolecnyNekonecny = novyUzel(null, "|SPOL|");
@@ -27,43 +27,43 @@ public class Nka {
     spolecnyNekonecny.startovaci = true;
     starty.add(spolecnyNekonecny);
   }
-  
-  
-  void pridej(Slovo slovo) {
 
-    char[] cc = slovo.text.toCharArray();
+
+  void pridej(final Slovo slovo) {
+
+    final char[] cc = slovo.text.toCharArray();
 
     { // blacklisove v zadanych
-//      NkaUzel lastUzel = novyUzel(slovo, "X/0");
-//      lastUzel.addPrechod(C.ALL, lastUzel);
-//      starty.add(lastUzel);
-//      lastUzel.startovaci = true;
+      //      NkaUzel lastUzel = novyUzel(slovo, "X/0");
+      //      lastUzel.addPrechod(C.ALL, lastUzel);
+      //      starty.add(lastUzel);
+      //      lastUzel.startovaci = true;
       NkaUzel lastUzel = spolecnyNekonecny;
       int i = 0;
-      for (char c : cc) {
-        NkaUzel uzel = novyUzel(slovo, "X/" + ++i);
+      for (final char c : cc) {
+        final NkaUzel uzel = novyUzel(slovo, "X/" + ++i);
         lastUzel.addPrechod(c, uzel);
         lastUzel = uzel;
       }
-      lastUzel.addPrechod(C.ALL, lastUzel);
+      //lastUzel.addPrechod(C.ALL, lastUzel);
       lastUzel.konecny = true;
     }
 
-//    for (int i=0; i <= cc.length - C.MIN; i++) {
-//      NkaUzel lastUzel = novyUzel(slovo, i + "/0");
-//      starty.add(lastUzel);
-//      lastUzel.startovaci = true;
-//      for (int j=i; j < cc.length; j++) {
-//        NkaUzel uzel = novyUzel(slovo, i + "/" + (j-i));
-//        uzel.konecny = j - i >= C.MIN - 1;
-//        lastUzel.addPrechod(cc[j], uzel);
-//        lastUzel = uzel;
-//      }
-//    }
+    //    for (int i=0; i <= cc.length - C.MIN; i++) {
+    //      NkaUzel lastUzel = novyUzel(slovo, i + "/0");
+    //      starty.add(lastUzel);
+    //      lastUzel.startovaci = true;
+    //      for (int j=i; j < cc.length; j++) {
+    //        NkaUzel uzel = novyUzel(slovo, i + "/" + (j-i));
+    //        uzel.konecny = j - i >= C.MIN - 1;
+    //        lastUzel.addPrechod(cc[j], uzel);
+    //        lastUzel = uzel;
+    //      }
+    //    }
   }
 
-  NkaUzel novyUzel(Slovo slovo, String doplnujiciPopis) {
-    NkaUzel nuzel = new NkaUzel(slovo, doplnujiciPopis);
+  NkaUzel novyUzel(final Slovo slovo, final String doplnujiciPopis) {
+    final NkaUzel nuzel = new NkaUzel(slovo, doplnujiciPopis);
     uzly.add(nuzel);
     return nuzel;
 
@@ -81,9 +81,9 @@ public class Nka {
 
     void zauzluj(final DkaUzel duzelZ) {
       for (char c = 'a'; c <= 'z'; c++) { // nevykonne, ale jasne, pro vsechan pismena
-        Set<NkaUzel> nuzlyDo = new LinkedHashSet<NkaUzel>();
-        for (NkaUzel nuzelZ : duzelZ.nuzly) { // prochazie všechny NKA uzly tothoto uzlu
-          for (NkaPrechod prechod : nuzelZ.prechody) {
+        final Set<NkaUzel> nuzlyDo = new LinkedHashSet<NkaUzel>();
+        for (final NkaUzel nuzelZ : duzelZ.nuzly) { // prochazie všechny NKA uzly tothoto uzlu
+          for (final NkaPrechod prechod : nuzelZ.prechody) {
             if (prechod.znak == c || prechod.znak == C.ALL) {
               nuzlyDo.add(prechod.next);
             }
@@ -93,7 +93,7 @@ public class Nka {
         if (duzelDo == null) {
           citacNezasahu ++;
           duzelDo = new DkaUzel(nuzlyDo);
-          
+
           putDoMapy(duzelDo);
           nazpracovani.add(duzelDo);
           //zauzluj(duzelDo);
@@ -102,16 +102,16 @@ public class Nka {
         }
         duzelZ.prechody[c - 'a'] = duzelDo;
       }
-      
+
     }
 
     Dka determinuj() {
-      Dka dka = new Dka();
+      final Dka dka = new Dka();
       dka.start = new DkaUzel(starty);
       putDoMapy(dka.start);
       nazpracovani.add(dka.start);
       while(! nazpracovani.isEmpty()) {
-        DkaUzel duzel = nazpracovani.remove();
+        final DkaUzel duzel = nazpracovani.remove();
         zauzluj(duzel);
         duzel.print();
       }
@@ -119,7 +119,7 @@ public class Nka {
       return dka;
     }
 
-    void putDoMapy(DkaUzel duzel) {
+    void putDoMapy(final DkaUzel duzel) {
       mapa.put(duzel.nuzly, duzel);
     }
 
