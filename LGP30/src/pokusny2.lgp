@@ -1,0 +1,250 @@
+;/*
+;
+; hlavni program
+;
+/= ======================================================================================
+/.0100
+
+		R vstupR
+		U vstup
+		R vypocet-1
+		U vypocet
+		R vystupR
+		U vystup
+		Z 0000
+
+/.0120
+
+
+NRad:	0.8601677777@8
+ERad:	0.2854712884@8
+Dalka:	0.5@8
+AzimRad:	0.5235987756@8
+
+/.0130
+K1:	1@8
+kmnamili: 1.852@8
+NPosMin:	@8
+EPosMin:	@8
+NPosRad:	@8
+EPosRad:	@8
+NVyslRad:	@8
+EVyslRad:	@8
+NStup: @8
+EStup: @8
+NMin: @8
+EMin: @8
+CosSir: @8 
+PI:		3.1415926535@8
+K180:	180@8
+M1:	 WW800000
+;M1:	 -1@8
+K60: 60@8
+		
+/.0150
+vstupR:	U 0000
+vstup:
+		U vstupR
+/.0200
+vystupR:	U 0000
+vystup:	
+		U vystupR
+/.0250
+vypocet-1:	U 0000
+vypocet:	
+
+; vypocet kosinu severni sirky pro nasledne deleni
+		B NRad
+		R cosR
+		U cos
+		C CosSir
+; vypocet serverniho posunu
+		B AzimRad
+		R cosR
+		U cos
+		M Dalka
+		D kmnamili
+		H NPosMin
+		D K60
+		M PI
+		D K180
+		M K1
+		H NPosRad
+		A NRad
+		C NVyslRad
+; vypocet vychodniho posunu
+
+		B AzimRad
+		R sinR
+		U sin
+		M K1
+		D CosSir
+		M Dalka
+		D kmnamili
+		H EPosMin
+		D K60
+		M PI
+		D K180
+		M K1
+		H EPosRad
+		A ERad
+		C EVyslRad
+
+					
+;/=================================================================================
+; prevod severni na stupne a minuty
+		B NVyslRad
+		M K180
+		D PI
+		E M1
+		C NStup		;*
+		B NVyslRad
+		M K180
+		D PI
+		S NStup
+		M K60
+		D K1
+		C NMin		;*
+
+; prevod vychodni na stupne a minuty
+		B EVyslRad
+		M K180
+		D PI
+		E M1
+		C EStup		;*
+		B EVyslRad	
+		M K180
+		D PI
+		S EStup		
+		M K60
+		D K1
+		C EMin		;*
+		
+		
+		U vypocet-1
+
+
+;
+;  Vypocet sinu a kosinu
+;
+
+/.1100		
+;
+;  sinus
+;
+sinR:	U 0000	
+sin:	
+		H param
+		H item
+		H sum
+		B k1
+		H cit
+		R sincosR
+		U sincos
+		B sum
+		U sinR
+;
+/.1200
+;
+;  cosinus
+;
+cosR:	U 0000	
+cos:	
+		H param
+		B k1
+		H item
+		H sum
+		C cit
+		C cit
+		R sincosR
+		U sincos
+		B sum
+		U cosR
+	
+/.1300
+;
+;  spolecny vypocit sinu i kosinu
+;
+sincosR:	U 0000		; navrat ze sinu a kosinu		
+sincos:
+loop:
+
+; licha pricintana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sum
+		S item
+		H sum
+; licha odcitana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sum
+		A item
+		H sum
+
+		
+; test na konec
+		B item
+		S zaporak
+		T sincosR		; konec kdyz nula
+		U loop
+	
+/.1400		
+;
+;  Vynasobit jednou
+;
+kroker:	U 0000  	
+
+; posunout citac poprve		
+krok:	B cit
+		A k1
+		H cit
+; nasobit a delit poprve
+		B item
+		M param
+		D cit
+		H item
+		U kroker   ; navrat
+				
+/.1500
+;
+param:	@8
+		
+zaporak: 1@30		
+sum:	@8
+item:	@8
+cit:	@8
+k1:		1@8
+
+/= ================================================================
+/.3000
+		B xsum
+		A xitem
+		S xcit
+		M xzaporak
+		H xk1
+		Z 0000
+
+xzaporak: 1@30		
+xsum:	6@8
+xitem:	7@8
+xcit:	8@8
+xk1:		@8
+
+/=================================================================
+/!
+/.6300
+		B 6340
+		000W3WF4
+		H 6342
+		Z 0000
+
+/.6340
+   84@7		
+   24@7
+	 @7
+

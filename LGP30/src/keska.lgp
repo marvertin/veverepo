@@ -1,0 +1,140 @@
+/*
+;
+; hlavni program
+;
+/=======================================================================================
+/.2800
+; vypocet kosinu severni sirky pro nasledne deleni
+start:	B NUvodRad
+		R sincosR
+		U cos
+		C CosSir
+; vypocet serverniho posunu
+		B AzimRad
+		R sincosR
+		U cos            ; cos(azimut)
+		M Dalka          ; serverni posun v kilometrech (nekorigovane)
+		D kmnamili		 ; severni posun v milich, tedy v minutach
+		D K60            ; severtni posun ve stupnich (nekorigovane)
+		M PI             
+		D K180		  	 ; severni posun v radianech (nekorigovane)            
+		M K1			 ; korekce
+		A NUvodRad		 ; finalni sirka
+		C NFinalRad   
+; vypocet vychodniho posunu
+		B AzimRad		
+		R sincosR
+		U sin			; sin (azimut)
+		M K1			; korekce na zacatku
+		D CosSir		; v delce je to mensi
+		M Dalka			; vychodni posun v kilometrech  (nekorigovane)
+		D kmnamili		; vychodni posun v milich tedy v minutach
+		D K60			; vychodni posun ve stuonich  (nekorigovane)
+		M PI			
+		D K180			; vychodni posun v radianech  (nekorigovane)
+		M K1			; korekce
+		A EUvodRad
+		C EFinalRad   
+
+; ----------------------------------------------------------------					
+		Z 0000
+
+K1:	1@8
+PI:		3.1415926535@8
+K60: 60@8
+K180:	180@8
+kmnamili: 1.852@8
+CosSir: @8 
+
+/.3300
+;----------------------------------------------------------------------------
+;
+;  Vypocet sinu a kosinu
+;
+;
+;  sinus
+;
+sin:	
+		H parSC
+		H itemSC
+		H sumSC
+		B k1SC
+		H citSC
+		U sincos
+;
+;  cosinus
+;
+cos:	
+		H parSC
+		B k1SC
+		H itemSC
+		H sumSC
+		C citSC
+		C citSC
+;
+;  spolecny vypocit sinu i kosinu
+;
+sincos:
+loop:
+
+; licha pricintana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sumSC
+		S itemSC
+		H sumSC
+; licha odcitana
+		R kroker
+		U krok
+		R kroker
+		U krok
+		B sumSC
+		A itemSC
+		H sumSC
+
+		
+; test na konec
+		B itemSC
+		S zaporSC
+		T vyskoc		; konec kdyz nula
+		U loop
+	
+vyskoc:	B sumSC
+sincosR:U 0000		; navrat ze sinu a kosinu		
+
+;
+;  Vynasobit jednou
+;
+
+; posunout citac poprve		
+krok:	B citSC
+		A k1SC
+		H citSC
+; nasobit a delit poprve
+		B itemSC
+		M parSC
+		D citSC
+		H itemSC
+kroker:	U 0000  	
+				
+k1SC:	1@8
+zaporSC: 1@30		
+parSC:	@8
+itemSC:	@8
+citSC:	@8
+sumSC:	@8
+ 
+
+/.5500
+NUvodRad:	0.85864672@8 ;*coord
+EUvodRad:	0.28973055@8 ;*coord
+Dalka:	1.2569@8
+AzimRad:	6.2290801@8
+
+
+/.6300
+NFinalRad:	@8	;*coord
+EFinalRad:	@8	;*coord
+

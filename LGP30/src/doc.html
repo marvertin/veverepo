@@ -1,0 +1,32 @@
+
+
+<h2>Direktivy kompilátoru</h2>
+Direktrivy kompilátoru zaèínají lomítkem v první pozici.
+Bezprostøednì za lomítkem následuje znak direktivy pøípadnì další data 
+direktivy.
+
+<table border=1>
+<tr><td><tt>/.2021</tt></td>
+<td>Nastavení èítaèe instrukcí na zadanou adresu. Následující instrukce budou kompilovány sem.</td></tr>
+<tr><td><tt>/==</tt></td>
+<td>Zaèátek aktivní sekce.</td></tr>
+<tr><td><tt>/=. </tt></td>
+<td>Zaèátek neaktivní sekce (tøetí znak není rovítko). Sekce bude neaktivní, pokud není natavena hvìzdièkou jako aktivní.</td></tr>
+<tr><td><tt>/!</tt></td>
+<td>Sekce v níž je tato direktiva nebude striktní.</td></tr>
+<tr><td><tt>/*</tt></td>
+<td>Všechny sekce jsou aktivní bez ohledu na tøetí znak pøíslušné direktivy.</td></tr>
+</table>
+
+
+<h2>Sekce</h2>
+
+<p>Obsah souboru je rozdìlen do sekcí, každá sekce tvoøí jmenný prosor
+symbolù a tím samostatný program.
+Skece mohou být aktivní nebo neaktivní. Pouze aktivní sekce budou 
+simulátorem provedeny.
+Implicitnì je sekce striktní, to znamená, že nejde pøepuisovat instrukce jinak než
+instrukcemi pro modifikaci instrukcí, nejde pøepisovat konstanty,
+nejde provádìt promìnné a konstanty. 
+Striktnost lze vypnout direktivou <tt>/!</tt>.
+
