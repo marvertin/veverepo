@@ -299,7 +299,7 @@ public class UpiciKun {
   }
 
   public static void main(final String[] args) throws Exception {
-    new UpiciKun().vypis(Paths.get("upicikun.html"));
+    new UpiciKun().vypis(Paths.get("Úpící kůň.html"));
   }
 
 }
