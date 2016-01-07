@@ -1,5 +1,6 @@
 RemoteSystemsTempFiles
 .metadata
+.recommenders
 **/bin
 **/build
 *.class
