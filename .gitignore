@@ -1,6 +1,7 @@
 RemoteSystemsTempFiles
 .metadata
 .recommenders
+.gradle
 **/bin
 **/build
 *.class
