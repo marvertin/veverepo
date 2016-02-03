@@ -1,32 +1,31 @@
 
-
-<h2>Direktivy kompilátoru</h2>
-Direktrivy kompilátoru zaèínají lomítkem v první pozici.
-Bezprostøednì za lomítkem následuje znak direktivy pøípadnì další data 
+<h2>Direktivy kompilÃ¡toru</h2>
+Direktrivy kompilÃ¡toru zaÄÃ­najÃ­ lomÃ­tkem v prvnÃ­ pozici.
+BezprostÅ™ednÄ› za lomÃ­tkem nÃ¡sleduje znak direktivy pÅ™Ã­padnÄ› dalÅ¡Ã­ data 
 direktivy.
 
 <table border=1>
 <tr><td><tt>/.2021</tt></td>
-<td>Nastavení èítaèe instrukcí na zadanou adresu. Následující instrukce budou kompilovány sem.</td></tr>
+<td>NastavenÃ­ ÄÃ­taÄe instrukcÃ­ na zadanou adresu. NÃ¡sledujÃ­cÃ­ instrukce budou kompilovÃ¡ny sem.</td></tr>
 <tr><td><tt>/==</tt></td>
-<td>Zaèátek aktivní sekce.</td></tr>
+<td>ZaÄÃ¡tek aktivnÃ­ sekce.</td></tr>
 <tr><td><tt>/=. </tt></td>
-<td>Zaèátek neaktivní sekce (tøetí znak není rovítko). Sekce bude neaktivní, pokud není natavena hvìzdièkou jako aktivní.</td></tr>
+<td>ZaÄÃ¡tek neaktivnÃ­ sekce (tÅ™etÃ­ znak nenÃ­ rovÃ­tko). Sekce bude neaktivnÃ­, pokud nenÃ­ natavena hvÄ›zdiÄkou jako aktivnÃ­.</td></tr>
 <tr><td><tt>/!</tt></td>
-<td>Sekce v ní je tato direktiva nebude striktní.</td></tr>
+<td>Sekce v nÃ­Å¾ je tato direktiva nebude striktnÃ­.</td></tr>
 <tr><td><tt>/*</tt></td>
-<td>Všechny sekce jsou aktivní bez ohledu na tøetí znak pøíslušné direktivy.</td></tr>
+<td>VÅ¡echny sekce jsou aktivnÃ­ bez ohledu na tÅ™etÃ­ znak pÅ™Ã­sluÅ¡nÃ© direktivy.</td></tr>
 </table>
 
 
 <h2>Sekce</h2>
 
-<p>Obsah souboru je rozdìlen do sekcí, kadá sekce tvoøí jmennı prosor
-symbolù a tím samostatnı program.
-Skece mohou bıt aktivní nebo neaktivní. Pouze aktivní sekce budou 
-simulátorem provedeny.
-Implicitnì je sekce striktní, to znamená, e nejde pøepuisovat instrukce jinak ne
-instrukcemi pro modifikaci instrukcí, nejde pøepisovat konstanty,
-nejde provádìt promìnné a konstanty. 
+<p>Obsah souboru je rozdÄ›len do sekcÃ­, kaÅ¾dÃ¡ sekce tvoÅ™Ã­ jmennÃ½ prosor
+symbolÅ¯ a tÃ­m samostatnÃ½ program.
+Skece mohou bÃ½t aktivnÃ­ nebo neaktivnÃ­. Pouze aktivnÃ­ sekce budou 
+simulÃ¡torem provedeny.
+ImplicitnÄ› je sekce striktnÃ­, to znamenÃ¡, Å¾e nejde pÅ™epuisovat instrukce jinak neÅ¾
+instrukcemi pro modifikaci instrukcÃ­, nejde pÅ™episovat konstanty,
+nejde provÃ¡dÄ›t promÄ›nnÃ© a konstanty. 
 Striktnost lze vypnout direktivou <tt>/!</tt>.
 
