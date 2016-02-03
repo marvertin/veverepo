@@ -14,3 +14,5 @@ echo CVS_BRANCH: %CVS_BRANCH%
 echo GIT_COMMIT: %GIT_COMMIT%
 echo GIT_URL: %GIT_URL%
 echo GIT_BRANCH: %GIT_BRANCH%
+
+type soubor.txt
