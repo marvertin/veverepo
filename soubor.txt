@@ -3,3 +3,8 @@ http://www.tmou.cz
 xx1: file:c:\vyvoj\veverepo\LGP30\src\doc.html
 
 xx2: file:c:/vyvoj/veverepo/LGP30/src/doc.html
+
+file:///C|/vyvoj/veverepo/LGP30/src/doc.html
+
+
+
