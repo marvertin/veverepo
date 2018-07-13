@@ -5,7 +5,6 @@ module Presmycky.Presmycky (
            
 import Data.List
 import Data.Function
-import Zdil.CeskySlovnik
 
 presmycky :: Ord a => [[a]] -> [[[a]]]
 presmycky  = 
@@ -21,11 +20,4 @@ presmycky  =
      porovnani xs@(x:_) ys@(y:_) = (length ys `compare` length xs) `mappend`  
                                    (length y `compare` length x) `mappend` 
                                    (xs `compare` ys)
-
-formatuj :: [String] -> String
-formatuj xs@(x:_) =  show (length xs) ++ "|" ++ show (length x) ++ " : " ++ intercalate " "  xs
-
-main = do
-  sl <- ceskySlovnik
-  putStrLn $ unlines $ map formatuj (presmycky sl)
 
