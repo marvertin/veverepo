@@ -4,6 +4,7 @@
 --
 import Data.List
 import Data.Function
+import Data.Char
 import qualified Data.Set as S
 
 import Zdil.CeskySlovnik
@@ -45,13 +46,13 @@ porozdelujDelsiNez n = filter delsinez . porozdeluj
    
 hledej2v1 :: [String] -> [(String,String)]
 hledej2v1 kmen = let
-   setkmen = S.fromList kmen S.\\ ignorovat
+   setkmen = S.fromList (map (map toLower) kmen) S.\\ ignorovat
    --setkmen = S.fromList kmen
    mocdvojic = kmen >>=  porozdelujDelsiNez 2
-   in filter (\(u,v) ->  (S.member u) setkmen && (S.member v) setkmen) mocdvojic
+   in filter (\(u,v) ->  (S.member $ map toLower u) setkmen  && (S.member $ map toLower v) setkmen) mocdvojic
   
 
 main = do
   sl <- ceskySlovnik
-  ulozSoubor "output/2v1.txt" (unlines ( map (\(u,v) -> u ++ "-" ++ v) (hledej2v1 sl)) )
+  ulozSoubor "output/2v1.txt" $ unlines $ sort ( map (\(u,v) -> u ++ "-" ++ v) (hledej2v1 sl)) 
 
