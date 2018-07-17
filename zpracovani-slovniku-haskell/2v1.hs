@@ -53,6 +53,6 @@ hledej2v1 kmen = let
   
 
 main = do
-  sl <- ceskySlovnik
+  sl <- ceskySlovnikZakladniTvary
   ulozSoubor "output/2v1.txt" $ unlines $ sort ( map (\(u,v) -> u ++ "-" ++ v) (hledej2v1 sl)) 
 
