@@ -6,9 +6,10 @@ module Zdil.CeskySlovnik
 (
    ceskySlovnik, -- IO akce, která načte cel slovník jako seznam slov
    -- podstatnaJmena -- jen podstatná jména v prvním pádě (není zaručeno, že je to podmnožina slovníku)
+   
    ceskySlovnikZakladniTvary -- jen základní tvary jmen a slove.
-    - Přídavná jména jen v mužském rodě
-    - Je bez vlastních jmen
+                             -- Přídavná jména jen v mužském rodě
+                             -- Je bez vlastních jmen
 ) where
 
 import System.IO
