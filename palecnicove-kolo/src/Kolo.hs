@@ -1,7 +1,13 @@
 module Kolo
     (   zakladna,
-        vyres
+        vyres,
+        Zub,
+        Zoubek
     ) where
+
+type Zoubek = (Double, Double)
+type Zub = [Zoubek]
+type Pastorek = Double
 
 nPalec  = 6.0   :: Double   -- pocet palcu
 rPastor = 60.0  :: Double -- polomwer pastorku (stredy palcu)
@@ -12,6 +18,13 @@ zakladna = rPastor * 2 * sin (pi / nPalec)
 
 nevyhloubenyZub = zip [0.0, krok .. zakladna] (repeat (rPastor +  rPalec))
 
+-- vmáčkne pastorek na jediný zoubek
+xvmackni :: Pastorek -> Zoubek -> Zoubek
+xvmackni pastorek (x, y) = (x, x + 0.3)
 
-vyres :: [(Double, Double)]
-vyres = nevyhloubenyZub
+-- vmáčkne do zubu pastorek na dané pozici
+vmackni ::  Zub -> Pastorek -> Zub
+vmackni zub pastorek = map (xvmackni pastorek) zub
+
+vyres :: Zub
+vyres = foldl vmackni nevyhloubenyZub [-zakladna, -zakladna+krok .. 2 * zakladna]

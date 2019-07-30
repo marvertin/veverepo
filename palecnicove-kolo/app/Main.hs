@@ -4,10 +4,10 @@ import Lib
 import Kolo
 import Text.Printf
 
-mrize :: (Double, Double) -> String
+mrize :: Zoubek -> String
 mrize (x, n) = printf "%6.1f: %6.1f - %s" x n (take (round n) $ repeat '#')
 
-zobraz :: [(Double, Double)] -> String
+zobraz :: Zub -> String
 zobraz list =  unlines $ map mrize list
     
 
