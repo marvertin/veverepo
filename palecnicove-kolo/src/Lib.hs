@@ -1,6 +1,9 @@
 module Lib
-    ( someFunc
+    ( minMaybe
     ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+
+minMaybe :: Ord a => Maybe a -> Maybe a -> Maybe a
+minMaybe Nothing b = b
+minMaybe a Nothing = a
+minMaybe (Just a) (Just b) = Just $ min a b
