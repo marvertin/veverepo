@@ -1,70 +1,55 @@
+{-# LANGUAGE RecordWildCards            #-}
+
 module VodniKolo
-    ( obsahTroj,
-      tezisteTroj,
-      delka,
-      stred,
-      rozdel,
-      polygon2Troje,
-      prunikSVodorovnouPrimkou,
-      odrizniPretikajici,
-      zarizniVodou
+    ( 
+        Kolo,
+        delkaLopatky,
+        stredovyUhelSvorce,
+        ko1
     ) where
 
-type Bod = (Double, Double)
-type Troj = (Bod, Bod, Bod)
-type Polyg = [Bod]
 
-delka :: Bod -> Bod -> Double
-delka (ax, ay) (bx, by) = sqrt ( (ax - bx) ** 2 + (ay - by) ** 2)
+data Kolo = Kolo {
+    pocetKorecku :: Double,
+    prumerKola :: Double, -- celkový průměr kola k hranicím korečků
+    vyskaKorecku :: Double, -- radiální výška korečků vod okraje k poddénce
+    pomerSvorce :: Double,  -- poměr výšky svorce k výšce korečku (0 až 1) 0 bez svorce, 1 kolmé lopatky
+    uhelLopatky:: Double,  -- odklad lopatky od radiály
+    tlouskaDesky :: Double -- tloušťka desky, ze které je vyrobena lopatka a svorec
 
--- rozdělí úsečku od prvního bodu v daném poměru
-rozdel :: Double -> Bod -> Bod -> Bod
-rozdel q (ax, ay) (bx, by) = (_rozdel ax bx, _rozdel ay by)
-  where _rozdel a b = q * (b - a) + a
+  }  deriving (Show)
 
-stred :: Bod -> Bod -> Bod
-stred = rozdel 0.5
+ko1 = Kolo { pocetKorecku = 16, 
+             prumerKola= 900, 
+             vyskaKorecku = 200,
+             pomerSvorce = 0.5, 
+             uhelLopatky = pi / 6,
+             tlouskaDesky= 20}
+  
+  -- Vypočte koreček v základní poloze dle definice kola.
+  -- Základní poloha korečku je taková, kdylopatka právě míjí horní úvrat
+  --    a do korečka by začala vtékat svislá voda (to ještě není vhodná poloha)
+  --    pro napuštění korečku, kolo by se vracelo)
+  --    kole se točí proti v kladném smyslu (proti směru hodinových ručiček)
+  --zakladniKorecek :: Kolo -> Polygon
 
-obsahTroj :: Troj -> Double
-obsahTroj (a@(ax, ay), b@(bx, by), c@(cx, cy)) =
-  let dc =  delka a b
-      da =  delka b c
-      db =  delka c a
-      s = (da + db + dc) /2
-   in sqrt (s * (s - da) * (s - db) * (s - dc))
 
-tezisteTroj :: Troj -> Bod
-tezisteTroj (a, b, c)  =  rozdel (1.0 / 3.0) (stred a b) c
+delkaLopatky :: Kolo -> Double
+delkaLopatky (Kolo{..}) =
+    let polomer = (prumerKola/2)
+        odStreduKLopatce = polomer - vyskaKorecku + (vyskaKorecku * pomerSvorce) -- vzdálenost od středu kla přes prázdné místo, svorec k začátku lopatiky
+        b = - 2 * odStreduKLopatce * cos (pi - uhelLopatky)  -- koeficient kvadreaticke rovnice
+        c =  odStreduKLopatce ** 2 - polomer ** 2          -- koeficient kvadreaticke rovnice
+    in (- b + sqrt (b ** 2 - 4 * c)) / 2
+    
 
--- první parametr je jeden bod té přímky, dále je úsečka, výsledek je bod
-prunikSVodorovnouPrimkou :: Bod -> (Bod, Bod) -> Bod
-prunikSVodorovnouPrimkou (_, y) ((ax, ay), (bx, by)) = 
-     (bx +  (y - by) * (ax - bx) / (ay - by)  , y)
-
-odrizniPretikajici :: Polyg -> Polyg
-odrizniPretikajici polyg@((_, yh) : rest) = 
-    let (zbytek, dalsi) = span (\(_, y) -> y <= yh) polyg
-    in if dalsi == [] then zbytek
-                      else zbytek ++ [head dalsi]
+-- je to úhel, který svírá svorec se svislou osou, pokud je lopatka v základním tvaru a začíná do ní téci voda
+stredovyUhelSvorce :: Kolo -> Double
+stredovyUhelSvorce (Kolo{..}) =
+    let polomer = (prumerKola/2)
+        odStreduKLopatce = polomer - vyskaKorecku + (vyskaKorecku * pomerSvorce) -- vzdálenost od středu kla přes prázdné místo, svorec k začátku lopatiky
+        uhelLopatkyUVrchu = asin $ sin (pi - uhelLopatky) / polomer * odStreduKLopatce
+    in  uhelLopatky - uhelLopatkyUVrchu -- zbývající úhel v trjúhelníku
         
-zarizniVodou :: Polyg -> Polyg
-zarizniVodou polyg =
-    let (prvni : zbytek) = odrizniPretikajici polyg
-        posledniUsecka = (last zbytek, last . init $ zbytek)
-    in if length zbytek <= 1 then [] 
-                             else (prvni : init zbytek ++ [prunikSVodorovnouPrimkou prvni posledniUsecka])
-
-polygon2Troje :: Polyg -> [Troj]
-polygon2Troje (prvni: zbytek) = _polygon2Troje (zbytek ++ [prvni]) -- od lomu lopatky a svorce je nutné měřit
-   where
-    _polygon2Troje [] = []
-    _polygon2Troje [_] = []
-    _polygon2Troje [_, _] = []
-    _polygon2Troje (a : b : c : rest) =  (a, b, c) : _polygon2Troje (a : c : rest)
-
-
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
-
-
-
+    
+    
