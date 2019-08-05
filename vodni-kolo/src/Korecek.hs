@@ -1,8 +1,9 @@
 module Korecek
     ( 
       Polyg,
+      Bod,
       obsahKorecku,
-      momentKorecku
+      momentovaMiraKorecku
     ) where
 
 type Bod = (Double, Double)
@@ -53,11 +54,15 @@ zarizniVodou :: Polyg -> Polyg
 zarizniVodou polyg =
     let (prvni : zbytek) = odrizniPretikajici polyg
         posledniUsecka = (last zbytek, last . init $ zbytek)
-    in if length zbytek <= 1 then [] 
-                             else (prvni : init zbytek ++ [prunikSVodorovnouPrimkou prvni posledniUsecka])
+    in if length zbytek <= 1
+        || fst prvni > 0
+        || snd prvni < snd (head zbytek) then [] 
+                 else (prvni : init zbytek ++ [prunikSVodorovnouPrimkou prvni posledniUsecka])
+                             
 
 
 polygon2Troje :: Polyg -> [Troj]
+polygon2Troje [] = []
 polygon2Troje (prvni: zbytek) = _polygon2Troje (zbytek ++ [prvni]) -- od lomu lopatky a svorce je nutné měřit
    where
     _polygon2Troje [] = []
@@ -68,15 +73,16 @@ polygon2Troje (prvni: zbytek) = _polygon2Troje (zbytek ++ [prvni]) -- od lomu lo
 obsahKorecku :: Polyg -> Double
 obsahKorecku polyg = sum $ map obsahTroj $ polygon2Troje $ zarizniVodou polyg
 
-momentKorecku :: Polyg -> Double
-momentKorecku polyg = sum $ map
+-- momentová míra je v metrech krychlových (plocha krát páka)
+-- aby se získal moment v newtone metrech,
+-- musí se násobit šířkou kola, hustotou vody a gravitačním zrychlením
+momentovaMiraKorecku :: Polyg -> Double
+momentovaMiraKorecku polyg = sum $ map
     (\troj -> 
         (fst . tezisteTroj) troj * obsahTroj troj
     ) $ polygon2Troje $ zarizniVodou polyg
 
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
 
 
 
