@@ -9,9 +9,10 @@ import java.nio.file.Paths;
 
 public class UpiciKun {
 
-  final String CSS ="<style> td { border: 1px solid gray; padding: 3px; border-collapse: collapsed; text-align: center; vertical-align: top;} "
+  final String CSS ="<style> td,th { border: 1px solid gray; padding: 3px; border-collapse: collapsed; text-align: center; vertical-align: top;} "
+	  + "th { background-color: lightgray; } "
       + "table { border-collapse: collapse; } "
-      + ".hexa { color: lightblue; font-size: 10; }"
+      + ".hexa { color: blue; font-size: 10; }"
       + ".spravny { background: #ffc; }"
       + "</style>";
 
@@ -33,11 +34,11 @@ public class UpiciKun {
   static final Charset UTF16be = Charset.forName("utf-16be");
 
 
-  private static final Charset[] CHARSETY = new  Charset[] {UTF8, WINDOWS_1250, ISO_8859_2, WINDOWS_1252, ISO_8859_1, IBM_852, IBM_850, IBM_437};
+  private static final Charset[] CHARSETY = new  Charset[] {WINDOWS_1250, ISO_8859_2, WINDOWS_1252, ISO_8859_1, IBM_852, IBM_850, IBM_437};
   private PrintWriter o;
 
   //private static final String PISMENA = "áäéěíóôöőúůüűžščřďťňĺľÁÄÉĚÍÓÔÖŐÚŮÜŰŽŠČŔŘĎŤŇĹĽ";
-  private static final String PISMENA = "áäéěíóôúůĺŕžščřďťňľÁÄÉĚÍÓÔÚŮĹŔŽŠČŘĎŤŇĽ";
+  private static final String PISMENA = "áäéěíóôúůýĺŕžščřďťňľÁÄÉĚÍÓÔÚŮÝĹŔŽŠČŘĎŤŇĽ";
 
   void wr(final byte [] b) throws IOException {
     o.write(new String(b, UTF8));
@@ -60,10 +61,11 @@ public class UpiciKun {
 
 
 
-  private void zahlaviRadku2(final Object slp1, final Object slp2) throws IOException {
+  private void zahlaviRadku2(final Object slp1, final Object slp2, boolean jakoZahlavi) throws IOException {
     wr("<tr>");
-    wr("<td>"+ doStringu(slp1) +"</td>");
-    wr("<td>" + doStringu(slp2) + "</td>");
+    String znacka =  jakoZahlavi ? "th>" : "td>";
+    wr("<"+ znacka + doStringu(slp1) +"</" + znacka);
+    wr("<"+ znacka + doStringu(slp2) + "</" + znacka);
   }
 
 
@@ -76,39 +78,39 @@ public class UpiciKun {
 
   void radekPismenJinakChapat(final Charset zadano, final Charset chapano) throws IOException {
 
-    if (zadano.equals(chapano)) {
-      zahlaviRadku2(zadano, null);
-
+    boolean zahlavni = zadano.equals(chapano);
+	if (zahlavni) {
+      zahlaviRadku2(zadano, null, true);
     } else {
-      zahlaviRadku2(null, chapano);
+      zahlaviRadku2(null, chapano, false);
     }
     for (final char c : PISMENA.toCharArray()) {
-      wr("<td>");
+      wr(zahlavni ? "<th>" : "<td>");
       //final byte[] bb = (c + "").getBytes(zadano);
       //final String ss = new String(bb, chapano);
       final Osmibit bbb = new Unikod(c).encode(zadano);
       final Unikod ss = bbb.decode(chapano);
       //final Text txt = new Text(c + "", zadano).recode(chapano, UTF8);
       wr(ss);br();
-      if (zadano.equals(chapano)) {
+      if (zahlavni) {
         wr("<span class='hexa'>");
         wr(bbb);
         wr("</span>");
       }
-      wr("</td>");
+      wr(zahlavni ? "</th>" : "</td>");
     }
     patickaRadku();
   }
 
 
-  void radekPismenUtf8DvakratChapat(final Charset chapano) throws IOException {
+  void radekPismenUtf8DvakratChapat(final Charset chapano1, final Charset chapano2) throws IOException {
 
-    zahlaviRadku2(UTF8, chapano);
+    zahlaviRadku2(chapano1, chapano2, true);
     for (final char c : PISMENA.toCharArray()) {
       wr("<td>");
       final Osmibit bbb = new Unikod(c).encode(UTF8);
-      final Osmibit ccc = bbb.decode(chapano).encode(UTF8);
-      final Unikod ss = ccc.decode(chapano);
+      final Osmibit ccc = bbb.decode(chapano1).encode(UTF8);
+      final Unikod ss = ccc.decode(chapano2);
       //final Text txt = new Text(c + "", zadano).recode(chapano, UTF8);
       wr(ss);br();
       wr("<span class='hexa'>");
@@ -118,6 +120,22 @@ public class UpiciKun {
     }
     patickaRadku();
   }
+
+  void zahlavniUtf8Radek(int colspanPrvnihoSLoupce) throws IOException {
+
+	    wr("<tr>");
+	    wr("<th colspan=" + colspanPrvnihoSLoupce + ">"+ doStringu(UTF8) +"</th>");
+	    for (final char c : PISMENA.toCharArray()) {
+	      wr("<th>");
+	      final Osmibit utf8 = new Unikod(c).encode(UTF8);
+	      wr(c);br();
+	      wr("<span class='hexa'>");
+	      wr(utf8);
+	      wr("</span>");
+	      wr("</th>");
+	    }
+	    patickaRadku();
+	  }
 
   void radekPismenProhnatUtf8(final Charset prohnat) throws IOException {
 
@@ -164,7 +182,7 @@ public class UpiciKun {
       }
       //if (pocetChyb > 0) {
       System.out.println("   " + pocetChyb + " - " + ch);
-      zahlaviRadku2(ch, pocetChyb);
+      zahlaviRadku2(ch, pocetChyb, false);
       wr("<td>" + sb + "</td>");
       patickaRadku();
       //}
@@ -183,9 +201,16 @@ public class UpiciKun {
     nl();
 
     wr(CSS);
-    wr("<h1>Jedno kódování chápáno jako jiné kódování<h1>");
-
+    wr("<h1>Jedno kódování chápáno jako jiné kódování</h1>");
+    wr("<p>Máme nějaký text v nějakém kódování, my ale nevíme v jakém kódování je, přečteme ho tedy v nějakém nesprávném kódování a podle toho vypadá výsledek.</p>");nl();
+    wr("<p>Bílý otazník v černém čtverci postaveném na rohu znamená, že v daném kódování daný byte nemá význam.</p>");nl();
+    wr("<p>Hexa kódy jsou jen u záhlavních řádků se skutečným kódováním, v dalších řádcích by byly kódy stejné, jen ten ókd má jiný význam a je to jiný znak.</p>");nl();
     wr("<table border=0>");nl();
+    wr("<tr><td>skutečné</td><td>chápáno jako</td></tr>");nl();
+    radekPismenJinakChapat(UTF8, UTF8);
+    for (final Charset ch2 : CHARSETY) {
+        radekPismenJinakChapat(UTF8, ch2);
+    }
     for (final Charset ch1 : CHARSETY) {
       radekPismenJinakChapat(ch1, ch1);
       for (final Charset ch2 : CHARSETY) {
@@ -196,8 +221,14 @@ public class UpiciKun {
     }
     wr("</table>");nl();
 
-    wr("<h1>UTF-8 chápáno jako jiné kóodování a prohnáno přes UNICODE v Javě<h1>");
+    wr("<h1>UTF-8 chápáno jako jiné kóodování a prohnáno přes UNICODE v Javě</h1>");
+    wr("<p>Myslí se tím situace, kdy v Javě čtu nějaký souborv UTF-8 textově, zpracovávám ho a pak zase zapisuji do souboru s tím, že mně nezajímá skutečné kódování,"
+    		+ "protože mě nezajímají znaky s diakritikou. Například budu mít nástroj, který odstraní zbytečné mezery na koních řádků.</p>");
+    wr("<p>Je vidět, že při použití windowsových kódování dojde k poškození některých znaků, je to dáno tím, že v těchto kódováních nejsou všechny kód pointy využity.</p>");
+    wr("<p>Hexa je zde nikoli znak v daném kódování, ale sekvence, na kterou je prohnáním znak pokažen. To pak nejsou validní sekvence UTF8. "
+    		+ "Má se to tak, že první znaky UTF-8 sekvence pkaženy nejsou nikdy, ale další jsou převedeny na znak 3F '?', což není validní druhý znak UTF-8 sekvence, ten by měl být 10xxxxxx binárně.</p>");
     wr("<table border=0>");nl();
+    zahlavniUtf8Radek(1);nl();
     for (final Charset ch : CHARSETY) {
       radekPismenProhnatUtf8(ch);
     }
@@ -205,17 +236,38 @@ public class UpiciKun {
 
 
     wr("<h1>Bijektivnost konverze 8bit => UTF-16 => 8bit</h1>");
-    wr("<table border=0>");nl();
+    wr("<p>V tabulce jsou nejsou znaky, ale jen jejich kódy, protože nebijektivní kódy nereprezentují v daném kódování žádný znak.</p>");nl();
+    wr("<table border=0><tr><th>Kódování</th><th>Počet</th><th>Nebijektivní kódy</th></tr>");nl();
     for (final Charset ch1 : CHARSETY) {
       testBijektivity(ch1);
     }
     wr("</table>");nl();
-    wr("<h1>Dvojnásobné špatné chápání a překódování</h1>");
+    
+    
+    wr("<h1>UTF-8 dvojnásobně špatně chápáno a překódováno stejným kódováním</h1>");
     wr("<table border=0>");nl();
-    for (final Charset ch1 : CHARSETY) {
-      radekPismenUtf8DvakratChapat(ch1);
+    wr("<p>Mějme text v UTF8, ale mysleme si, že je v nějakém 8. bitovém kódování,"
+    		+ " pochopme ho v tomto kódování a vyjádřeme v UTF8 a pak ještě jednou ho chápejme v tom stejném kódování.</p>");nl();
+    zahlavniUtf8Radek(2);nl();
+    for (final Charset ch : CHARSETY) {
+      		radekPismenUtf8DvakratChapat(ch, ch);
     }
     wr("</table>");nl();
+
+    wr("<h1>UTF-8 dvojnásobně špatně chápáno a překódováno různými kódováními</h1>");
+    wr("<table border=0>");nl();
+    wr("<p>Mějme text v UTF8, ale mysleme si, že je v nějakém 8. bitovém kódování,"
+    		+ " pochopme ho v tomto kódování a vyjádřeme v UTF8 a pak ještě jednou ho chápejme v nějakém jiném 8. bitovém kódování.</p>");nl();
+    zahlavniUtf8Radek(2);nl();
+    for (final Charset ch1 : CHARSETY) {
+        for (final Charset ch2 : CHARSETY) {
+        	if (! ch1.equals(ch2)) {
+        		radekPismenUtf8DvakratChapat(ch1, ch2);
+        	}
+        }
+    }
+    wr("</table>");nl();
+    
     o.close();
 
   }

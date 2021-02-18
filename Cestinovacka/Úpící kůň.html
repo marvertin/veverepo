@@ -1,316 +1,340 @@
 <meta http-equiv='content-type' content='text/html;charset=UTF-8'>
 
-<style> td { border: 1px solid gray; padding: 3px; border-collapse: collapsed; text-align: center; vertical-align: top;} table { border-collapse: collapse; } .hexa { color: lightblue; font-size: 10; }.spravny { background: #ffc; }</style>
-<h1>Jedno kódování chápáno jako jiné kódování<h1>
+<style> td,th { border: 1px solid gray; padding: 3px; border-collapse: collapsed; text-align: center; vertical-align: top;} th { background-color: lightgray; } table { border-collapse: collapse; } .hexa { color: blue; font-size: 10; }.spravny { background: #ffc; }</style>
+<h1>Jedno kódování chápáno jako jiné kódování</h1>
+<p>Máme nějaký text v nějakém kódování, my ale nevíme v jakém kódování je, přečteme ho tedy v nějakém nesprávném kódování a podle toho vypadá výsledek.</p>
+
+<p>Bílý otazník v černém čtverci postaveném na rohu znamená, že v daném kódování daný byte nemá význam.</p>
+
+<p>Hexa kódy jsou jen u záhlavních řádků se skutečným kódováním, v dalších řádcích by byly kódy stejné, jen ten ókd má jiný význam a je to jiný znak.</p>
+
 <table border=0>
 
+<tr><td>skutečné</td><td>chápáno jako</td></tr>
+
 <tr>
-<td>UTF-8</td>
-<td></td>
-<td>
+<th>UTF-8</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 c3 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 c3 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 c3 a9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 c4 9b 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 c3 ad 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 c3 b3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 c3 b4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 c3 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 c5 af 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 c4 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 c5 95 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 c5 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 c5 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 c4 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 c5 99 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 c4 8f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 c5 a5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 c5 88 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 c4 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c3 81 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c3 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c3 89 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 c4 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 c3 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 c3 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 c3 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 c3 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 c5 ae 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 c4 b9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 c5 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 c5 bd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 c5 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 c4 8c 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 c5 98 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 c4 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 c5 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 c5 87 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 c4 bd 
 </span>
-</td>
+</th>
 </tr>
 
 <tr>
@@ -358,6 +382,11 @@ c4 bd
 </td>
 <td>
 ĹŻ
+<br>
+
+</td>
+<td>
+Ă˝
 <br>
 
 </td>
@@ -453,6 +482,11 @@ c4 bd
 </td>
 <td>
 Ĺ®
+<br>
+
+</td>
+<td>
+Ăť
 <br>
 
 </td>
@@ -557,6 +591,11 @@ c4 bd
 
 </td>
 <td>
+Ă˝
+<br>
+
+</td>
+<td>
 Äş
 <br>
 
@@ -648,6 +687,11 @@ c4 bd
 </td>
 <td>
 ĹŽ
+<br>
+
+</td>
+<td>
+Ă
 <br>
 
 </td>
@@ -752,6 +796,11 @@ c4 bd
 
 </td>
 <td>
+Ã½
+<br>
+
+</td>
+<td>
 Äº
 <br>
 
@@ -843,6 +892,11 @@ c4 bd
 </td>
 <td>
 Å®
+<br>
+
+</td>
+<td>
+Ã�
 <br>
 
 </td>
@@ -947,6 +1001,11 @@ c4 bd
 
 </td>
 <td>
+Ã½
+<br>
+
+</td>
+<td>
 Äº
 <br>
 
@@ -1038,6 +1097,11 @@ c4 bd
 </td>
 <td>
 Å®
+<br>
+
+</td>
+<td>
+Ã
 <br>
 
 </td>
@@ -1142,6 +1206,11 @@ c4 bd
 
 </td>
 <td>
+├Ż
+<br>
+
+</td>
+<td>
 ─║
 <br>
 
@@ -1233,6 +1302,11 @@ c4 bd
 </td>
 <td>
 ┼«
+<br>
+
+</td>
+<td>
+├Ł
 <br>
 
 </td>
@@ -1337,6 +1411,11 @@ c4 bd
 
 </td>
 <td>
+├¢
+<br>
+
+</td>
+<td>
 ─║
 <br>
 
@@ -1428,6 +1507,11 @@ c4 bd
 </td>
 <td>
 ┼«
+<br>
+
+</td>
+<td>
+├Ø
 <br>
 
 </td>
@@ -1532,6 +1616,11 @@ c4 bd
 
 </td>
 <td>
+├╜
+<br>
+
+</td>
+<td>
 ─║
 <br>
 
@@ -1627,6 +1716,11 @@ c4 bd
 
 </td>
 <td>
+├¥
+<br>
+
+</td>
+<td>
 ─╣
 <br>
 
@@ -1679,507 +1773,328 @@ c4 bd
 </tr>
 
 <tr>
-<td>windows-1250</td>
-<td></td>
-<td>
+<th>windows-1250</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 e1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 e4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 ec 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 ed 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 f3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 f4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 fa 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 f9 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+fd 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 e5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 e0 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 9e 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 e8 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 f8 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 ef 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 9d 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 f2 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c1 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c4 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 cc 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 cd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 d3 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 d4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 da 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 d9 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+dd 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 c5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 c0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 8a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 c8 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 d8 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 cf 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 d2 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 bc 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -2227,6 +2142,11 @@ bc
 </td>
 <td>
 ů
+<br>
+
+</td>
+<td>
+ý
 <br>
 
 </td>
@@ -2322,6 +2242,11 @@ bc
 </td>
 <td>
 Ů
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -2426,6 +2351,11 @@ bc
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 å
 <br>
 
@@ -2517,6 +2447,11 @@ bc
 </td>
 <td>
 Ù
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -2621,6 +2556,11 @@ bc
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 å
 <br>
 
@@ -2712,6 +2652,11 @@ bc
 </td>
 <td>
 Ù
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -2816,6 +2761,11 @@ bc
 
 </td>
 <td>
+ř
+<br>
+
+</td>
+<td>
 ň
 <br>
 
@@ -2907,6 +2857,11 @@ bc
 </td>
 <td>
 ┘
+<br>
+
+</td>
+<td>
+Ţ
 <br>
 
 </td>
@@ -3011,6 +2966,11 @@ bc
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 Õ
 <br>
 
@@ -3102,6 +3062,11 @@ bc
 </td>
 <td>
 ┘
+<br>
+
+</td>
+<td>
+¦
 <br>
 
 </td>
@@ -3206,6 +3171,11 @@ bc
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 σ
 <br>
 
@@ -3301,6 +3271,11 @@ bc
 
 </td>
 <td>
+▌
+<br>
+
+</td>
+<td>
 ┼
 <br>
 
@@ -3353,507 +3328,328 @@ bc
 </tr>
 
 <tr>
-<td>ISO-8859-2</td>
-<td></td>
-<td>
+<th>ISO-8859-2</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 e1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 e4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 ec 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 ed 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 f3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 f4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 fa 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 f9 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+fd 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 e5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 e0 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 b9 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 e8 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 f8 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 ef 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 bb 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 f2 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 b5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c1 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c4 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 cc 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 cd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 d3 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 d4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 da 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 d9 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+dd 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 c5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 c0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 ae 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 a9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 c8 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 d8 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 cf 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 ab 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 d2 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 a5 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -3901,6 +3697,11 @@ a5
 </td>
 <td>
 ů
+<br>
+
+</td>
+<td>
+ý
 <br>
 
 </td>
@@ -3996,6 +3797,11 @@ a5
 </td>
 <td>
 Ů
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -4100,6 +3906,11 @@ a5
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 å
 <br>
 
@@ -4191,6 +4002,11 @@ a5
 </td>
 <td>
 Ù
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -4295,6 +4111,11 @@ a5
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 å
 <br>
 
@@ -4386,6 +4207,11 @@ a5
 </td>
 <td>
 Ù
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -4490,6 +4316,11 @@ a5
 
 </td>
 <td>
+ř
+<br>
+
+</td>
+<td>
 ň
 <br>
 
@@ -4581,6 +4412,11 @@ a5
 </td>
 <td>
 ┘
+<br>
+
+</td>
+<td>
+Ţ
 <br>
 
 </td>
@@ -4685,6 +4521,11 @@ a5
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 Õ
 <br>
 
@@ -4776,6 +4617,11 @@ a5
 </td>
 <td>
 ┘
+<br>
+
+</td>
+<td>
+¦
 <br>
 
 </td>
@@ -4880,6 +4726,11 @@ a5
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 σ
 <br>
 
@@ -4975,6 +4826,11 @@ a5
 
 </td>
 <td>
+▌
+<br>
+
+</td>
+<td>
 ┼
 <br>
 
@@ -5027,507 +4883,328 @@ a5
 </tr>
 
 <tr>
-<td>windows-1252</td>
-<td></td>
-<td>
+<th>windows-1252</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 e1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 e4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 ed 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 f3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 f4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 fa 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+fd 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 9e 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c1 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c4 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 cd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 d3 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 d4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 da 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+dd 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 8a 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -5579,6 +5256,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -5670,6 +5352,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -5774,6 +5461,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -5865,6 +5557,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -5969,6 +5666,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -6060,6 +5762,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -6164,6 +5871,11 @@ da
 
 </td>
 <td>
+ř
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -6255,6 +5967,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ţ
 <br>
 
 </td>
@@ -6359,6 +6076,11 @@ da
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -6450,6 +6172,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+¦
 <br>
 
 </td>
@@ -6554,6 +6281,11 @@ da
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -6649,6 +6381,11 @@ da
 
 </td>
 <td>
+▌
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -6701,507 +6438,328 @@ da
 </tr>
 
 <tr>
-<td>ISO-8859-1</td>
-<td></td>
-<td>
+<th>ISO-8859-1</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 e1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 e4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 ed 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 f3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 f4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 fa 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+fd 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c1 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c4 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 cd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 d3 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 d4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 da 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+dd 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -7253,6 +6811,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -7344,6 +6907,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -7448,6 +7016,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -7539,6 +7112,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -7643,6 +7221,11 @@ da
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -7734,6 +7317,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -7838,6 +7426,11 @@ da
 
 </td>
 <td>
+ř
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -7929,6 +7522,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ţ
 <br>
 
 </td>
@@ -8033,6 +7631,11 @@ da
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -8124,6 +7727,11 @@ da
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+¦
 <br>
 
 </td>
@@ -8228,6 +7836,11 @@ da
 
 </td>
 <td>
+²
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -8323,6 +7936,11 @@ da
 
 </td>
 <td>
+▌
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -8375,507 +7993,328 @@ da
 </tr>
 
 <tr>
-<td>IBM852</td>
-<td></td>
-<td>
+<th>IBM852</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 82 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 d8 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 a2 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 a3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 85 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+ec 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 92 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 ea 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 a7 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 e7 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 9f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 fd 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 d4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 9c 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 e5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 96 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 b5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 90 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 b7 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 d6 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 e0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 e2 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 de 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+ed 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 91 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 e8 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 a6 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 e6 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 ac 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 fc 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 d2 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 9b 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 d5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 95 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -8923,6 +8362,11 @@ d5
 </td>
 <td>
 …
+<br>
+
+</td>
+<td>
+ě
 <br>
 
 </td>
@@ -9018,6 +8462,11 @@ d5
 </td>
 <td>
 Ţ
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -9122,6 +8571,11 @@ d5
 
 </td>
 <td>
+ě
+<br>
+
+</td>
+<td>
 
 <br>
 
@@ -9213,6 +8667,11 @@ d5
 </td>
 <td>
 Ţ
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -9317,6 +8776,11 @@ d5
 
 </td>
 <td>
+ì
+<br>
+
+</td>
+<td>
 ’
 <br>
 
@@ -9408,6 +8872,11 @@ d5
 </td>
 <td>
 Þ
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -9512,6 +8981,11 @@ d5
 
 </td>
 <td>
+ì
+<br>
+
+</td>
+<td>
 
 <br>
 
@@ -9603,6 +9077,11 @@ d5
 </td>
 <td>
 Þ
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -9707,6 +9186,11 @@ d5
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 Æ
 <br>
 
@@ -9798,6 +9282,11 @@ d5
 </td>
 <td>
 Ì
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -9902,6 +9391,11 @@ d5
 
 </td>
 <td>
+∞
+<br>
+
+</td>
+<td>
 Æ
 <br>
 
@@ -9997,6 +9491,11 @@ d5
 
 </td>
 <td>
+φ
+<br>
+
+</td>
+<td>
 æ
 <br>
 
@@ -10049,507 +9548,328 @@ d5
 </tr>
 
 <tr>
-<td>IBM850</td>
-<td></td>
-<td>
+<th>IBM850</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 82 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 a2 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 a3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+ec 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 b5 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 90 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 d6 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 e0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 e2 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 e9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+ed 
+</span>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
+</th>
 </tr>
 
 <tr>
@@ -10597,6 +9917,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+ě
 <br>
 
 </td>
@@ -10692,6 +10017,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -10796,6 +10126,11 @@ e9
 
 </td>
 <td>
+ě
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -10887,6 +10222,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -10991,6 +10331,11 @@ e9
 
 </td>
 <td>
+ì
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -11082,6 +10427,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -11186,6 +10536,11 @@ e9
 
 </td>
 <td>
+ì
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -11277,6 +10632,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+í
 <br>
 
 </td>
@@ -11381,6 +10741,11 @@ e9
 
 </td>
 <td>
+ý
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -11472,6 +10837,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+Ý
 <br>
 
 </td>
@@ -11572,6 +10942,11 @@ e9
 </td>
 <td>
 ?
+<br>
+
+</td>
+<td>
+∞
 <br>
 
 </td>
@@ -11671,6 +11046,11 @@ e9
 
 </td>
 <td>
+φ
+<br>
+
+</td>
+<td>
 ?
 <br>
 
@@ -11723,507 +11103,328 @@ e9
 </tr>
 
 <tr>
-<td>IBM437</td>
-<td></td>
-<td>
+<th>IBM437</th>
+<th></th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 82 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 a2 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 a3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
+?
+<br>
+
+<span class='hexa'>
+3f 
+</span>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 90 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
 <span class='hexa'>
 3f 
 </span>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>UTF-8</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
+</th>
+<th>
 ?
 <br>
 
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-�
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
-<td>
-?
-<br>
-
-</td>
+<span class='hexa'>
+3f 
+</span>
+</th>
 </tr>
 
 <tr>
@@ -12330,12 +11531,22 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 Ž
 <br>
 
 </td>
 <td>
 �
+<br>
+
+</td>
+<td>
+?
 <br>
 
 </td>
@@ -12525,12 +11736,22 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 
 <br>
 
 </td>
 <td>
 
+<br>
+
+</td>
+<td>
+?
 <br>
 
 </td>
@@ -12720,12 +11941,22 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 Ž
 <br>
 
 </td>
 <td>
 �
+<br>
+
+</td>
+<td>
+?
 <br>
 
 </td>
@@ -12915,6 +12146,11 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 
 <br>
 
@@ -13004,6 +12240,11 @@ a3
 <br>
 
 </td>
+<td>
+?
+<br>
+
+</td>
 </tr>
 
 <tr>
@@ -13110,12 +12351,22 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 Ä
 <br>
 
 </td>
 <td>
 É
+<br>
+
+</td>
+<td>
+?
 <br>
 
 </td>
@@ -13305,12 +12556,22 @@ a3
 
 </td>
 <td>
+?
+<br>
+
+</td>
+<td>
 Ä
 <br>
 
 </td>
 <td>
 É
+<br>
+
+</td>
+<td>
+?
 <br>
 
 </td>
@@ -13398,316 +12659,336 @@ a3
 
 </table>
 
-<h1>UTF-8 chápáno jako jiné kóodování a prohnáno přes UNICODE v Javě<h1>
+<h1>UTF-8 chápáno jako jiné kóodování a prohnáno přes UNICODE v Javě</h1>
+<p>Myslí se tím situace, kdy v Javě čtu nějaký souborv UTF-8 textově, zpracovávám ho a pak zase zapisuji do souboru s tím, že mně nezajímá skutečné kódování,protože mě nezajímají znaky s diakritikou. Například budu mít nástroj, který odstraní zbytečné mezery na koních řádků.</p>
+<p>Je vidět, že při použití windowsových kódování dojde k poškození některých znaků, je to dáno tím, že v těchto kódováních nejsou všechny kód pointy využity.</p>
+<p>Hexa je zde nikoli znak v daném kódování, ale sekvence, na kterou je prohnáním znak pokažen. To pak nejsou validní sekvence UTF8. Má se to tak, že první znaky UTF-8 sekvence pkaženy nejsou nikdy, ale další jsou převedeny na znak 3F '?', což není validní druhý znak UTF-8 sekvence, ten by měl být 10xxxxxx binárně.</p>
 <table border=0>
 
 <tr>
-<td>UTF-8</td>
-<td>
+<th colspan=1>UTF-8</th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 c3 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 c3 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 c3 a9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 c4 9b 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 c3 ad 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 c3 b3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 c3 b4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 c3 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 c5 af 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 c4 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 c5 95 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 c5 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 c5 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 c4 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 c5 99 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 c4 8f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 c5 a5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 c5 88 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 c4 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c3 81 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c3 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c3 89 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 c4 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 c3 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 c3 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 c3 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 c3 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 c5 ae 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 c4 b9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 c5 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 c5 bd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 c5 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 c4 8c 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 c5 98 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 c4 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 c5 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 c5 87 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 c4 bd 
 </span>
-</td>
+</th>
 </tr>
+
 
 <tr>
 <td>windows-1250</td>
@@ -13781,6 +13062,14 @@ c3 ba
 
 <span class='hexa'>
 c5 af 
+</span>
+</td>
+<td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
 </span>
 </td>
 <td>
@@ -13933,6 +13222,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -14092,6 +13389,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -14241,6 +13546,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -14400,6 +13713,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -14549,6 +13870,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+�?
+<br>
+
+<span class='hexa'>
+c3 3f 
 </span>
 </td>
 <td>
@@ -14708,6 +14037,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -14857,6 +14194,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -15016,6 +14361,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -15165,6 +14518,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -15324,6 +14685,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -15473,6 +14842,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -15632,6 +15009,14 @@ c5 af
 </span>
 </td>
 <td>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</td>
+<td>
 ĺ
 <br>
 
@@ -15781,6 +15166,14 @@ c3 9a
 
 <span class='hexa'>
 c5 ae 
+</span>
+</td>
+<td>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
 </span>
 </td>
 <td>
@@ -15868,13 +15261,9 @@ c4 bd
 </table>
 
 <h1>Bijektivnost konverze 8bit => UTF-16 => 8bit</h1>
-<table border=0>
+<p>V tabulce jsou nejsou znaky, ale jen jejich kódy, protože nebijektivní kódy nereprezentují v daném kódování žádný znak.</p>
 
-<tr>
-<td>UTF-8</td>
-<td>127</td>
-<td>80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92  ... </td>
-</tr>
+<table border=0><tr><th>Kódování</th><th>Počet</th><th>Nebijektivní kódy</th></tr>
 
 <tr>
 <td>windows-1250</td>
@@ -15920,321 +15309,339 @@ c4 bd
 
 </table>
 
-<h1>Dvojnásobné špatné chápání a překódování</h1>
+<h1>UTF-8 dvojnásobně špatně chápáno a překódováno stejným kódováním</h1>
 <table border=0>
 
+<p>Mějme text v UTF8, ale mysleme si, že je v nějakém 8. bitovém kódování, pochopme ho v tomto kódování a vyjádřeme v UTF8 a pak ještě jednou ho chápejme v tom stejném kódování.</p>
+
 <tr>
-<td>UTF-8</td>
-<td>UTF-8</td>
-<td>
+<th colspan=2>UTF-8</th>
+<th>
 á
 <br>
 
 <span class='hexa'>
 c3 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 ä
 <br>
 
 <span class='hexa'>
 c3 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 é
 <br>
 
 <span class='hexa'>
 c3 a9 
 </span>
-</td>
-<td>
+</th>
+<th>
 ě
 <br>
 
 <span class='hexa'>
 c4 9b 
 </span>
-</td>
-<td>
+</th>
+<th>
 í
 <br>
 
 <span class='hexa'>
 c3 ad 
 </span>
-</td>
-<td>
+</th>
+<th>
 ó
 <br>
 
 <span class='hexa'>
 c3 b3 
 </span>
-</td>
-<td>
+</th>
+<th>
 ô
 <br>
 
 <span class='hexa'>
 c3 b4 
 </span>
-</td>
-<td>
+</th>
+<th>
 ú
 <br>
 
 <span class='hexa'>
 c3 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ů
 <br>
 
 <span class='hexa'>
 c5 af 
 </span>
-</td>
-<td>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</th>
+<th>
 ĺ
 <br>
 
 <span class='hexa'>
 c4 ba 
 </span>
-</td>
-<td>
+</th>
+<th>
 ŕ
 <br>
 
 <span class='hexa'>
 c5 95 
 </span>
-</td>
-<td>
+</th>
+<th>
 ž
 <br>
 
 <span class='hexa'>
 c5 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 š
 <br>
 
 <span class='hexa'>
 c5 a1 
 </span>
-</td>
-<td>
+</th>
+<th>
 č
 <br>
 
 <span class='hexa'>
 c4 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 ř
 <br>
 
 <span class='hexa'>
 c5 99 
 </span>
-</td>
-<td>
+</th>
+<th>
 ď
 <br>
 
 <span class='hexa'>
 c4 8f 
 </span>
-</td>
-<td>
+</th>
+<th>
 ť
 <br>
 
 <span class='hexa'>
 c5 a5 
 </span>
-</td>
-<td>
+</th>
+<th>
 ň
 <br>
 
 <span class='hexa'>
 c5 88 
 </span>
-</td>
-<td>
+</th>
+<th>
 ľ
 <br>
 
 <span class='hexa'>
 c4 be 
 </span>
-</td>
-<td>
+</th>
+<th>
 Á
 <br>
 
 <span class='hexa'>
 c3 81 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ä
 <br>
 
 <span class='hexa'>
 c3 84 
 </span>
-</td>
-<td>
+</th>
+<th>
 É
 <br>
 
 <span class='hexa'>
 c3 89 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ě
 <br>
 
 <span class='hexa'>
 c4 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Í
 <br>
 
 <span class='hexa'>
 c3 8d 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ó
 <br>
 
 <span class='hexa'>
 c3 93 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ô
 <br>
 
 <span class='hexa'>
 c3 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ú
 <br>
 
 <span class='hexa'>
 c3 9a 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ů
 <br>
 
 <span class='hexa'>
 c5 ae 
 </span>
-</td>
-<td>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
+</span>
+</th>
+<th>
 Ĺ
 <br>
 
 <span class='hexa'>
 c4 b9 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ŕ
 <br>
 
 <span class='hexa'>
 c5 94 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ž
 <br>
 
 <span class='hexa'>
 c5 bd 
 </span>
-</td>
-<td>
+</th>
+<th>
 Š
 <br>
 
 <span class='hexa'>
 c5 a0 
 </span>
-</td>
-<td>
+</th>
+<th>
 Č
 <br>
 
 <span class='hexa'>
 c4 8c 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ř
 <br>
 
 <span class='hexa'>
 c5 98 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ď
 <br>
 
 <span class='hexa'>
 c4 8e 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ť
 <br>
 
 <span class='hexa'>
 c5 a4 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ň
 <br>
 
 <span class='hexa'>
 c5 87 
 </span>
-</td>
-<td>
+</th>
+<th>
 Ľ
 <br>
 
 <span class='hexa'>
 c4 bd 
 </span>
-</td>
+</th>
 </tr>
 
+
 <tr>
-<td>UTF-8</td>
-<td>windows-1250</td>
+<th>windows-1250</th>
+<th>windows-1250</th>
 <td>
 Ä‚Ë‡
 <br>
@@ -16305,6 +15712,14 @@ c4 82 c5 9f
 
 <span class='hexa'>
 c4 b9 c5 bb 
+</span>
+</td>
+<td>
+Ä‚Ëť
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
 </span>
 </td>
 <td>
@@ -16460,6 +15875,14 @@ c4 b9 c2 ae
 </span>
 </td>
 <td>
+Ä‚ĹĄ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
 Ă„Ä…
 <br>
 
@@ -16542,8 +15965,8 @@ c3 84 cb 9d
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>ISO-8859-2</td>
+<th>ISO-8859-2</th>
+<th>ISO-8859-2</th>
 <td>
 ÄÄ
 <br>
@@ -16614,6 +16037,14 @@ c4 82 c5 9f
 
 <span class='hexa'>
 c4 b9 c5 bb 
+</span>
+</td>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
 </span>
 </td>
 <td>
@@ -16769,6 +16200,14 @@ c4 b9 c5 bd
 </span>
 </td>
 <td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
 ĂĹĄ
 <br>
 
@@ -16851,8 +16290,8 @@ c3 84 cb 9d
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>windows-1252</td>
+<th>windows-1252</th>
+<th>windows-1252</th>
 <td>
 ÃƒÂ¡
 <br>
@@ -16923,6 +16362,14 @@ c3 83 c2 ba
 
 <span class='hexa'>
 c3 85 c2 af 
+</span>
+</td>
+<td>
+ÃƒÂ½
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
 </span>
 </td>
 <td>
@@ -17078,6 +16525,14 @@ c3 85 c2 ae
 </span>
 </td>
 <td>
+Ãƒï¿½
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
 Ã„Â¹
 <br>
 
@@ -17160,8 +16615,8 @@ c3 84 c2 bd
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>ISO-8859-1</td>
+<th>ISO-8859-1</th>
+<th>ISO-8859-1</th>
 <td>
 ÃÂ¡
 <br>
@@ -17232,6 +16687,14 @@ c3 83 c2 ba
 
 <span class='hexa'>
 c3 85 c2 af 
+</span>
+</td>
+<td>
+ÃÂ½
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
 </span>
 </td>
 <td>
@@ -17387,6 +16850,14 @@ c3 85 c2 ae
 </span>
 </td>
 <td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
 ÃÂ¹
 <br>
 
@@ -17469,8 +16940,8 @@ c3 84 c2 bd
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>IBM852</td>
+<th>IBM852</th>
+<th>IBM852</th>
 <td>
 Ôöť├ş
 <br>
@@ -17541,6 +17012,14 @@ e2 94 9c e2 95 91
 
 <span class='hexa'>
 e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Ôöť┼╗
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
 </span>
 </td>
 <td>
@@ -17696,6 +17175,14 @@ e2 94 bc c2 ab
 </span>
 </td>
 <td>
+Ôöť┼ü
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
 ÔöÇÔĽú
 <br>
 
@@ -17778,8 +17265,8 @@ e2 94 80 c5 bb
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>IBM850</td>
+<th>IBM850</th>
+<th>IBM850</th>
 <td>
 Ôö£├¡
 <br>
@@ -17850,6 +17337,14 @@ e2 94 9c e2 95 91
 
 <span class='hexa'>
 e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Ôö£┬ó
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
 </span>
 </td>
 <td>
@@ -18005,6 +17500,14 @@ e2 94 bc c2 ab
 </span>
 </td>
 <td>
+Ôö£├ÿ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
 ÔöÇÔòú
 <br>
 
@@ -18087,8 +17590,8 @@ e2 94 80 c2 a2
 </tr>
 
 <tr>
-<td>UTF-8</td>
-<td>IBM437</td>
+<th>IBM437</th>
+<th>IBM437</th>
 <td>
 Γö£├¡
 <br>
@@ -18159,6 +17662,14 @@ e2 94 9c e2 95 91
 
 <span class='hexa'>
 e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Γö£Γò£
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
 </span>
 </td>
 <td>
@@ -18314,6 +17825,14 @@ e2 94 bc c2 ab
 </span>
 </td>
 <td>
+Γö£┬Ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
 ΓöÇΓòú
 <br>
 
@@ -18387,6 +17906,13988 @@ e2 94 bc c3 a7
 </td>
 <td>
 ΓöÇΓò£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+</table>
+
+<h1>UTF-8 dvojnásobně špatně chápáno a překódováno různými kódováními</h1>
+<table border=0>
+
+<p>Mějme text v UTF8, ale mysleme si, že je v nějakém 8. bitovém kódování, pochopme ho v tomto kódování a vyjádřeme v UTF8 a pak ještě jednou ho chápejme v nějakém jiném 8. bitovém kódování.</p>
+
+<tr>
+<th colspan=2>UTF-8</th>
+<th>
+á
+<br>
+
+<span class='hexa'>
+c3 a1 
+</span>
+</th>
+<th>
+ä
+<br>
+
+<span class='hexa'>
+c3 a4 
+</span>
+</th>
+<th>
+é
+<br>
+
+<span class='hexa'>
+c3 a9 
+</span>
+</th>
+<th>
+ě
+<br>
+
+<span class='hexa'>
+c4 9b 
+</span>
+</th>
+<th>
+í
+<br>
+
+<span class='hexa'>
+c3 ad 
+</span>
+</th>
+<th>
+ó
+<br>
+
+<span class='hexa'>
+c3 b3 
+</span>
+</th>
+<th>
+ô
+<br>
+
+<span class='hexa'>
+c3 b4 
+</span>
+</th>
+<th>
+ú
+<br>
+
+<span class='hexa'>
+c3 ba 
+</span>
+</th>
+<th>
+ů
+<br>
+
+<span class='hexa'>
+c5 af 
+</span>
+</th>
+<th>
+ý
+<br>
+
+<span class='hexa'>
+c3 bd 
+</span>
+</th>
+<th>
+ĺ
+<br>
+
+<span class='hexa'>
+c4 ba 
+</span>
+</th>
+<th>
+ŕ
+<br>
+
+<span class='hexa'>
+c5 95 
+</span>
+</th>
+<th>
+ž
+<br>
+
+<span class='hexa'>
+c5 be 
+</span>
+</th>
+<th>
+š
+<br>
+
+<span class='hexa'>
+c5 a1 
+</span>
+</th>
+<th>
+č
+<br>
+
+<span class='hexa'>
+c4 8d 
+</span>
+</th>
+<th>
+ř
+<br>
+
+<span class='hexa'>
+c5 99 
+</span>
+</th>
+<th>
+ď
+<br>
+
+<span class='hexa'>
+c4 8f 
+</span>
+</th>
+<th>
+ť
+<br>
+
+<span class='hexa'>
+c5 a5 
+</span>
+</th>
+<th>
+ň
+<br>
+
+<span class='hexa'>
+c5 88 
+</span>
+</th>
+<th>
+ľ
+<br>
+
+<span class='hexa'>
+c4 be 
+</span>
+</th>
+<th>
+Á
+<br>
+
+<span class='hexa'>
+c3 81 
+</span>
+</th>
+<th>
+Ä
+<br>
+
+<span class='hexa'>
+c3 84 
+</span>
+</th>
+<th>
+É
+<br>
+
+<span class='hexa'>
+c3 89 
+</span>
+</th>
+<th>
+Ě
+<br>
+
+<span class='hexa'>
+c4 9a 
+</span>
+</th>
+<th>
+Í
+<br>
+
+<span class='hexa'>
+c3 8d 
+</span>
+</th>
+<th>
+Ó
+<br>
+
+<span class='hexa'>
+c3 93 
+</span>
+</th>
+<th>
+Ô
+<br>
+
+<span class='hexa'>
+c3 94 
+</span>
+</th>
+<th>
+Ú
+<br>
+
+<span class='hexa'>
+c3 9a 
+</span>
+</th>
+<th>
+Ů
+<br>
+
+<span class='hexa'>
+c5 ae 
+</span>
+</th>
+<th>
+Ý
+<br>
+
+<span class='hexa'>
+c3 9d 
+</span>
+</th>
+<th>
+Ĺ
+<br>
+
+<span class='hexa'>
+c4 b9 
+</span>
+</th>
+<th>
+Ŕ
+<br>
+
+<span class='hexa'>
+c5 94 
+</span>
+</th>
+<th>
+Ž
+<br>
+
+<span class='hexa'>
+c5 bd 
+</span>
+</th>
+<th>
+Š
+<br>
+
+<span class='hexa'>
+c5 a0 
+</span>
+</th>
+<th>
+Č
+<br>
+
+<span class='hexa'>
+c4 8c 
+</span>
+</th>
+<th>
+Ř
+<br>
+
+<span class='hexa'>
+c5 98 
+</span>
+</th>
+<th>
+Ď
+<br>
+
+<span class='hexa'>
+c4 8e 
+</span>
+</th>
+<th>
+Ť
+<br>
+
+<span class='hexa'>
+c5 a4 
+</span>
+</th>
+<th>
+Ň
+<br>
+
+<span class='hexa'>
+c5 87 
+</span>
+</th>
+<th>
+Ľ
+<br>
+
+<span class='hexa'>
+c4 bd 
+</span>
+</th>
+</tr>
+
+
+<tr>
+<th>windows-1250</th>
+<th>ISO-8859-2</th>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+ÄÂ¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+ÄÂŠ
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+Ăâş
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+ÄÂ­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+ÄĹ
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+ÄÂ´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+ÄĹ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+ÄšĹť
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+ĂĹ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+Äšâ˘
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+ÄšÄž
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+ÄšË
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+ĂĹ¤
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+Äšâ˘
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+ĂĹš
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+ÄšÄ
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+Äšďż˝
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+ĂÄž
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+Äďż˝
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+Äâ°
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+ĂĹĄ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+ÄĹ¤
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+ÄĹĄ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+ÄšÂŽ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+ÄĹĽ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+ĂÄ
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+Äšâ
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+ÄšË
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+ÄšÂ 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+ĂĹ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+Äšďż˝
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+ĂĹ˝
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+ÄšÂ¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+ÄšâĄ
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+ĂË
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1250</th>
+<th>windows-1252</th>
+<td>
+Ä‚Ë‡
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+Ä‚Â¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+Ä‚Â©
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+Ã„â€º
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+Ä‚Â­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+Ä‚Å‚
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+Ä‚Â´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+Ä‚ÅŸ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Å»
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+Ä‚Ë�
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+Ã„ÅŸ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+Ä¹â€¢
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+Ä¹Ä¾
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+Ä¹Ë‡
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+Ã„Å¤
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+Ä¹â„¢
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+Ã„Å¹
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+Ä¹Ä„
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+Ä¹ï¿½
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+Ã„Ä¾
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+Ä‚ï¿½
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+Ä‚â€ž
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+Ä‚â€°
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+Ã„Å¡
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ä‚Å¤
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+Ä‚â€œ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+Ä‚â€�
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+Ä‚Å¡
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+Ä¹Â®
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+Ä‚Å¥
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+Ã„Ä…
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+Ä¹â€�
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+Ä¹Ë�
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+Ä¹Â 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+Ã„Åš
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+Ä¹ï¿½
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+Ã„Å½
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+Ä¹Â¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+Ä¹â€¡
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+Ã„Ë�
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1250</th>
+<th>ISO-8859-1</th>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+ÄÂ¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+ÄÂ©
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+Ãâº
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+ÄÂ­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+ÄÅ
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+ÄÂ´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+ÄÅ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Å»
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+ÃÅ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+Ä¹â¢
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+Ä¹Ä¾
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+Ä¹Ë
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+ÃÅ¤
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+Ä¹â¢
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+ÃÅ¹
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+Ä¹Ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+Ä¹ï¿½
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+ÃÄ¾
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+Äï¿½
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+Äâ°
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+ÃÅ¡
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+ÄÅ¤
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+Äâ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+ÄÅ¡
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+Ä¹Â®
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+ÄÅ¥
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+ÃÄ
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+Ä¹â
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+Ä¹Ë
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+Ä¹Â 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+ÃÅ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+Ä¹ï¿½
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+ÃÅ½
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+Ä¹Â¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+Ä¹â¡
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+ÃË
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1250</th>
+<th>IBM852</th>
+<td>
+─é╦ç
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+─é┬Ą
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┬ę
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+├äÔÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+─é┬ş
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼č
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦Ł
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼č
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣ÔÇó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+─╣─ż
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+─╣╦ç
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+├ä┼Ą
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+─╣Ôäó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+├ä┼╣
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+─╣´┐Ż
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä─ż
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+─é´┐Ż
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+─éÔÇ×
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+─éÔÇ░
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─é┼Ą
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+─éÔÇť
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+─éÔÇŁ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+─é┼í
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+─╣┬«
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+─é┼ą
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+├ä─ů
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+─╣ÔÇŁ
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+─╣╦Ł
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┼Ü
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+─╣´┐Ż
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä┼Ż
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+─╣┬Ą
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣ÔÇí
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+├ä╦Ł
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1250</th>
+<th>IBM850</th>
+<td>
+─é╦ç
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+─é┬ñ
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┬®
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+├äÔÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+─é┬¡
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼ƒ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦Ø
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼ƒ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣ÔÇó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+─╣─¥
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+─╣╦ç
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+├ä┼ñ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+─╣Ôäó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+├ä┼╣
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+─╣´┐¢
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä─¥
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+─é´┐¢
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+─éÔÇ×
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+─éÔÇ░
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─é┼ñ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+─éÔÇ£
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+─éÔÇØ
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+─é┼í
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+─╣┬«
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+─é┼Ñ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+├ä─à
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+─╣ÔÇØ
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+─╣╦Ø
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┼Ü
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+─╣´┐¢
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä┼¢
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+─╣┬ñ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣ÔÇí
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+├ä╦Ø
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1250</th>
+<th>IBM437</th>
+<td>
+─é╦ç
+<br>
+
+<span class='hexa'>
+c4 82 cb 87 
+</span>
+</td>
+<td>
+─é┬ñ
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┬⌐
+<br>
+
+<span class='hexa'>
+c4 82 c2 a9 
+</span>
+</td>
+<td>
+├äΓÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+─é┬¡
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼ƒ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦¥
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼ƒ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣ΓÇó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a2 
+</span>
+</td>
+<td>
+─╣─╛
+<br>
+
+<span class='hexa'>
+c4 b9 c4 be 
+</span>
+</td>
+<td>
+─╣╦ç
+<br>
+
+<span class='hexa'>
+c4 b9 cb 87 
+</span>
+</td>
+<td>
+├ä┼ñ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a4 
+</span>
+</td>
+<td>
+─╣Γäó
+<br>
+
+<span class='hexa'>
+c4 b9 e2 84 a2 
+</span>
+</td>
+<td>
+├ä┼╣
+<br>
+
+<span class='hexa'>
+c3 84 c5 b9 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+─╣∩┐╜
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä─╛
+<br>
+
+<span class='hexa'>
+c3 84 c4 be 
+</span>
+</td>
+<td>
+─é∩┐╜
+<br>
+
+<span class='hexa'>
+c4 82 ef bf bd 
+</span>
+</td>
+<td>
+─éΓÇ₧
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9e 
+</span>
+</td>
+<td>
+─éΓÇ░
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─é┼ñ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a4 
+</span>
+</td>
+<td>
+─éΓÇ£
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9c 
+</span>
+</td>
+<td>
+─éΓÇ¥
+<br>
+
+<span class='hexa'>
+c4 82 e2 80 9d 
+</span>
+</td>
+<td>
+─é┼í
+<br>
+
+<span class='hexa'>
+c4 82 c5 a1 
+</span>
+</td>
+<td>
+─╣┬«
+<br>
+
+<span class='hexa'>
+c4 b9 c2 ae 
+</span>
+</td>
+<td>
+─é┼Ñ
+<br>
+
+<span class='hexa'>
+c4 82 c5 a5 
+</span>
+</td>
+<td>
+├ä─à
+<br>
+
+<span class='hexa'>
+c3 84 c4 85 
+</span>
+</td>
+<td>
+─╣ΓÇ¥
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 9d 
+</span>
+</td>
+<td>
+─╣╦¥
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┼Ü
+<br>
+
+<span class='hexa'>
+c3 84 c5 9a 
+</span>
+</td>
+<td>
+─╣∩┐╜
+<br>
+
+<span class='hexa'>
+c4 b9 ef bf bd 
+</span>
+</td>
+<td>
+├ä┼╜
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+─╣┬ñ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣ΓÇí
+<br>
+
+<span class='hexa'>
+c4 b9 e2 80 a1 
+</span>
+</td>
+<td>
+├ä╦¥
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>windows-1250</th>
+<td>
+Ä‚Ä„
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+Ä‚Â¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+Ä‚Ĺ 
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+Ă„Â›
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+Ä‚Â­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+Ä‚Ĺ‚
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+Ä‚Â´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+Ä‚Ĺź
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+ÄąĹ»
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+Ä‚Ëť
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+Ă„Ĺź
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+ÄąÂ•
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+ÄąĹľ
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+ÄąÄ„
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+Ă„ÂŤ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+ÄąÂ™
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+Ă„ÂŹ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+ÄąÄ˝
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+ÄąÂ�
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+Ă„Ĺľ
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+Ä‚Â�
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+Ä‚Â„
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+Ä‚Â‰
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+Ă„Âš
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+Ä‚ÂŤ
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+Ä‚Â“
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+Ä‚Â”
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+Ä‚Âš
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+ÄąĹ˝
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+Ä‚Âť
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+Ă„Ĺˇ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+ÄąÂ”
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+ÄąËť
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+ÄąÂ 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+Ă„ÂŚ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+ÄąÂ�
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+Ă„ÂŽ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+ÄąÂ¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+ÄąÂ‡
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+Ă„Ëť
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>windows-1252</th>
+<td>
+Ä‚Ä„
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+Ä‚Â¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+Ä‚Å 
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+Ã„Â›
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+Ä‚Â­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+Ä‚Å‚
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+Ä‚Â´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+Ä‚ÅŸ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Å»
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+Ä‚Ë�
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+Ã„ÅŸ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Â•
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+Ä¹Å¾
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+Ä¹Ä„
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+Ã„Â�
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+Ä¹Â™
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+Ã„Â�
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+Ä¹Ä½
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+Ä¹Âˆ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+Ã„Å¾
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+Ä‚Â�
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+Ä‚Â„
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+Ä‚Â‰
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+Ã„Âš
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+Ä‚Â�
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+Ä‚Â“
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+Ä‚Â”
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+Ä‚Âš
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+Ä¹Å½
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+Ä‚Â�
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+Ã„Å¡
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ä¹Â”
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+Ä¹Ë�
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+Ä¹Â 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+Ã„ÂŒ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+Ä¹Â˜
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+Ã„ÂŽ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+Ä¹Â¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+Ä¹Â‡
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+Ã„Ë�
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>ISO-8859-1</th>
+<td>
+ÄÄ
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+ÄÂ¤
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+ÄÅ 
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+ÄÂ­
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+ÄÅ
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+ÄÂ´
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+ÄÅ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Å»
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+ÄË
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+ÃÅ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+Ä¹Å¾
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+Ä¹Ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+Ä¹Ä½
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+ÃÅ¾
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+Ä¹Å½
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+ÄÂ
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+ÃÅ¡
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+Ä¹Ë
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+Ä¹Â 
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+ÃÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+Ä¹Â¤
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+Ä¹Â
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+ÃË
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>IBM852</th>
+<td>
+─é─ä
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+─é┬Ą
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┼á
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+├ä┬Ť
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+─é┬ş
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼č
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦Ł
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼č
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣┬Ľ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+─╣┼ż
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+├ä┬Ź
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+─╣┬Ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+├ä┬Ć
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+─╣─Ż
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+─╣┬ł
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+├ä┼ż
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+─é┬ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+─é┬ä
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+─é┬ë
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+─é┬Ź
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+─é┬ô
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+─é┬ö
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+─é┬Ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+─╣┼Ż
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+─é┬Ł
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─╣┬ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+─╣╦Ł
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+─╣┬ś
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+─╣┬Ą
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣┬ç
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+├ä╦Ł
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>IBM850</th>
+<td>
+─é─ä
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+─é┬ñ
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┼á
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+├ä┬ø
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+─é┬¡
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼ƒ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦Ø
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼ƒ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣┬ò
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+─╣┼¥
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+├ä┬ì
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+─╣┬Ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+├ä┬Å
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+─╣─¢
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+─╣┬ê
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+├ä┼¥
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+─é┬ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+─é┬ä
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+─é┬ë
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+─é┬ì
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+─é┬ô
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+─é┬ö
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+─é┬Ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+─╣┼¢
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+─é┬Ø
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─╣┬ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+─╣╦Ø
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+─╣┬ÿ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+─╣┬ñ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣┬ç
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+├ä╦Ø
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-2</th>
+<th>IBM437</th>
+<td>
+─é─ä
+<br>
+
+<span class='hexa'>
+c4 82 c4 84 
+</span>
+</td>
+<td>
+─é┬ñ
+<br>
+
+<span class='hexa'>
+c4 82 c2 a4 
+</span>
+</td>
+<td>
+─é┼á
+<br>
+
+<span class='hexa'>
+c4 82 c5 a0 
+</span>
+</td>
+<td>
+├ä┬¢
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+─é┬¡
+<br>
+
+<span class='hexa'>
+c4 82 c2 ad 
+</span>
+</td>
+<td>
+─é┼é
+<br>
+
+<span class='hexa'>
+c4 82 c5 82 
+</span>
+</td>
+<td>
+─é┬┤
+<br>
+
+<span class='hexa'>
+c4 82 c2 b4 
+</span>
+</td>
+<td>
+─é┼ƒ
+<br>
+
+<span class='hexa'>
+c4 82 c5 9f 
+</span>
+</td>
+<td>
+─╣┼╗
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bb 
+</span>
+</td>
+<td>
+─é╦¥
+<br>
+
+<span class='hexa'>
+c4 82 cb 9d 
+</span>
+</td>
+<td>
+├ä┼ƒ
+<br>
+
+<span class='hexa'>
+c3 84 c5 9f 
+</span>
+</td>
+<td>
+─╣┬ò
+<br>
+
+<span class='hexa'>
+c4 b9 c2 95 
+</span>
+</td>
+<td>
+─╣┼╛
+<br>
+
+<span class='hexa'>
+c4 b9 c5 be 
+</span>
+</td>
+<td>
+─╣─ä
+<br>
+
+<span class='hexa'>
+c4 b9 c4 84 
+</span>
+</td>
+<td>
+├ä┬ì
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+─╣┬Ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 99 
+</span>
+</td>
+<td>
+├ä┬Å
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+─╣─╜
+<br>
+
+<span class='hexa'>
+c4 b9 c4 bd 
+</span>
+</td>
+<td>
+─╣┬ê
+<br>
+
+<span class='hexa'>
+c4 b9 c2 88 
+</span>
+</td>
+<td>
+├ä┼╛
+<br>
+
+<span class='hexa'>
+c3 84 c5 be 
+</span>
+</td>
+<td>
+─é┬ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 81 
+</span>
+</td>
+<td>
+─é┬ä
+<br>
+
+<span class='hexa'>
+c4 82 c2 84 
+</span>
+</td>
+<td>
+─é┬ë
+<br>
+
+<span class='hexa'>
+c4 82 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+─é┬ì
+<br>
+
+<span class='hexa'>
+c4 82 c2 8d 
+</span>
+</td>
+<td>
+─é┬ô
+<br>
+
+<span class='hexa'>
+c4 82 c2 93 
+</span>
+</td>
+<td>
+─é┬ö
+<br>
+
+<span class='hexa'>
+c4 82 c2 94 
+</span>
+</td>
+<td>
+─é┬Ü
+<br>
+
+<span class='hexa'>
+c4 82 c2 9a 
+</span>
+</td>
+<td>
+─╣┼╜
+<br>
+
+<span class='hexa'>
+c4 b9 c5 bd 
+</span>
+</td>
+<td>
+─é┬¥
+<br>
+
+<span class='hexa'>
+c4 82 c2 9d 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+─╣┬ö
+<br>
+
+<span class='hexa'>
+c4 b9 c2 94 
+</span>
+</td>
+<td>
+─╣╦¥
+<br>
+
+<span class='hexa'>
+c4 b9 cb 9d 
+</span>
+</td>
+<td>
+─╣┬á
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+─╣┬ÿ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+─╣┬ñ
+<br>
+
+<span class='hexa'>
+c4 b9 c2 a4 
+</span>
+</td>
+<td>
+─╣┬ç
+<br>
+
+<span class='hexa'>
+c4 b9 c2 87 
+</span>
+</td>
+<td>
+├ä╦¥
+<br>
+
+<span class='hexa'>
+c3 84 cb 9d 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>windows-1250</th>
+<td>
+Ă�Âˇ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+Ă�Â¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+Ă�Â©
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+Ă„â€ş
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+Ă�Â­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+Ă�Âł
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+Ă�Â´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+Ă�Âş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+Ă…ÂŻ
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+Ă�Â˝
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+Ă„Âş
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+Ă…â€˘
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+Ă…Âľ
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+Ă…Âˇ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+Ă„ďż˝
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+Ă…â„˘
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+Ă„ďż˝
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+Ă…ÂĄ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+Ă…Ë†
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+Ă„Âľ
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+Ă�ďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ă�â€ž
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+Ă�â€°
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+Ă„Ĺˇ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ă�ďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ă�â€ś
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+Ă�â€ť
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+Ă�Ĺˇ
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+Ă…Â®
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+Ă�ďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ă„Âą
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+Ă…â€ť
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+Ă…Â˝
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+Ă…Â 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+Ă„Ĺ’
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+Ă…Ëś
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+Ă„Ĺ˝
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+Ă…Â¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+Ă…â€ˇ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+Ă„Â˝
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>ISO-8859-2</th>
+<td>
+ĂÂĄ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+ĂÂ¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+ĂÂŠ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+Ăâş
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+ĂÂ­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+ĂÂł
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+ĂÂ´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+ĂÂş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+ĂÂŻ
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+ĂÂş
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+Ăâ˘
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+ĂÂž
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+ĂÂĄ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+Ăďż˝
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+Ăâ˘
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+Ăďż˝
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+ĂÂĽ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+ĂË
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+ĂÂž
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+Ăďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ăâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+Ăâ°
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+ĂĹĄ
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ăďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ăâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+Ăâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+ĂĹĄ
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+ĂÂŽ
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+Ăďż˝
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+ĂÂš
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+Ăâ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+ĂÂ 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+ĂĹ
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+ĂË
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+ĂĹ˝
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+ĂÂ¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+ĂâĄ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>ISO-8859-1</th>
+<td>
+ÃÂ¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+ÃÂ¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+ÃÂ©
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+Ãâº
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+ÃÂ­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+ÃÂ³
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+ÃÂ´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+ÃÂº
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+ÃÂ¯
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+ÃÂ½
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+ÃÂº
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+Ãâ¢
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+ÃÂ¾
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+ÃÂ¡
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+Ãï¿½
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+Ãâ¢
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+Ãï¿½
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+ÃÂ¥
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+ÃË
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+ÃÂ¾
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+Ãï¿½
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ãâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+Ãâ°
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+ÃÅ¡
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+Ãï¿½
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+Ãâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+Ãâ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+ÃÅ¡
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+ÃÂ®
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+Ãï¿½
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+ÃÂ¹
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+Ãâ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+ÃÂ½
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+ÃÂ 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+ÃÅ
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+ÃË
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+ÃÅ½
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+ÃÂ¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+Ãâ¡
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+ÃÂ½
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>IBM852</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬Ą
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬ę
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├äÔÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+├â┬ş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├ů┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬Ż
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├ůÔÇó
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+├ů┬ż
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├ů┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä´┐Ż
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├ůÔäó
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+├ä´┐Ż
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├ů┬ą
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├ů╦ć
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+├ä┬ż
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â´┐Ż
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âÔÇ×
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+├âÔÇ░
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+├â´┐Ż
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âÔÇť
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+├âÔÇŁ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+├â┼í
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+├ů┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â´┐Ż
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├ůÔÇŁ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+├ů┬Ż
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├ů┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┼ĺ
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+├ů╦ť
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+├ä┼Ż
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+├ů┬Ą
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├ůÔÇí
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+├ä┬Ż
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>IBM850</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬ñ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬®
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├äÔÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+├â┬¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├à┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬¢
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├àÔÇó
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+├à┬¥
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├à┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä´┐¢
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├àÔäó
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+├ä´┐¢
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├à┬Ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├à╦å
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+├ä┬¥
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â´┐¢
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âÔÇ×
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+├âÔÇ░
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+├â´┐¢
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âÔÇ£
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+├âÔÇØ
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+├â┼í
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+├à┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â´┐¢
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├àÔÇØ
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+├à┬¢
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├à┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┼Æ
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+├à╦£
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+├ä┼¢
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+├à┬ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├àÔÇí
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+├ä┬¢
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>windows-1252</th>
+<th>IBM437</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬ñ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬⌐
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├äΓÇ║
+<br>
+
+<span class='hexa'>
+c3 84 e2 80 ba 
+</span>
+</td>
+<td>
+├â┬¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├à┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬╜
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├àΓÇó
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a2 
+</span>
+</td>
+<td>
+├à┬╛
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├à┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä∩┐╜
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├àΓäó
+<br>
+
+<span class='hexa'>
+c3 85 e2 84 a2 
+</span>
+</td>
+<td>
+├ä∩┐╜
+<br>
+
+<span class='hexa'>
+c3 84 ef bf bd 
+</span>
+</td>
+<td>
+├à┬Ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├à╦å
+<br>
+
+<span class='hexa'>
+c3 85 cb 86 
+</span>
+</td>
+<td>
+├ä┬╛
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â∩┐╜
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âΓÇ₧
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9e 
+</span>
+</td>
+<td>
+├âΓÇ░
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 b0 
+</span>
+</td>
+<td>
+├ä┼í
+<br>
+
+<span class='hexa'>
+c3 84 c5 a1 
+</span>
+</td>
+<td>
+├â∩┐╜
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├âΓÇ£
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9c 
+</span>
+</td>
+<td>
+├âΓÇ¥
+<br>
+
+<span class='hexa'>
+c3 83 e2 80 9d 
+</span>
+</td>
+<td>
+├â┼í
+<br>
+
+<span class='hexa'>
+c3 83 c5 a1 
+</span>
+</td>
+<td>
+├à┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â∩┐╜
+<br>
+
+<span class='hexa'>
+c3 83 ef bf bd 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├àΓÇ¥
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 9d 
+</span>
+</td>
+<td>
+├à┬╜
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├à┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┼Æ
+<br>
+
+<span class='hexa'>
+c3 84 c5 92 
+</span>
+</td>
+<td>
+├à╦£
+<br>
+
+<span class='hexa'>
+c3 85 cb 9c 
+</span>
+</td>
+<td>
+├ä┼╜
+<br>
+
+<span class='hexa'>
+c3 84 c5 bd 
+</span>
+</td>
+<td>
+├à┬ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├àΓÇí
+<br>
+
+<span class='hexa'>
+c3 85 e2 80 a1 
+</span>
+</td>
+<td>
+├ä┬╜
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>windows-1250</th>
+<td>
+Ă�Âˇ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+Ă�Â¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+Ă�Â©
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+Ă„Â›
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+Ă�Â­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+Ă�Âł
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+Ă�Â´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+Ă�Âş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+Ă…ÂŻ
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+Ă�Â˝
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+Ă„Âş
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+Ă…Â•
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+Ă…Âľ
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+Ă…Âˇ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+Ă„ÂŤ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+Ă…Â™
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+Ă„ÂŹ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+Ă…ÂĄ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+Ă…Â�
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+Ă„Âľ
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+Ă�Â�
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+Ă�Â„
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+Ă�Â‰
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+Ă„Âš
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+Ă�ÂŤ
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+Ă�Â“
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+Ă�Â”
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+Ă�Âš
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+Ă…Â®
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+Ă�Âť
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+Ă„Âą
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+Ă…Â”
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+Ă…Â˝
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+Ă…Â 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+Ă„ÂŚ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+Ă…Â�
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+Ă„ÂŽ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+Ă…Â¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+Ă…Â‡
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+Ă„Â˝
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>ISO-8859-2</th>
+<td>
+ĂÂĄ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+ĂÂ¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+ĂÂŠ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+ĂÂ­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+ĂÂł
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+ĂÂ´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+ĂÂş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+ĂÂŻ
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+ĂÂş
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+ĂÂž
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+ĂÂĄ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+ĂÂĽ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+ĂÂž
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+ĂÂŽ
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+ĂÂš
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+ĂÂ 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+ĂÂ¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+ĂÂ
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+ĂÂ˝
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>windows-1252</th>
+<td>
+ÃƒÂ¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+ÃƒÂ¤
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+ÃƒÂ©
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+Ã„Â›
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+ÃƒÂ­
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+ÃƒÂ³
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+ÃƒÂ´
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+ÃƒÂº
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+Ã…Â¯
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+ÃƒÂ½
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+Ã„Âº
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+Ã…Â•
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+Ã…Â¾
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+Ã…Â¡
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+Ã„Â�
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+Ã…Â™
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+Ã„Â�
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+Ã…Â¥
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+Ã…Âˆ
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+Ã„Â¾
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+ÃƒÂ�
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+ÃƒÂ„
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+ÃƒÂ‰
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+Ã„Âš
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+ÃƒÂ�
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+ÃƒÂ“
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+ÃƒÂ”
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+ÃƒÂš
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+Ã…Â®
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+ÃƒÂ�
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+Ã„Â¹
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+Ã…Â”
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+Ã…Â½
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+Ã…Â 
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+Ã„ÂŒ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+Ã…Â˜
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+Ã„ÂŽ
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+Ã…Â¤
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+Ã…Â‡
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+Ã„Â½
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>IBM852</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬Ą
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬ę
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├ä┬Ť
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+├â┬ş
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├ů┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬Ż
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├ů┬Ľ
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+├ů┬ż
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├ů┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä┬Ź
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+├ů┬Ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+├ä┬Ć
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+├ů┬ą
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├ů┬ł
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+├ä┬ż
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â┬ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+├â┬ä
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+├â┬ë
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+├â┬Ź
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+├â┬ô
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+├â┬ö
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+├â┬Ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+├ů┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â┬Ł
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├ů┬ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+├ů┬Ż
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├ů┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+├ů┬ś
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+├ů┬Ą
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├ů┬ç
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+├ä┬Ż
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>IBM850</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬ñ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬®
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├ä┬ø
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+├â┬¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├à┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬¢
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├à┬ò
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+├à┬¥
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├à┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä┬ì
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+├à┬Ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+├ä┬Å
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+├à┬Ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├à┬ê
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+├ä┬¥
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â┬ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+├â┬ä
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+├â┬ë
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+├â┬ì
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+├â┬ô
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+├â┬ö
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+├â┬Ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+├à┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â┬Ø
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├à┬ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+├à┬¢
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├à┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+├à┬ÿ
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+├à┬ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├à┬ç
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+├ä┬¢
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>ISO-8859-1</th>
+<th>IBM437</th>
+<td>
+├â┬í
+<br>
+
+<span class='hexa'>
+c3 83 c2 a1 
+</span>
+</td>
+<td>
+├â┬ñ
+<br>
+
+<span class='hexa'>
+c3 83 c2 a4 
+</span>
+</td>
+<td>
+├â┬⌐
+<br>
+
+<span class='hexa'>
+c3 83 c2 a9 
+</span>
+</td>
+<td>
+├ä┬¢
+<br>
+
+<span class='hexa'>
+c3 84 c2 9b 
+</span>
+</td>
+<td>
+├â┬¡
+<br>
+
+<span class='hexa'>
+c3 83 c2 ad 
+</span>
+</td>
+<td>
+├â┬│
+<br>
+
+<span class='hexa'>
+c3 83 c2 b3 
+</span>
+</td>
+<td>
+├â┬┤
+<br>
+
+<span class='hexa'>
+c3 83 c2 b4 
+</span>
+</td>
+<td>
+├â┬║
+<br>
+
+<span class='hexa'>
+c3 83 c2 ba 
+</span>
+</td>
+<td>
+├à┬»
+<br>
+
+<span class='hexa'>
+c3 85 c2 af 
+</span>
+</td>
+<td>
+├â┬╜
+<br>
+
+<span class='hexa'>
+c3 83 c2 bd 
+</span>
+</td>
+<td>
+├ä┬║
+<br>
+
+<span class='hexa'>
+c3 84 c2 ba 
+</span>
+</td>
+<td>
+├à┬ò
+<br>
+
+<span class='hexa'>
+c3 85 c2 95 
+</span>
+</td>
+<td>
+├à┬╛
+<br>
+
+<span class='hexa'>
+c3 85 c2 be 
+</span>
+</td>
+<td>
+├à┬í
+<br>
+
+<span class='hexa'>
+c3 85 c2 a1 
+</span>
+</td>
+<td>
+├ä┬ì
+<br>
+
+<span class='hexa'>
+c3 84 c2 8d 
+</span>
+</td>
+<td>
+├à┬Ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 99 
+</span>
+</td>
+<td>
+├ä┬Å
+<br>
+
+<span class='hexa'>
+c3 84 c2 8f 
+</span>
+</td>
+<td>
+├à┬Ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a5 
+</span>
+</td>
+<td>
+├à┬ê
+<br>
+
+<span class='hexa'>
+c3 85 c2 88 
+</span>
+</td>
+<td>
+├ä┬╛
+<br>
+
+<span class='hexa'>
+c3 84 c2 be 
+</span>
+</td>
+<td>
+├â┬ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 81 
+</span>
+</td>
+<td>
+├â┬ä
+<br>
+
+<span class='hexa'>
+c3 83 c2 84 
+</span>
+</td>
+<td>
+├â┬ë
+<br>
+
+<span class='hexa'>
+c3 83 c2 89 
+</span>
+</td>
+<td>
+├ä┬Ü
+<br>
+
+<span class='hexa'>
+c3 84 c2 9a 
+</span>
+</td>
+<td>
+├â┬ì
+<br>
+
+<span class='hexa'>
+c3 83 c2 8d 
+</span>
+</td>
+<td>
+├â┬ô
+<br>
+
+<span class='hexa'>
+c3 83 c2 93 
+</span>
+</td>
+<td>
+├â┬ö
+<br>
+
+<span class='hexa'>
+c3 83 c2 94 
+</span>
+</td>
+<td>
+├â┬Ü
+<br>
+
+<span class='hexa'>
+c3 83 c2 9a 
+</span>
+</td>
+<td>
+├à┬«
+<br>
+
+<span class='hexa'>
+c3 85 c2 ae 
+</span>
+</td>
+<td>
+├â┬¥
+<br>
+
+<span class='hexa'>
+c3 83 c2 9d 
+</span>
+</td>
+<td>
+├ä┬╣
+<br>
+
+<span class='hexa'>
+c3 84 c2 b9 
+</span>
+</td>
+<td>
+├à┬ö
+<br>
+
+<span class='hexa'>
+c3 85 c2 94 
+</span>
+</td>
+<td>
+├à┬╜
+<br>
+
+<span class='hexa'>
+c3 85 c2 bd 
+</span>
+</td>
+<td>
+├à┬á
+<br>
+
+<span class='hexa'>
+c3 85 c2 a0 
+</span>
+</td>
+<td>
+├ä┬î
+<br>
+
+<span class='hexa'>
+c3 84 c2 8c 
+</span>
+</td>
+<td>
+├à┬ÿ
+<br>
+
+<span class='hexa'>
+c3 85 c2 98 
+</span>
+</td>
+<td>
+├ä┬Ä
+<br>
+
+<span class='hexa'>
+c3 84 c2 8e 
+</span>
+</td>
+<td>
+├à┬ñ
+<br>
+
+<span class='hexa'>
+c3 85 c2 a4 
+</span>
+</td>
+<td>
+├à┬ç
+<br>
+
+<span class='hexa'>
+c3 85 c2 87 
+</span>
+</td>
+<td>
+├ä┬╜
+<br>
+
+<span class='hexa'>
+c3 84 c2 bd 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>windows-1250</th>
+<td>
+â”śĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”śÄ„
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+â”śÄ™
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+â”€Ĺ¤
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+â”śĹź
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+â”śâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”śâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”śâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”ĽÂ»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”śĹ»
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”ĽÄ˝
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+â”ĽĹĽ
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+â”ĽĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Ĺą
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+â”ĽĂ–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ä†
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+â”ĽÄ…
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+â”ĽĹ‚
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+â”€ĹĽ
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+â”śĂĽ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”śĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”śĂ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ăś
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”śĹą
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+â”śĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”śĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”śĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”ĽÂ«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”śĹ�
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+â”€â•Ł
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”ĽĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”ĽĹ»
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+â”ĽĂˇ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ă®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”ĽĹ›
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+â”€Ă„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”ĽÄ„
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+â”ĽĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€Ĺ»
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>ISO-8859-2</th>
+<td>
+âĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+âĹ¤
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+âĹ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+âźÂť
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+âĹť
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+âźÄ˝
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+âźĹź
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+âźĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âĹš
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+âźĂ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+âźÄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+âźĹ
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+âĹź
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+âĂź
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âĂŤ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âĹš
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+âĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+âźÂŤ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âĹ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+ââŁ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+âźĂś
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+âźĹť
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+âźĂĄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âĂŽ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+âźĹ
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+âźÄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+âźĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+âĹť
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>windows-1252</th>
+<td>
+â”œÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”œÄ„
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+â”œÄ™
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+â”€Å¤
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+â”œÅŸ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+â”œâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”œâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”œâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”œÅ»
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”¼Ä½
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+â”¼Å¼
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+â”¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Å¹
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+â”¼Ã–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ä†
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+â”¼Ä…
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+â”¼Å‚
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+â”€Å¼
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+â”œÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”œÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”œÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ãœ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”œÅ¹
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+â”œÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”œÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”œÃœ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”œÅ�
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+â”€â•£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”¼Å»
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+â”¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ã®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”¼Å›
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+â”€Ã„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”¼Ä„
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+â”¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€Å»
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>ISO-8859-1</th>
+<td>
+âÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+âÅ¤
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+âÅ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+âÅ»
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â¼Ä½
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+â¼Å¼
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+â¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âÅ¹
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+â¼Ã
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âÄ
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+â¼Ä
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+â¼Å
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+âÅ¼
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+âÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âÅ¹
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+âÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âÅ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+ââ£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â¼Å»
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+â¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âÃ®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â¼Å
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â¼Ä
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+â¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+âÅ»
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>IBM850</th>
+<td>
+Ôö£├¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Ôö£─ä
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+Ôö£─Ö
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+ÔöÇ┼ñ
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+Ôö£┼ƒ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+Ôö£Ôöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+Ôö£Ôöñ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+Ôö£Ôòæ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Ôö£┼╗
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+ÔöÇÔòæ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝─¢
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+Ôö╝┼╝
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+Ôö╝├¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ÔöÇ┼╣
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+Ôö╝├û
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ÔöÇ─å
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+Ôö╝─à
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+Ôö╝┼é
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+ÔöÇ┼╝
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+Ôö£├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Ôö£├ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Ôö£├½
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ÔöÇ├£
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Ôö£┼╣
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+Ôö£├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Ôö£├Â
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Ôö£├£
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Ôö╝┬½
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Ôö£┼ü
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+ÔöÇÔòú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Ôö╝├Â
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Ôö╝┼╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+Ôö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ÔöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Ôö╝┼ø
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+ÔöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Ôö╝─ä
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+Ôö╝├º
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ÔöÇ┼╗
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM852</th>
+<th>IBM437</th>
+<td>
+Γö£├¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Γö£─ä
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 84 
+</span>
+</td>
+<td>
+Γö£─Ö
+<br>
+
+<span class='hexa'>
+e2 94 9c c4 99 
+</span>
+</td>
+<td>
+ΓöÇ┼ñ
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 a4 
+</span>
+</td>
+<td>
+Γö£┼ƒ
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 9f 
+</span>
+</td>
+<td>
+Γö£Γöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+Γö£Γöñ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+Γö£Γòæ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Γö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Γö£┼╗
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 bb 
+</span>
+</td>
+<td>
+ΓöÇΓòæ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Γö╝─╜
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 bd 
+</span>
+</td>
+<td>
+Γö╝┼╝
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bc 
+</span>
+</td>
+<td>
+Γö╝├¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ΓöÇ┼╣
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 b9 
+</span>
+</td>
+<td>
+Γö╝├û
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ΓöÇ─å
+<br>
+
+<span class='hexa'>
+e2 94 80 c4 86 
+</span>
+</td>
+<td>
+Γö╝─à
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 85 
+</span>
+</td>
+<td>
+Γö╝┼é
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 82 
+</span>
+</td>
+<td>
+ΓöÇ┼╝
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bc 
+</span>
+</td>
+<td>
+Γö£├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Γö£├ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Γö£├½
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ΓöÇ├£
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Γö£┼╣
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 b9 
+</span>
+</td>
+<td>
+Γö£├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Γö£├╢
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Γö£├£
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Γö╝┬½
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Γö£┼ü
+<br>
+
+<span class='hexa'>
+e2 94 9c c5 81 
+</span>
+</td>
+<td>
+ΓöÇΓòú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Γö╝├╢
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Γö╝┼╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 bb 
+</span>
+</td>
+<td>
+Γö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ΓöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Γö╝┼¢
+<br>
+
+<span class='hexa'>
+e2 94 bc c5 9b 
+</span>
+</td>
+<td>
+ΓöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Γö╝─ä
+<br>
+
+<span class='hexa'>
+e2 94 bc c4 84 
+</span>
+</td>
+<td>
+Γö╝├º
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ΓöÇ┼╗
+<br>
+
+<span class='hexa'>
+e2 94 80 c5 bb 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>windows-1250</th>
+<td>
+â”śĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”śĂ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+â”śÂ®
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+â”€Ă¸
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+â”śÂˇ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+â”śâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”śâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”śâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”ĽÂ»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”śÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”ĽĂ˛
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â”ĽÂĄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+â”ĽĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Ă¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â”ĽĂ–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ă…
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â”ĽĂ‘
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â”ĽĂŞ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+â”€ÂĄ
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+â”śĂĽ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”śĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”śĂ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ăś
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”śĂ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+â”śĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”śĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”śĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”ĽÂ«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”śĂ�
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+â”€â•Ł
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”ĽĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”ĽÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+â”ĽĂˇ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ă®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”ĽĂż
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+â”€Ă„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”ĽĂ±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â”ĽĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€Â˘
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>ISO-8859-2</th>
+<td>
+âĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âĂą
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+âÂŽ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+âĂ¸
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+âÂĄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+âźÂť
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+âÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+âźĂ˛
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+âźÂĽ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+âźĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âĂŹ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+âźĂ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+âźĂ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+âźĂŞ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+âÂĽ
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+âĂź
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âĂŤ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âĂŹ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+âĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+âźÂŤ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+ââŁ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+âźĂś
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+âźÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+âźĂĄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âĂŽ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+âźĂż
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+âźĂą
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+âźĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+âÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>windows-1252</th>
+<td>
+â”œÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”œÃ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+â”œÂ®
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+â”€Ã¸
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+â”œÂ¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+â”œâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”œâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”œâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”œÂ¢
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”¼Ã²
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â”¼Â¥
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+â”¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Ã¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â”¼Ã–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ã…
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â”¼Ã‘
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â”¼Ãª
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+â”€Â¥
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+â”œÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”œÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”œÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ãœ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”œÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+â”œÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”œÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”œÃœ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”œÃ˜
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+â”€â•£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”¼Â¢
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+â”¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ã®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”¼Ã¿
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+â”€Ã„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”¼Ã±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â”¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€Â¢
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>ISO-8859-1</th>
+<td>
+âÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âÃ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+âÂ®
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+âÃ¸
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+âÂ¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+âÂ¢
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â¼Ã²
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â¼Â¥
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+â¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â¼Ã
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â¼Ã
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â¼Ãª
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+âÂ¥
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+âÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+âÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+ââ£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â¼Â¢
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+â¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âÃ®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â¼Ã¿
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â¼Ã±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+âÂ¢
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>IBM852</th>
+<td>
+Ôöť├ş
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Ôöť├▒
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+Ôöť┬«
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+ÔöÇ├Ş
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+Ôöť┬í
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ÔöťÔöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ÔöťÔöĄ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ÔöťÔĽĹ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Ôöť┬ó
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+ÔöÇÔĽĹ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝├▓
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+Ôö╝┬ą
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+Ôö╝├ş
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ÔöÇ├Č
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+Ôö╝├ľ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ÔöÇ├ů
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+Ôö╝├Ĺ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+Ôö╝├¬
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ÔöÇ┬ą
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+Ôöť├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Ôöť├Ą
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Ôöť├ź
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ÔöÇ├ť
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Ôöť├Č
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+Ôöť├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Ôöť├Â
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Ôöť├ť
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Ôö╝┬ź
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Ôöť├ś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+ÔöÇÔĽú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Ôö╝├Â
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Ôö╝┬ó
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+Ôö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ÔöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Ôö╝├┐
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+ÔöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Ôö╝├▒
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+Ôö╝├ž
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ÔöÇ┬ó
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM850</th>
+<th>IBM437</th>
+<td>
+Γö£├¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Γö£├▒
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+Γö£┬«
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 ae 
+</span>
+</td>
+<td>
+ΓöÇ├╕
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 b8 
+</span>
+</td>
+<td>
+Γö£┬í
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+Γö£Γöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+Γö£Γöñ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+Γö£Γòæ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Γö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Γö£┬ó
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a2 
+</span>
+</td>
+<td>
+ΓöÇΓòæ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Γö╝├▓
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+Γö╝┬Ñ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a5 
+</span>
+</td>
+<td>
+Γö╝├¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ΓöÇ├¼
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+Γö╝├û
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ΓöÇ├à
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+Γö╝├æ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+Γö╝├¬
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ΓöÇ┬Ñ
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a5 
+</span>
+</td>
+<td>
+Γö£├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Γö£├ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Γö£├½
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ΓöÇ├£
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Γö£├¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+Γö£├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Γö£├╢
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Γö£├£
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Γö╝┬½
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Γö£├ÿ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 98 
+</span>
+</td>
+<td>
+ΓöÇΓòú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Γö╝├╢
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Γö╝┬ó
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 a2 
+</span>
+</td>
+<td>
+Γö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ΓöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Γö╝├┐
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+ΓöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Γö╝├▒
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+Γö╝├º
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ΓöÇ┬ó
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>windows-1250</th>
+<td>
+â”śĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”śĂ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+â”śâŚ�
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+â”€Â˘
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+â”śÂˇ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+â”śâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”śâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”śâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”ĽÂ»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”śâ•ś
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”ĽĂ˛
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â”Ľâ•›
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+â”ĽĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Ă¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â”ĽĂ–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ă…
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â”ĽĂ‘
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â”ĽĂŞ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+â”€â•›
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+â”śĂĽ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”śĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”śĂ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ăś
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”śĂ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+â”śĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”śĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”śĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”ĽÂ«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”śÂĄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+â”€â•Ł
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”ĽĂ¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”Ľâ•ś
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+â”ĽĂˇ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ă®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”ĽĂż
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+â”€Ă„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”ĽĂ±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â”ĽĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€â•ś
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>ISO-8859-2</th>
+<td>
+âĂ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âĂą
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+âÂ˘
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+âÂĄ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+âźÂť
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+âźĂ˛
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+âźâ
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+âźĂ­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âĂŹ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+âźĂ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+âźĂ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+âźĂŞ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+âĂź
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âĂ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âĂŤ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âĂŹ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+âĂ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âĂś
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+âźÂŤ
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âÂĽ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+ââŁ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+âźĂś
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+âźâ
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+âźĂĄ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âĂŽ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+âźĂż
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+âĂ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+âźĂą
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+âźĂ§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>windows-1252</th>
+<td>
+â”œÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+â”œÃ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+â”œâŒ�
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+â”€Â¢
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+â”œÂ¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+â”œâ”‚
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+â”œâ”¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+â”œâ•‘
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â”¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+â”œâ•œ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+â”€â•‘
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â”¼Ã²
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â”¼â•›
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+â”¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+â”€Ã¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â”¼Ã–
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+â”€Ã…
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â”¼Ã‘
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â”¼Ãª
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+â”€â•›
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+â”œÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+â”œÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+â”œÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+â”€Ãœ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+â”œÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+â”œÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+â”œÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+â”œÃœ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â”¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+â”œÂ¥
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+â”€â•£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â”¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â”¼â•œ
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+â”¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+â”€Ã®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â”¼Ã¿
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+â”€Ã„
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â”¼Ã±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â”¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+â”€â•œ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>ISO-8859-1</th>
+<td>
+âÃ­
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+âÃ±
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+âÂ¢
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+âÂ¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ââ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+â¼Â»
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+â¼Ã²
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+â¼â
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+â¼Ã­
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+âÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+â¼Ã
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+â¼Ã
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+â¼Ãª
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+âÃ¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+âÃ¤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+âÃ«
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+âÃ¬
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+âÃ´
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+âÃ¶
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+â¼Â«
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+âÂ¥
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+ââ£
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+â¼Ã¶
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+â¼â
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+â¼Ã¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+âÃ®
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+â¼Ã¿
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+âÃ
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+â¼Ã±
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+â¼Ã§
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ââ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>IBM852</th>
+<td>
+Ôöť├ş
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Ôöť├▒
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+ÔöťÔîÉ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+ÔöÇ┬ó
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+Ôöť┬í
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+ÔöťÔöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+ÔöťÔöĄ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+ÔöťÔĽĹ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+ÔöťÔĽť
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+ÔöÇÔĽĹ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝├▓
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+Ôö╝ÔĽŤ
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+Ôö╝├ş
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ÔöÇ├Č
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+Ôö╝├ľ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ÔöÇ├ů
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+Ôö╝├Ĺ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+Ôö╝├¬
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ÔöÇÔĽŤ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+Ôöť├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Ôöť├Ą
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Ôöť├ź
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ÔöÇ├ť
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Ôöť├Č
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+Ôöť├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Ôöť├Â
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Ôöť├ť
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Ôö╝┬ź
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Ôöť┬ą
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+ÔöÇÔĽú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Ôö╝├Â
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Ôö╝ÔĽť
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+Ôö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ÔöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Ôö╝├┐
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+ÔöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Ôö╝├▒
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+Ôö╝├ž
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ÔöÇÔĽť
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9c 
+</span>
+</td>
+</tr>
+
+<tr>
+<th>IBM437</th>
+<th>IBM850</th>
+<td>
+Ôö£├¡
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ad 
+</span>
+</td>
+<td>
+Ôö£├▒
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b1 
+</span>
+</td>
+<td>
+Ôö£ÔîÉ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 8c 90 
+</span>
+</td>
+<td>
+ÔöÇ┬ó
+<br>
+
+<span class='hexa'>
+e2 94 80 c2 a2 
+</span>
+</td>
+<td>
+Ôö£┬í
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a1 
+</span>
+</td>
+<td>
+Ôö£Ôöé
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 82 
+</span>
+</td>
+<td>
+Ôö£Ôöñ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 94 a4 
+</span>
+</td>
+<td>
+Ôö£Ôòæ
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝┬╗
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 bb 
+</span>
+</td>
+<td>
+Ôö£Ôò£
+<br>
+
+<span class='hexa'>
+e2 94 9c e2 95 9c 
+</span>
+</td>
+<td>
+ÔöÇÔòæ
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 91 
+</span>
+</td>
+<td>
+Ôö╝├▓
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b2 
+</span>
+</td>
+<td>
+Ôö╝Ôòø
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9b 
+</span>
+</td>
+<td>
+Ôö╝├¡
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 ad 
+</span>
+</td>
+<td>
+ÔöÇ├¼
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ac 
+</span>
+</td>
+<td>
+Ôö╝├û
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 96 
+</span>
+</td>
+<td>
+ÔöÇ├à
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 85 
+</span>
+</td>
+<td>
+Ôö╝├æ
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 91 
+</span>
+</td>
+<td>
+Ôö╝├¬
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 aa 
+</span>
+</td>
+<td>
+ÔöÇÔòø
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 9b 
+</span>
+</td>
+<td>
+Ôö£├╝
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 bc 
+</span>
+</td>
+<td>
+Ôö£├ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 a4 
+</span>
+</td>
+<td>
+Ôö£├½
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ab 
+</span>
+</td>
+<td>
+ÔöÇ├£
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 9c 
+</span>
+</td>
+<td>
+Ôö£├¼
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 ac 
+</span>
+</td>
+<td>
+Ôö£├┤
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b4 
+</span>
+</td>
+<td>
+Ôö£├Â
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 b6 
+</span>
+</td>
+<td>
+Ôö£├£
+<br>
+
+<span class='hexa'>
+e2 94 9c c3 9c 
+</span>
+</td>
+<td>
+Ôö╝┬½
+<br>
+
+<span class='hexa'>
+e2 94 bc c2 ab 
+</span>
+</td>
+<td>
+Ôö£┬Ñ
+<br>
+
+<span class='hexa'>
+e2 94 9c c2 a5 
+</span>
+</td>
+<td>
+ÔöÇÔòú
+<br>
+
+<span class='hexa'>
+e2 94 80 e2 95 a3 
+</span>
+</td>
+<td>
+Ôö╝├Â
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b6 
+</span>
+</td>
+<td>
+Ôö╝Ôò£
+<br>
+
+<span class='hexa'>
+e2 94 bc e2 95 9c 
+</span>
+</td>
+<td>
+Ôö╝├í
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a1 
+</span>
+</td>
+<td>
+ÔöÇ├«
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 ae 
+</span>
+</td>
+<td>
+Ôö╝├┐
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 bf 
+</span>
+</td>
+<td>
+ÔöÇ├ä
+<br>
+
+<span class='hexa'>
+e2 94 80 c3 84 
+</span>
+</td>
+<td>
+Ôö╝├▒
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 b1 
+</span>
+</td>
+<td>
+Ôö╝├º
+<br>
+
+<span class='hexa'>
+e2 94 bc c3 a7 
+</span>
+</td>
+<td>
+ÔöÇÔò£
 <br>
 
 <span class='hexa'>
